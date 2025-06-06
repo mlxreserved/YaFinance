@@ -44,8 +44,6 @@ dependencies {
 
     // Navigation
     implementation(libs.androidx.navigation.compose)
-    // Compose Material
-    implementation(libs.androidx.compose.material)
     // Serialization
     implementation(libs.jetbrains.kotlinx.serialization.json)
 
