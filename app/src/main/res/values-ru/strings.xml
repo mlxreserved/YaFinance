@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">YaFinance</string>
+    <string name="expenses">Расходы</string>
+    <string name="incomes">Доходы</string>
+    <string name="account">Счет</string>
+    <string name="categories">Статьи</string>
+    <string name="settings">Настройки</string>
+    <string name="select_theme">Светлая темная авто</string>
+    <string name="primary_color">Основной цвет</string>
+    <string name="sounds">Звуки</string>
+    <string name="haptics">Хаптики</string>
+    <string name="code_password">Код пароль</string>
+    <string name="synchronization">Синхронизация</string>
+    <string name="language">Язык</string>
+    <string name="about">О программе</string>
+    <string name="balance">Баланс</string>
+    <string name="balance_lead_icon">💰</string>
+    <string name="currency">Валюта</string>
+    <string name="find_category">Найти статью</string>
+    <string name="total">Всего</string>
+</resources>
