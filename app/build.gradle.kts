@@ -46,6 +46,8 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     // Serialization
     implementation(libs.jetbrains.kotlinx.serialization.json)
+    // Lottie
+    implementation(libs.airbnb.lottie.compose)
 
 
     implementation(libs.androidx.core.ktx)

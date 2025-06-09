@@ -10,11 +10,11 @@ import androidx.navigation.compose.composable
 import com.example.yafinance.ui.screens.account.AccountsScreen
 import com.example.yafinance.ui.screens.expense.ExpensesScreen
 import com.example.yafinance.ui.screens.categories.CategoriesScreen
-import com.example.yafinance.ui.navigation.routes.Routes.AccountsRoute
-import com.example.yafinance.ui.navigation.routes.Routes.CategoriesRoute
-import com.example.yafinance.ui.navigation.routes.Routes.ExpensesRoute
-import com.example.yafinance.ui.navigation.routes.Routes.IncomesRoute
-import com.example.yafinance.ui.navigation.routes.Routes.SettingsRoute
+import com.example.yafinance.ui.navigation.routes.ScreensRoute.AccountsRoute
+import com.example.yafinance.ui.navigation.routes.ScreensRoute.CategoriesRoute
+import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesRoute
+import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesRoute
+import com.example.yafinance.ui.navigation.routes.ScreensRoute.SettingsRoute
 import com.example.yafinance.ui.screens.income.IncomesScreen
 import com.example.yafinance.ui.screens.settings.SettingsScreen
 import com.example.yafinance.ui.utils.mock.AccountMock.account

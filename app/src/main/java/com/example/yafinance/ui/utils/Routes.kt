@@ -1,11 +1,11 @@
 package com.example.yafinance.ui.utils
 
 import com.example.yafinance.R
-import com.example.yafinance.ui.navigation.routes.Routes.AccountsRoute
-import com.example.yafinance.ui.navigation.routes.Routes.CategoriesRoute
-import com.example.yafinance.ui.navigation.routes.Routes.ExpensesRoute
-import com.example.yafinance.ui.navigation.routes.Routes.IncomesRoute
-import com.example.yafinance.ui.navigation.routes.Routes.SettingsRoute
+import com.example.yafinance.ui.navigation.routes.ScreensRoute.AccountsRoute
+import com.example.yafinance.ui.navigation.routes.ScreensRoute.CategoriesRoute
+import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesRoute
+import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesRoute
+import com.example.yafinance.ui.navigation.routes.ScreensRoute.SettingsRoute
 
 object Routes {
     val topLevelRoutes = listOf(
