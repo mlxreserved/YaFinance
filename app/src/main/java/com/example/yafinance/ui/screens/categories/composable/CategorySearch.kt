@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.yafinance.R
-import com.example.yafinance.ui.composable.CustomListItem
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 
 @Composable
@@ -33,16 +32,4 @@ fun CategorySearch(trailIcon: ImageVector) {
         modifier = Modifier.height(56.dp).fillMaxWidth(),
     )
 
-//    CustomListItem(
-//        title = {
-//            Text(
-//                style = YaFinanceTheme.typography.title,
-//                text = stringResource(R.string.find_category),
-//                color = YaFinanceTheme.colors.tertiaryText
-//            )
-//        },
-//        trailItem =,
-//
-//        backgroundContainerColor = YaFinanceTheme.colors.tertiaryBackground
-//    )
 }

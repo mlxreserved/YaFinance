@@ -19,4 +19,9 @@
     <string name="currency">Валюта</string>
     <string name="find_category">Найти статью</string>
     <string name="total">Всего</string>
+    <string name="expenses_today">Расходы сегодня</string>
+    <string name="incomes_today">Дохода сегодня</string>
+    <string name="my_account">Мой счет</string>
+    <string name="my_categories">Мои статьи</string>
+    <string name="error_loading_button">Попробовать снова</string>
 </resources>

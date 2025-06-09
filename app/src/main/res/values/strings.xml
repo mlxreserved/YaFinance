@@ -18,4 +18,9 @@
     <string name="currency">Currency</string>
     <string name="find_category">Find category</string>
     <string name="total">Total</string>
+    <string name="expenses_today">Expenses today</string>
+    <string name="incomes_today">Incomes today</string>
+    <string name="my_account">My account</string>
+    <string name="my_categories">My categories</string>
+    <string name="error_loading_button">Retry</string>
 </resources>

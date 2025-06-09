@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.example.yafinance.ui.composable.CustomListItem
+import com.example.yafinance.ui.composable.listItem.CustomListItem
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 
 @Composable

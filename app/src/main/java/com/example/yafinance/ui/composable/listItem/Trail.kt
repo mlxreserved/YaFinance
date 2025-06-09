@@ -1,4 +1,4 @@
-package com.example.yafinance.ui.composable
+package com.example.yafinance.ui.composable.listItem
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Text

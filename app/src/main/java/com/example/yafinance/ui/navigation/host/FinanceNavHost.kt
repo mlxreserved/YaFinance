@@ -17,10 +17,10 @@ import com.example.yafinance.ui.navigation.routes.Routes.IncomesRoute
 import com.example.yafinance.ui.navigation.routes.Routes.SettingsRoute
 import com.example.yafinance.ui.screens.income.IncomesScreen
 import com.example.yafinance.ui.screens.settings.SettingsScreen
-import com.example.yafinance.ui.utils.AccountMock.account
-import com.example.yafinance.ui.utils.CategoriesMock.categories
-import com.example.yafinance.ui.utils.ExpensesMock.expenses
-import com.example.yafinance.ui.utils.IncomesMock.incomes
+import com.example.yafinance.ui.utils.mock.AccountMock.account
+import com.example.yafinance.ui.utils.mock.CategoriesMock.categories
+import com.example.yafinance.ui.utils.mock.ExpensesMock.expenses
+import com.example.yafinance.ui.utils.mock.IncomesMock.incomes
 import com.example.yafinance.ui.utils.Settings.settings
 
 @Composable

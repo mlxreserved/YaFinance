@@ -12,12 +12,16 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import com.example.yafinance.ui.composable.CustomListItem
+import com.example.yafinance.R
+import com.example.yafinance.ui.composable.listItem.CustomListItem
 import com.example.yafinance.ui.screens.settings.model.Setting
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
+import com.example.yafinance.ui.utils.state.TopAppBarState
+import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 
 @Composable
 fun SettingsScreen(settings: List<Setting>, modifier: Modifier = Modifier) {
+    TopAppBarStateProvider.update(TopAppBarState(titleId = R.string.settings, trailId = null))
 
     LazyColumn {
         items(items = settings) { setting ->

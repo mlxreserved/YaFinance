@@ -1,4 +1,4 @@
-package com.example.yafinance.ui.utils
+package com.example.yafinance.ui.utils.mock
 
 import com.example.yafinance.domain.models.income.Income
 

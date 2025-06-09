@@ -1,4 +1,4 @@
-package com.example.yafinance.ui.composable
+package com.example.yafinance.ui.composable.floatingButton
 
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
