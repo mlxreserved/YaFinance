@@ -4,7 +4,7 @@ import com.example.yafinance.R
 import com.example.yafinance.ui.screens.settings.model.Setting
 
 object Settings {
-    val settings = listOf<Setting>(
+    val settings: List<Setting> = listOf(
         Setting(titleId = R.string.select_theme, trailId = null),
         Setting(titleId = R.string.primary_color, trailId = R.drawable.arrow_right),
         Setting(titleId = R.string.sounds, trailId = R.drawable.arrow_right),

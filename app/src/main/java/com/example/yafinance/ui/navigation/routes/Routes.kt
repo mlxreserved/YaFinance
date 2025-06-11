@@ -1,4 +1,4 @@
-package com.example.yafinance.ui.utils
+package com.example.yafinance.ui.navigation.routes
 
 import com.example.yafinance.R
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.AccountsRoute

@@ -38,6 +38,11 @@ fun MainTheme(
         ),
         emoji = TextStyle(
             fontSize = 18.sp
+        ),
+        emojiText = TextStyle(
+            color = colors.primaryText,
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Medium
         )
     )
 

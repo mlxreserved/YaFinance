@@ -1,5 +1,6 @@
 package com.example.yafinance.ui.screens.income
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.yafinance.R
@@ -15,5 +16,5 @@ fun IncomesScreen(
 ) {
     TopAppBarStateProvider.update(TopAppBarState(titleId = R.string.incomes_today, trailId = R.drawable.ic_history))
 
-    IncomeSuccess(incomes)
+    IncomeSuccess(incomes = incomes, modifier = Modifier.fillMaxSize())
 }

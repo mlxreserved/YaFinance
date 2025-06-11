@@ -16,7 +16,7 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
-import com.example.yafinance.ui.utils.Routes.topLevelRoutes
+import com.example.yafinance.ui.navigation.routes.Routes.topLevelRoutes
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {

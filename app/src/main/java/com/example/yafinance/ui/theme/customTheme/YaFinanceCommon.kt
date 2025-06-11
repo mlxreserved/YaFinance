@@ -20,7 +20,8 @@ data class YaFinanceTypography(
     val header: TextStyle,
     val title: TextStyle,
     val subtitle: TextStyle,
-    val emoji: TextStyle
+    val emoji: TextStyle,
+    val emojiText: TextStyle
 )
 
 object YaFinanceTheme {

@@ -12,6 +12,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
+import com.example.yafinance.ui.utils.isEmoji
 
 @Composable
 fun Lead(
@@ -26,7 +27,10 @@ fun Lead(
                 .size(24.dp)
                 .background(color = backgroundColor)
         ) {
-            Text(text = leadIcon, style = YaFinanceTheme.typography.emoji)
+            Text(
+                text = leadIcon,
+                style = if(leadIcon.isEmoji()) YaFinanceTheme.typography.emoji else YaFinanceTheme.typography.emojiText
+            )
         }
     }
 }

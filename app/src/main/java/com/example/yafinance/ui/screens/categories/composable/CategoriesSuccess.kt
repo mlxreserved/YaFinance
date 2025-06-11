@@ -1,5 +1,6 @@
 package com.example.yafinance.ui.screens.categories.composable
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -11,16 +12,16 @@ import com.example.yafinance.domain.models.category.Category
 
 @Composable
 fun CategoriesSuccess(categories: List<Category>, modifier: Modifier = Modifier) {
-    LazyColumn(modifier = modifier) {
 
-        item {
-            val trailIcon = ImageVector.vectorResource(R.drawable.search)
+    val trailIcon = ImageVector.vectorResource(R.drawable.search)
 
-            CategorySearch(trailIcon = trailIcon)
-        }
+    Column(modifier = modifier) {
+        CategorySearch(trailIcon = trailIcon)
 
-        items(items = categories) { category ->
-            CategoryItem(title = category.title, leadIcon = category.leadIcon)
+        LazyColumn {
+            items(items = categories, key = { it.id }) { category ->
+                CategoryItem(title = category.title, leadIcon = category.leadIcon)
+            }
         }
     }
 }

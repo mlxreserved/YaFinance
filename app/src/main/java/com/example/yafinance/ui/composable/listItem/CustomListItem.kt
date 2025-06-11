@@ -20,7 +20,8 @@ fun CustomListItem(
     leadIcon: String? = null,
     subtitle: String? = null,
     trailText: String? = null,
-    trailItem: @Composable (() -> Unit)? = null
+    trailItem: @Composable (() -> Unit)? = null,
+    hasDivider: Boolean = true
 ) {
     Column {
         ListItem(
@@ -30,7 +31,7 @@ fun CustomListItem(
             } else null,
             supportingContent = if (subtitle != null) {
                 {
-                    Text(text = subtitle)
+                    Text(text = subtitle, style = YaFinanceTheme.typography.subtitle)
                 }
             } else null,
             trailingContent = if (trailText != null || trailItem != null) {
@@ -44,6 +45,8 @@ fun CustomListItem(
             colors = ListItemDefaults.colors(containerColor = backgroundContainerColor),
             modifier = modifier
         )
-        HorizontalDivider(modifier = Modifier.fillMaxWidth())
+
+        if(hasDivider)
+            HorizontalDivider(modifier = Modifier.fillMaxWidth())
     }
 }

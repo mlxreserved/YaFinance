@@ -11,14 +11,14 @@ import androidx.compose.ui.unit.dp
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 
 @Composable
-fun CustomFloatingButton() {
+fun CustomFloatingButton(onClick: () -> Unit) {
     FloatingActionButton(
         containerColor = YaFinanceTheme.colors.primaryBackground,
         contentColor = YaFinanceTheme.colors.surface,
         elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp),
         shape = CircleShape,
-        onClick = {}
+        onClick = { onClick() }
     ) {
-        Icon(Icons.Filled.Add,contentDescription = null)
+        Icon(Icons.Filled.Add, contentDescription = null)
     }
 }
