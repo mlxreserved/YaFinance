@@ -4,33 +4,27 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.example.yafinance.ui.composable.floatingButton.CustomFloatingButton
 import com.example.yafinance.ui.composable.topAppBar.CustomTopAppBar
 import com.example.yafinance.ui.navigation.bottomNavBar.BottomNavigationBar
 import com.example.yafinance.ui.navigation.host.FinanceNavHost
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.SplashRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.AccountsRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesRoute
 
 @Composable
-fun MainScreen(modifier: Modifier = Modifier) {
-    val navController = rememberNavController()
+fun MainScreen(navController: NavHostController, modifier: Modifier = Modifier) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
     Scaffold(
         topBar = {
-            if (currentRoute != SplashRoute.javaClass.canonicalName) {
-                CustomTopAppBar()
-            }
+            CustomTopAppBar()
         },
         bottomBar = {
-            if (currentRoute != SplashRoute.javaClass.canonicalName) {
-                BottomNavigationBar(navController)
-            }
+            BottomNavigationBar(navController)
         },
         floatingActionButton = {
             when (currentRoute) {

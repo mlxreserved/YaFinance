@@ -4,9 +4,6 @@ import kotlinx.serialization.Serializable
 
 sealed interface ScreensRoute {
     @Serializable
-    object SplashRoute: ScreensRoute
-
-    @Serializable
     object ExpensesRoute : ScreensRoute
 
     @Serializable

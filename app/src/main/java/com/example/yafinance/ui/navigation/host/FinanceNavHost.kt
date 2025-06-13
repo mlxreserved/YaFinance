@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.SplashRoute
 import com.example.yafinance.ui.screens.account.AccountsScreen
 import com.example.yafinance.ui.screens.expense.ExpensesScreen
 import com.example.yafinance.ui.screens.categories.CategoriesScreen
@@ -18,7 +17,6 @@ import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.SettingsRoute
 import com.example.yafinance.ui.screens.income.IncomesScreen
 import com.example.yafinance.ui.screens.settings.SettingsScreen
-import com.example.yafinance.ui.screens.splash.SplashScreen
 import com.example.yafinance.ui.utils.mock.AccountMock.account
 import com.example.yafinance.ui.utils.mock.CategoriesMock.categories
 import com.example.yafinance.ui.utils.mock.ExpensesMock.expenses
@@ -32,12 +30,9 @@ fun FinanceNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = SplashRoute,
+        startDestination = ExpensesRoute,
         modifier = Modifier.padding(paddingValues = paddingValues)
     ) {
-        composable<SplashRoute> {
-            SplashScreen(navController = navController)
-        }
         composable<ExpensesRoute> {
             ExpensesScreen(expenses = expenses)
         }
