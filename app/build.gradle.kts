@@ -44,11 +44,13 @@ dependencies {
 
     // Navigation
     implementation(libs.androidx.navigation.compose)
-    // Compose Material
-    implementation(libs.androidx.compose.material)
     // Serialization
     implementation(libs.jetbrains.kotlinx.serialization.json)
+    // Lottie
+    implementation(libs.airbnb.lottie.compose)
 
+    //Material
+    implementation(libs.google.android.material)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
