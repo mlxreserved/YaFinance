@@ -50,7 +50,7 @@ object ExpensesMock {
         ),
         Expense(
             id = 7,
-            leadIcon = "\uD83C\uDFCB\uFE0F\u200D♀\uFE0F",
+            leadIcon = "\uD83C\uDFCB\uFE0F\u200D\uFE0F",
             title = "Спортзал",
             amount = "100000.00",
             currency = "₽"

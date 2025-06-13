@@ -10,6 +10,7 @@ import com.example.yafinance.ui.composable.floatingButton.CustomFloatingButton
 import com.example.yafinance.ui.composable.topAppBar.CustomTopAppBar
 import com.example.yafinance.ui.navigation.bottomNavBar.BottomNavigationBar
 import com.example.yafinance.ui.navigation.host.FinanceNavHost
+import com.example.yafinance.ui.navigation.routes.ScreensRoute.SplashRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.AccountsRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesRoute
@@ -21,13 +22,21 @@ fun MainScreen(modifier: Modifier = Modifier) {
     val currentRoute = navBackStackEntry?.destination?.route
 
     Scaffold(
-        topBar = { CustomTopAppBar() },
-        bottomBar = { BottomNavigationBar(navController) },
+        topBar = {
+            if (currentRoute != SplashRoute.javaClass.canonicalName) {
+                CustomTopAppBar()
+            }
+        },
+        bottomBar = {
+            if (currentRoute != SplashRoute.javaClass.canonicalName) {
+                BottomNavigationBar(navController)
+            }
+        },
         floatingActionButton = {
-            when(currentRoute) {
-                ExpensesRoute.javaClass.canonicalName -> CustomFloatingButton {  }
-                IncomesRoute.javaClass.canonicalName -> CustomFloatingButton {  }
-                AccountsRoute.javaClass.canonicalName -> CustomFloatingButton {  }
+            when (currentRoute) {
+                ExpensesRoute.javaClass.canonicalName -> CustomFloatingButton { }
+                IncomesRoute.javaClass.canonicalName -> CustomFloatingButton { }
+                AccountsRoute.javaClass.canonicalName -> CustomFloatingButton { }
             }
         },
         modifier = modifier

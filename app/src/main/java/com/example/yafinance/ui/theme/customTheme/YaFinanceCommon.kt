@@ -13,7 +13,8 @@ data class YaFinanceColors(
     val secondaryBackground: Color,
     val tertiaryBackground: Color,
     val tertiaryText: Color,
-    val moreColor: Color
+    val moreColor: Color,
+    val outlineColor: Color
 )
 
 data class YaFinanceTypography(

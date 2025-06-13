@@ -13,6 +13,7 @@ navigation = "2.9.0"
 serialization = "2.1.20"
 serializationJson = "1.8.1"
 lottie = "6.6.6"
+googleMaterial = "1.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,6 +36,9 @@ androidx-navigation-compose = { group = "androidx.navigation", name = "navigatio
 jetbrains-kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serializationJson"}
 # Lottie
 airbnb-lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie"}
+# Material
+google-android-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial"}
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

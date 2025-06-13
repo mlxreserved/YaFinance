@@ -37,7 +37,7 @@ fun MainTheme(
             lineHeight = 20.sp
         ),
         emoji = TextStyle(
-            fontSize = 18.sp
+            fontSize = 16.sp
         ),
         emojiText = TextStyle(
             color = colors.primaryText,

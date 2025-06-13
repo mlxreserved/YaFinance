@@ -2,6 +2,7 @@ package com.example.yafinance.ui.screens.categories.composable
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -32,11 +33,14 @@ fun CategorySearch(trailIcon: ImageVector) {
             focusedContainerColor = YaFinanceTheme.colors.tertiaryBackground,
             focusedLabelColor = YaFinanceTheme.colors.tertiaryText,
             focusedTrailingIconColor = YaFinanceTheme.colors.tertiaryText,
+            focusedIndicatorColor = YaFinanceTheme.colors.outlineColor,
             unfocusedContainerColor = YaFinanceTheme.colors.tertiaryBackground,
             unfocusedLabelColor = YaFinanceTheme.colors.tertiaryText,
-            unfocusedTrailingIconColor = YaFinanceTheme.colors.tertiaryText
+            unfocusedTrailingIconColor = YaFinanceTheme.colors.tertiaryText,
+            cursorColor = YaFinanceTheme.colors.tertiaryText,
+            unfocusedIndicatorColor = YaFinanceTheme.colors.outlineColor
         ),
+        singleLine = true,
         modifier = Modifier.height(56.dp).fillMaxWidth(),
     )
-
 }
