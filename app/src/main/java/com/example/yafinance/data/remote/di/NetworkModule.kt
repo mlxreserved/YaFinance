@@ -4,7 +4,9 @@ import android.content.Context
 import com.example.yafinance.R
 import com.example.yafinance.data.remote.api.FinanceApi
 import com.example.yafinance.data.remote.repositories.AccountRepositoryImpl
+import com.example.yafinance.data.remote.repositories.CategoryRepositoryImpl
 import com.example.yafinance.domain.repositories.AccountRepository
+import com.example.yafinance.domain.repositories.CategoryRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -69,6 +71,15 @@ object NetworkModule {
         financeApi: FinanceApi
     ): AccountRepository =
         AccountRepositoryImpl(
+            financeApi = financeApi
+        )
+
+    @Singleton
+    @Provides
+    fun provideCategoryRepository(
+        financeApi: FinanceApi
+    ): CategoryRepository =
+        CategoryRepositoryImpl(
             financeApi = financeApi
         )
 }

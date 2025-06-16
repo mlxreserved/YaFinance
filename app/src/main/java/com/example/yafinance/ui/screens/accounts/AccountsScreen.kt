@@ -1,13 +1,13 @@
 package com.example.yafinance.ui.screens.accounts
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.yafinance.R
 import com.example.yafinance.ui.screens.accounts.composable.success.AccountSuccess
 import com.example.yafinance.ui.utils.state.ScreenState
 import com.example.yafinance.ui.utils.state.TopAppBarState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.yafinance.domain.models.account.Account
 import com.example.yafinance.ui.composable.screens.EmptyScreen
@@ -27,7 +27,7 @@ fun AccountsScreen(
         )
     )
 
-    val accountsState by accountsViewModel.accountsState.collectAsState()
+    val accountsState by accountsViewModel.accountsState.collectAsStateWithLifecycle()
 
     when (val state = accountsState) {
         ScreenState.Empty -> {
@@ -58,6 +58,11 @@ fun AccountsScreen(
 
 fun navigateToEditAccountRoute(account: Account, navController: NavHostController) {
     navController.navigate(
-        EditAccountRoute(account.sum, account.currency)
+        EditAccountRoute(
+            amount = account.sum,
+            currency = account.currency,
+            id = account.id,
+            name = account.name
+        )
     )
 }

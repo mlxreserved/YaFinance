@@ -1,12 +1,11 @@
 package com.example.yafinance.data.remote.utils
 
 
-fun String.currencyFormat(): String {
+fun String.stringToCurrency(): String {
     return when(this) {
         "RUB" -> "₽"
         "USD" -> "$"
         "EUR" -> "€"
-        "RUR" -> "₽"
         else -> ""
     }
 }

@@ -17,9 +17,9 @@ import javax.inject.Inject
 class AccountsViewModel @Inject constructor(private val getAccountsUseCase: GetAccountsUseCase) :
     ViewModel() {
 
-    private val _accountsState: MutableStateFlow<ScreenState<Account>> =
+    private val _accountsState: MutableStateFlow<ScreenState<List<Account>>> =
         MutableStateFlow(ScreenState.Loading)
-    val accountsState: StateFlow<ScreenState<Account>> = _accountsState.asStateFlow()
+    val accountsState: StateFlow<ScreenState<List<Account>>> = _accountsState.asStateFlow()
 
     init {
         loadAccounts()

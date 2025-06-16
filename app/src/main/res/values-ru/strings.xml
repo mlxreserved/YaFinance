@@ -24,4 +24,7 @@
     <string name="my_account">Мой счет</string>
     <string name="my_categories">Мои статьи</string>
     <string name="error_loading_button">Попробовать снова</string>
+    <string name="start_date">Начало</string>
+    <string name="end_date">Конец</string>
+    <string name="sum">Сумма</string>
 </resources>

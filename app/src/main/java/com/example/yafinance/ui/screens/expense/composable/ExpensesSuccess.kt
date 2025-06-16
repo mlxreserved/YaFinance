@@ -12,15 +12,29 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import com.example.yafinance.R
 import com.example.yafinance.domain.models.expense.Expense
-import com.example.yafinance.ui.utils.Format
+import com.example.yafinance.ui.utils.formatWithSpaces
+import com.example.yafinance.ui.utils.state.TopAppBarState
+import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 
 @Composable
-fun ExpensesSuccess(expenses: List<Expense>, modifier: Modifier = Modifier) {
+fun ExpensesSuccess(
+    expenses: List<Expense>,
+    modifier: Modifier = Modifier,
+    onTrailIconClick: () -> Unit
+) {
+
+    TopAppBarStateProvider.update(
+        TopAppBarState(
+            titleId = R.string.expenses_today,
+            trailId = R.drawable.ic_history,
+            onTrailIconClick = onTrailIconClick
+        )
+    )
 
     val totalAmount by remember {
         mutableStateOf(expenses.sumOf { it.amount.toDouble() }.toString())
     }
-    val formattedTotalAmount = Format.formatWithSpaces(totalAmount)
+    val formattedTotalAmount = totalAmount.formatWithSpaces()
     val trailTotalText = "$formattedTotalAmount ${expenses.first().currency}"
 
     Column {
@@ -30,7 +44,7 @@ fun ExpensesSuccess(expenses: List<Expense>, modifier: Modifier = Modifier) {
         LazyColumn(modifier = modifier) {
 
             items(items = expenses, key = { it.id }) { expense ->
-                val formattedAmount = Format.formatWithSpaces(expense.amount)
+                val formattedAmount = expense.amount.formatWithSpaces()
 
                 val trailText = "$formattedAmount ${expense.currency}"
                 val trailIcon = ImageVector.vectorResource(R.drawable.more_vert)

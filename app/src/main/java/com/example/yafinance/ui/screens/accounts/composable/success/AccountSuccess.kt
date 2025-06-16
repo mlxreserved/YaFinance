@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import com.example.yafinance.R
 import com.example.yafinance.domain.models.account.Account
-import com.example.yafinance.ui.utils.Format
+import com.example.yafinance.ui.utils.formatWithSpaces
 import com.example.yafinance.ui.utils.state.TopAppBarState
 import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 
@@ -30,7 +30,7 @@ fun AccountSuccess(
 
     LazyColumn(modifier = modifier) {
         items(items = accounts, key = { it.id }) { account ->
-            val balanceFormattedAmount = Format.formatWithSpaces(account.sum)
+            val balanceFormattedAmount = account.sum.formatWithSpaces()
             val trailBalanceText = "$balanceFormattedAmount ${account.currency}"
             val trailIcon = ImageVector.vectorResource(R.drawable.more_vert)
 
