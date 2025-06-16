@@ -7,7 +7,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.yafinance.ui.screens.account.AccountsScreen
+import androidx.navigation.toRoute
+import com.example.yafinance.ui.navigation.routes.ScreensRoute.EditAccountRoute
+import com.example.yafinance.ui.screens.accounts.AccountsScreen
 import com.example.yafinance.ui.screens.expense.ExpensesScreen
 import com.example.yafinance.ui.screens.categories.CategoriesScreen
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.AccountsRoute
@@ -15,9 +17,9 @@ import com.example.yafinance.ui.navigation.routes.ScreensRoute.CategoriesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.SettingsRoute
+import com.example.yafinance.ui.screens.accounts.EditAccountScreen
 import com.example.yafinance.ui.screens.income.IncomesScreen
 import com.example.yafinance.ui.screens.settings.SettingsScreen
-import com.example.yafinance.ui.utils.mock.AccountMock.account
 import com.example.yafinance.ui.utils.mock.CategoriesMock.categories
 import com.example.yafinance.ui.utils.mock.ExpensesMock.expenses
 import com.example.yafinance.ui.utils.mock.IncomesMock.incomes
@@ -40,13 +42,20 @@ fun FinanceNavHost(
             IncomesScreen(incomes = incomes)
         }
         composable<AccountsRoute> {
-            AccountsScreen(account = account)
+            AccountsScreen(navController = navController)
         }
         composable<CategoriesRoute> {
             CategoriesScreen(categories = categories)
         }
         composable<SettingsRoute> {
             SettingsScreen(settings = settings)
+        }
+
+
+        composable<EditAccountRoute> {
+            val args = it.toRoute<EditAccountRoute>()
+
+            EditAccountScreen(amount = args.amount, currency = args.currency)
         }
     }
 }

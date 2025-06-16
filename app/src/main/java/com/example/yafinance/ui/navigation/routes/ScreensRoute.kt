@@ -17,4 +17,10 @@ sealed interface ScreensRoute {
 
     @Serializable
     object SettingsRoute : ScreensRoute
+
+    @Serializable
+    data class EditAccountRoute(
+        val amount: String,
+        val currency: String
+    ) : ScreensRoute
 }

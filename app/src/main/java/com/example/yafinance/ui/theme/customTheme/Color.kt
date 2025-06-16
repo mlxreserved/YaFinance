@@ -10,7 +10,10 @@ val baseLightPalette = YaFinanceColors(
     tertiaryBackground = Color(0xFFECE6F0),
     tertiaryText = Color(0xFF49454F),
     moreColor = Color(0x3C3C434D),
-    outlineColor = Color(0xFFCAC4D0)
+    outlineColor = Color(0xFFCAC4D0),
+    bottomNavColor = Color(0xFFF3EDF7),
+    deleteColor = Color(0xFFE46962),
+    white = Color(0xFFFFFFFF)
 )
 
 val baseDarkPalette = YaFinanceColors(
@@ -21,5 +24,8 @@ val baseDarkPalette = YaFinanceColors(
     tertiaryBackground = Color(0xFFECE6F0),
     tertiaryText = Color(0xFF49454F),
     moreColor = Color(0x3C3C434D),
-    outlineColor = Color(0xFFCAC4D0)
+    outlineColor = Color(0xFFCAC4D0),
+    bottomNavColor = Color(0xFFF3EDF7),
+    deleteColor = Color(0xFFE46962),
+    white = Color(0xFFFFFFFF)
 )

@@ -10,7 +10,6 @@ import com.example.yafinance.ui.composable.floatingButton.CustomFloatingButton
 import com.example.yafinance.ui.composable.topAppBar.CustomTopAppBar
 import com.example.yafinance.ui.navigation.bottomNavBar.BottomNavigationBar
 import com.example.yafinance.ui.navigation.host.FinanceNavHost
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.AccountsRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesRoute
 
@@ -30,7 +29,6 @@ fun MainScreen(navController: NavHostController, modifier: Modifier = Modifier) 
             when (currentRoute) {
                 ExpensesRoute.javaClass.canonicalName -> CustomFloatingButton { }
                 IncomesRoute.javaClass.canonicalName -> CustomFloatingButton { }
-                AccountsRoute.javaClass.canonicalName -> CustomFloatingButton { }
             }
         },
         modifier = modifier

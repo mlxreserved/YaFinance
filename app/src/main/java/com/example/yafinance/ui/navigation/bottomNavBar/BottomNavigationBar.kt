@@ -20,12 +20,10 @@ import com.example.yafinance.ui.navigation.routes.Routes.topLevelRoutes
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
-
-
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    NavigationBar {
+    NavigationBar{
         topLevelRoutes.forEach { topLevelRoute ->
             val screenName = stringResource(topLevelRoute.nameId)
             NavigationBarItem(
@@ -53,5 +51,4 @@ fun BottomNavigationBar(navController: NavHostController) {
             )
         }
     }
-
 }

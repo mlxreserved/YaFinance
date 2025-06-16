@@ -2,7 +2,6 @@ package com.example.yafinance.ui.composable.listItem
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
@@ -39,7 +38,8 @@ fun CustomListItem(
                 {
                     Trail(
                         trailText = trailText,
-                        trailItem = trailItem
+                        trailItem = trailItem,
+
                     )
                 }
             } else null,
@@ -48,7 +48,6 @@ fun CustomListItem(
         )
 
         if(hasDivider)
-            HorizontalDivider(modifier = Modifier.fillMaxWidth(),
-                color = DividerDefaults.color)
+            HorizontalDivider(modifier = Modifier.fillMaxWidth())
     }
 }

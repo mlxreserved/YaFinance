@@ -32,5 +32,6 @@ fun Lead(
                 style = if(leadIcon.isEmoji()) YaFinanceTheme.typography.emoji else YaFinanceTheme.typography.emojiText
             )
         }
+
     }
 }
