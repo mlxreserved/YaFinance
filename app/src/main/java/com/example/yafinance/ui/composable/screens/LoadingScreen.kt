@@ -6,9 +6,13 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.example.yafinance.ui.utils.state.TopAppBarState
+import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 
 @Composable
-fun LoadingScreen() {
+fun LoadingScreen(screenTitleId: Int) {
+    TopAppBarStateProvider.update(topAppBarState = TopAppBarState(titleId = screenTitleId))
+
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center

@@ -23,8 +23,15 @@
     <string name="incomes_today">Дохода сегодня</string>
     <string name="my_account">Мой счет</string>
     <string name="my_categories">Мои статьи</string>
+    <string name="my_history">Моя история</string>
     <string name="error_loading_button">Попробовать снова</string>
     <string name="start_date">Начало</string>
     <string name="end_date">Конец</string>
     <string name="sum">Сумма</string>
+    <string name="empty_incomes">Сегодня у вас нет доходов</string>
+    <string name="empty_expenses">Сегодня у вас нет расходов</string>
+    <string name="empty_accounts">У вас нет счетов</string>
+    <string name="empty_categories">У вас нет статей</string>
+    <string name="create_first_income">Добавить сегодняшний доход</string>
+    <string name="create_first_expense">Добавить сегодняшний расход</string>
 </resources>

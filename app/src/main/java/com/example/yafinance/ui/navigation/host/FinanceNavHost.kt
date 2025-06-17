@@ -19,14 +19,13 @@ import com.example.yafinance.ui.navigation.routes.ScreensRoute.AccountsRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.CategoriesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesAllRoutes
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesRoute
+import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesAllRoutes
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.SettingsRoute
 import com.example.yafinance.ui.screens.editAccount.EditAccountScreen
 import com.example.yafinance.ui.screens.history.HistoryScreen
 import com.example.yafinance.ui.screens.income.IncomesScreen
 import com.example.yafinance.ui.screens.settings.SettingsScreen
-import com.example.yafinance.ui.utils.mock.ExpensesMock.expenses
-import com.example.yafinance.ui.utils.mock.IncomesMock.incomes
 import com.example.yafinance.ui.utils.Settings.settings
 
 @Composable
@@ -44,16 +43,24 @@ fun FinanceNavHost(
         ) {
             composable<ExpensesRoute> {
                 ExpensesScreen(
-                    expenses = expenses,
-                    navController = navController
+                    onTrailIconClick = { navController.navigate(HistoryRoute) }
                 )
             }
             composable<HistoryRoute> {
                 HistoryScreen()
             }
         }
-        composable<IncomesRoute> {
-            IncomesScreen(incomes = incomes)
+        navigation<IncomesAllRoutes>(
+            startDestination = IncomesRoute
+        ) {
+            composable<IncomesRoute> {
+                IncomesScreen(
+                    onTrailIconClick = { navController.navigate(HistoryRoute) }
+                )
+            }
+            composable<HistoryRoute> {
+                HistoryScreen()
+            }
         }
         navigation<AccountsAllRoutes>(startDestination = AccountsRoute) {
 

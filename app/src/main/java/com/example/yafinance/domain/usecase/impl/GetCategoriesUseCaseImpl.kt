@@ -5,6 +5,8 @@ import com.example.yafinance.domain.repositories.CategoryRepository
 import com.example.yafinance.domain.usecase.inter.GetCategoriesUseCase
 import javax.inject.Inject
 
-class GetCategoriesUseCaseImpl @Inject constructor(private val categoryRepository: CategoryRepository) : GetCategoriesUseCase {
+class GetCategoriesUseCaseImpl @Inject constructor(
+    private val categoryRepository: CategoryRepository
+) : GetCategoriesUseCase {
     override suspend fun getCategories(): List<Category> = categoryRepository.getCategories()
 }

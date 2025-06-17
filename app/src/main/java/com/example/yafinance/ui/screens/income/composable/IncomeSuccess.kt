@@ -6,7 +6,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
@@ -17,7 +17,7 @@ import com.example.yafinance.ui.utils.formatWithSpaces
 @Composable
 fun IncomeSuccess(incomes: List<Income>, modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
-        val totalAmount by remember {
+        val totalAmount by rememberSaveable {
             mutableStateOf(incomes.sumOf { it.amount.toDouble() }.toString())
         }
         val formattedTotalAmount = totalAmount.formatWithSpaces()
@@ -30,7 +30,7 @@ fun IncomeSuccess(incomes: List<Income>, modifier: Modifier = Modifier) {
             items(items = incomes, key = { it.id }) { income ->
                 val formattedAmount = income.amount.formatWithSpaces()
                 val trailText = "$formattedAmount ${income.currency}"
-                val trailIcon = ImageVector.vectorResource(R.drawable.more_vert)
+                val trailIcon = ImageVector.vectorResource(R.drawable.ic_more_vert)
 
                 IncomeItem(title = income.title, trailText = trailText, trailIcon = trailIcon)
             }

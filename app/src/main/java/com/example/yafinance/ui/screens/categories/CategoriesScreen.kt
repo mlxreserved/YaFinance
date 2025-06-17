@@ -19,7 +19,7 @@ fun CategoriesScreen(
     modifier: Modifier = Modifier,
     categoriesViewModel: CategoriesViewModel = hiltViewModel()
 ) {
-    TopAppBarStateProvider.update(TopAppBarState(titleId = R.string.my_categories, trailId = null))
+    TopAppBarStateProvider.update(TopAppBarState(titleId = R.string.my_categories))
 
     val categoriesState by categoriesViewModel.categoriesState.collectAsStateWithLifecycle()
 
@@ -28,10 +28,10 @@ fun CategoriesScreen(
             EmptyScreen("Empty screen")
         }
         is ScreenState.Error -> {
-            ErrorScreen(state.message)
+            ErrorScreen(screenTitleId = R.string.my_categories, text =state.message)
         }
         ScreenState.Loading -> {
-            LoadingScreen()
+            LoadingScreen(screenTitleId = R.string.my_categories)
         }
         is ScreenState.Success -> {
             CategoriesSuccess(categories = state.result, modifier = modifier)

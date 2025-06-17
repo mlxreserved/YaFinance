@@ -22,8 +22,15 @@
     <string name="incomes_today">Incomes today</string>
     <string name="my_account">My account</string>
     <string name="my_categories">My categories</string>
+    <string name="my_history">My history</string>
     <string name="error_loading_button">Retry</string>
     <string name="start_date">Start</string>
     <string name="end_date">End</string>
     <string name="sum">Sum</string>
+    <string name="empty_incomes">You have no incomes today</string>
+    <string name="empty_expenses">You have no expenses today</string>
+    <string name="empty_accounts">You have no accounts</string>
+    <string name="empty_categories">You have no categories</string>
+    <string name="create_first_income">Create first income</string>
+    <string name="create_first_expense">Create first expense</string>
 </resources>

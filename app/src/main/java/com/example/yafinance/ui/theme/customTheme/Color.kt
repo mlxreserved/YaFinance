@@ -13,7 +13,8 @@ val baseLightPalette = YaFinanceColors(
     outlineColor = Color(0xFFCAC4D0),
     bottomNavColor = Color(0xFFF3EDF7),
     deleteColor = Color(0xFFE46962),
-    white = Color(0xFFFFFFFF)
+    white = Color(0xFFFFFFFF),
+    clickableText = Color(0xFF4A4AFF)
 )
 
 val baseDarkPalette = YaFinanceColors(
@@ -27,5 +28,6 @@ val baseDarkPalette = YaFinanceColors(
     outlineColor = Color(0xFFCAC4D0),
     bottomNavColor = Color(0xFFF3EDF7),
     deleteColor = Color(0xFFE46962),
-    white = Color(0xFFFFFFFF)
+    white = Color(0xFFFFFFFF),
+    clickableText = Color(0xFF4A4AFF)
 )

@@ -13,23 +13,12 @@ import androidx.compose.ui.res.vectorResource
 import com.example.yafinance.R
 import com.example.yafinance.domain.models.expense.Expense
 import com.example.yafinance.ui.utils.formatWithSpaces
-import com.example.yafinance.ui.utils.state.TopAppBarState
-import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 
 @Composable
 fun ExpensesSuccess(
     expenses: List<Expense>,
-    modifier: Modifier = Modifier,
-    onTrailIconClick: () -> Unit
+    modifier: Modifier = Modifier
 ) {
-
-    TopAppBarStateProvider.update(
-        TopAppBarState(
-            titleId = R.string.expenses_today,
-            trailId = R.drawable.ic_history,
-            onTrailIconClick = onTrailIconClick
-        )
-    )
 
     val totalAmount by remember {
         mutableStateOf(expenses.sumOf { it.amount.toDouble() }.toString())
@@ -47,7 +36,7 @@ fun ExpensesSuccess(
                 val formattedAmount = expense.amount.formatWithSpaces()
 
                 val trailText = "$formattedAmount ${expense.currency}"
-                val trailIcon = ImageVector.vectorResource(R.drawable.more_vert)
+                val trailIcon = ImageVector.vectorResource(R.drawable.ic_more_vert)
 
                 ExpenseItem(
                     title = expense.title,

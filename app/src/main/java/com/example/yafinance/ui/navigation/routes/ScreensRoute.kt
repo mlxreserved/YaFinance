@@ -1,14 +1,18 @@
 package com.example.yafinance.ui.navigation.routes
 
+import com.example.yafinance.ui.utils.HistoryType
 import kotlinx.serialization.Serializable
 
 sealed interface ScreensRoute {
 
     @Serializable
-    object ExpensesAllRoutes: ScreensRoute
+    object ExpensesAllRoutes : ScreensRoute
 
     @Serializable
-    object AccountsAllRoutes: ScreensRoute
+    object IncomesAllRoutes : ScreensRoute
+
+    @Serializable
+    object AccountsAllRoutes : ScreensRoute
 
     @Serializable
     object ExpensesRoute : ScreensRoute
@@ -34,5 +38,8 @@ sealed interface ScreensRoute {
     ) : ScreensRoute
 
     @Serializable
-    object HistoryRoute : ScreensRoute
+    data class HistoryRoute(
+        val accountId: Int,
+        val historyType: HistoryType
+    ) : ScreensRoute
 }

@@ -13,7 +13,7 @@ import com.example.yafinance.domain.models.category.Category
 @Composable
 fun CategoriesSuccess(categories: List<Category>, modifier: Modifier = Modifier) {
 
-    val trailIcon = ImageVector.vectorResource(R.drawable.search)
+    val trailIcon = ImageVector.vectorResource(R.drawable.ic_search)
 
     Column(modifier = modifier) {
         CategorySearch(trailIcon = trailIcon)

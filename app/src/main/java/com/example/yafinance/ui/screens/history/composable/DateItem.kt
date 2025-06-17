@@ -6,16 +6,27 @@ import androidx.compose.ui.res.stringResource
 import com.example.yafinance.R
 import com.example.yafinance.ui.composable.listItem.CustomListItem
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
+import com.example.yafinance.ui.utils.toEndDateString
+import com.example.yafinance.ui.utils.toStartDateString
+import java.util.Date
 
 @Composable
-fun DateItem(date: String) {
+fun DateItem(isStart: Boolean, date: Date) {
     CustomListItem(
         title = {
-            Text(
-                stringResource(R.string.start_date),
-                style = YaFinanceTheme.typography.title
-            )
+            if(isStart) {
+                Text(
+                    stringResource(R.string.start_date),
+                    style = YaFinanceTheme.typography.title
+                )
+            } else {
+                Text(
+                    stringResource(R.string.end_date),
+                    style = YaFinanceTheme.typography.title
+                )
+            }
         },
-        trailText = date
+        trailText = if(isStart) date.toStartDateString() else date.toEndDateString(),
+        backgroundContainerColor = YaFinanceTheme.colors.secondaryBackground
     )
 }

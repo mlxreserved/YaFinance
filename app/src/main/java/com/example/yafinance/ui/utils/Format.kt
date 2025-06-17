@@ -1,5 +1,8 @@
 package com.example.yafinance.ui.utils
 
+import java.text.SimpleDateFormat
+import java.util.Date
+
 fun String.formatWithSpaces(): String {
     val parts = this.split(".")
     val integerPart = parts[0].replace(Regex("(\\d)(?=(\\d{3})+$)"), "$1 ")
@@ -24,4 +27,16 @@ fun String.currencyToString(): String {
         "€" -> "EUR"
         else -> ""
     }
+}
+
+fun Date.toStartDateString(): String {
+    val sdf = SimpleDateFormat("d MMMM yyyy")
+
+    return sdf.format(this)
+}
+
+fun Date.toEndDateString(): String {
+    val sdf = SimpleDateFormat("hh:mm")
+
+    return sdf.format(this)
 }

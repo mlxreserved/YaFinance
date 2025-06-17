@@ -5,8 +5,11 @@ import com.example.yafinance.R
 import com.example.yafinance.data.remote.api.FinanceApi
 import com.example.yafinance.data.remote.repositories.AccountRepositoryImpl
 import com.example.yafinance.data.remote.repositories.CategoryRepositoryImpl
+import com.example.yafinance.data.remote.repositories.TransactionRepositoryImpl
 import com.example.yafinance.domain.repositories.AccountRepository
 import com.example.yafinance.domain.repositories.CategoryRepository
+import com.example.yafinance.domain.repositories.TransactionRepository
+import com.example.yafinance.domain.usecase.inter.GetAccountsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -81,5 +84,16 @@ object NetworkModule {
     ): CategoryRepository =
         CategoryRepositoryImpl(
             financeApi = financeApi
+        )
+
+    @Singleton
+    @Provides
+    fun provideTransactionRepository(
+        financeApi: FinanceApi,
+        getAccountsUseCase: GetAccountsUseCase
+    ): TransactionRepository =
+        TransactionRepositoryImpl(
+            financeApi = financeApi,
+            getAccountsUseCase = getAccountsUseCase,
         )
 }

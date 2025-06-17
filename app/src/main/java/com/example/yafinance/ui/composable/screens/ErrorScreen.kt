@@ -12,9 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.yafinance.R
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
+import com.example.yafinance.ui.utils.state.TopAppBarState
+import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 
 @Composable
-fun ErrorScreen(text: String) {
+fun ErrorScreen(screenTitleId: Int, text: String) {
+
+    TopAppBarStateProvider.update(TopAppBarState(titleId = screenTitleId))
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,

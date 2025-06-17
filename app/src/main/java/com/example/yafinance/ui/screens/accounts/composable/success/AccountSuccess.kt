@@ -32,7 +32,7 @@ fun AccountSuccess(
         items(items = accounts, key = { it.id }) { account ->
             val balanceFormattedAmount = account.sum.formatWithSpaces()
             val trailBalanceText = "$balanceFormattedAmount ${account.currency}"
-            val trailIcon = ImageVector.vectorResource(R.drawable.more_vert)
+            val trailIcon = ImageVector.vectorResource(R.drawable.ic_more_vert)
 
             Column(modifier = modifier) {
                 Balance(trailText = trailBalanceText, trailIcon = trailIcon, onBalanceClick = onBalanceClick)

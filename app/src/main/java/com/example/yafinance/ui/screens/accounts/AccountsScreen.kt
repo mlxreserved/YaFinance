@@ -10,7 +10,6 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.yafinance.domain.models.account.Account
-import com.example.yafinance.ui.composable.screens.EmptyScreen
 import com.example.yafinance.ui.composable.screens.ErrorScreen
 import com.example.yafinance.ui.composable.screens.LoadingScreen
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.EditAccountRoute
@@ -31,15 +30,15 @@ fun AccountsScreen(
 
     when (val state = accountsState) {
         ScreenState.Empty -> {
-            EmptyScreen("Empty screen")
+//            EmptyScreen("Empty screen")
         }
 
         is ScreenState.Error -> {
-            ErrorScreen(state.message)
+            ErrorScreen(screenTitleId = R.string.my_account, text = state.message)
         }
 
         ScreenState.Loading -> {
-            LoadingScreen()
+            LoadingScreen(screenTitleId = R.string.my_account)
         }
 
         is ScreenState.Success -> {
