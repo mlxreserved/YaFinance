@@ -26,6 +26,7 @@ import com.example.yafinance.ui.screens.editAccount.EditAccountScreen
 import com.example.yafinance.ui.screens.history.HistoryScreen
 import com.example.yafinance.ui.screens.income.IncomesScreen
 import com.example.yafinance.ui.screens.settings.SettingsScreen
+import com.example.yafinance.ui.utils.HistoryType
 import com.example.yafinance.ui.utils.Settings.settings
 
 @Composable
@@ -38,16 +39,21 @@ fun FinanceNavHost(
         startDestination = ExpensesAllRoutes,
         modifier = Modifier.padding(paddingValues = paddingValues)
     ) {
+
         navigation<ExpensesAllRoutes>(
             startDestination = ExpensesRoute
         ) {
             composable<ExpensesRoute> {
                 ExpensesScreen(
-                    onTrailIconClick = { navController.navigate(HistoryRoute) }
+                    onTrailIconClick = { navController.navigate(HistoryRoute(historyType = HistoryType.EXPENSES)) }
                 )
             }
             composable<HistoryRoute> {
-                HistoryScreen()
+                val args = it.toRoute<HistoryRoute>()
+
+                HistoryScreen(
+                    historyType = args.historyType
+                )
             }
         }
         navigation<IncomesAllRoutes>(
@@ -55,14 +61,20 @@ fun FinanceNavHost(
         ) {
             composable<IncomesRoute> {
                 IncomesScreen(
-                    onTrailIconClick = { navController.navigate(HistoryRoute) }
+                    onTrailIconClick = { navController.navigate(HistoryRoute(historyType = HistoryType.INCOMES)) }
                 )
             }
             composable<HistoryRoute> {
-                HistoryScreen()
+                val args = it.toRoute<HistoryRoute>()
+
+                HistoryScreen(
+                    historyType = args.historyType
+                )
             }
         }
-        navigation<AccountsAllRoutes>(startDestination = AccountsRoute) {
+        navigation<AccountsAllRoutes>(
+            startDestination = AccountsRoute
+        ) {
 
             composable<AccountsRoute> {
                 AccountsScreen(navController = navController)

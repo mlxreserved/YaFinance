@@ -35,7 +35,7 @@ fun EditAccountScreen(
             trailId = R.drawable.ic_save,
             leadId = R.drawable.ic_cross,
             onTrailIconClick = {
-                editViewModel.changeAccountInfo(id = id, name = name, sum = currentSum, currency = currency)
+                editViewModel.onApplyEditAccountInfo(id = id, name = name, sum = currentSum, currency = currency)
             },
             onLeadIconClick = {
                 navController.navigateUp()
@@ -54,7 +54,6 @@ fun EditAccountScreen(
         }
         is ScreenState.Error -> {
             Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
-
         }
         ScreenState.Loading -> {
             LoadingScreen(screenTitleId = R.string.my_account)

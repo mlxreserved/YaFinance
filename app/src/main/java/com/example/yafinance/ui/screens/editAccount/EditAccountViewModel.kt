@@ -25,7 +25,7 @@ class EditAccountViewModel @Inject constructor(private val changeAccountInfoUseC
         )
     val editAccountState: StateFlow<ScreenState<Account>> = _editAccountState.asStateFlow()
 
-    fun changeAccountInfo(id: Int, name: String, sum: String, currency: String) {
+    private fun changeAccountInfo(id: Int, name: String, sum: String, currency: String) {
         viewModelScope.launch {
             _editAccountState.update { ScreenState.Loading }
             try {
@@ -43,5 +43,9 @@ class EditAccountViewModel @Inject constructor(private val changeAccountInfoUseC
                 _editAccountState.update { ScreenState.Error(e.message ?: "") }
             }
         }
+    }
+
+    fun onApplyEditAccountInfo(id: Int, name: String, sum: String, currency: String) {
+        changeAccountInfo(id = id, name = name, sum = sum, currency = currency)
     }
 }

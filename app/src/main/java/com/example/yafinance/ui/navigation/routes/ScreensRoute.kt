@@ -39,7 +39,6 @@ sealed interface ScreensRoute {
 
     @Serializable
     data class HistoryRoute(
-        val accountId: Int,
         val historyType: HistoryType
     ) : ScreensRoute
 }
