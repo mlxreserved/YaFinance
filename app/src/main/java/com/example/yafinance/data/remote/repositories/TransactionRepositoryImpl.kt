@@ -25,6 +25,7 @@ class TransactionRepositoryImpl @Inject constructor(
     TransactionRepository {
     private val emptyStartDate = Calendar.getInstance().apply {
         set(Calendar.DAY_OF_MONTH, 1)
+        set(Calendar.HOUR_OF_DAY, 23)
     }.time
 
     private val emptyEndDate = Date()

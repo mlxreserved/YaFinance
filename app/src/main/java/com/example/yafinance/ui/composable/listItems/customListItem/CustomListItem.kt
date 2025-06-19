@@ -20,8 +20,10 @@ fun CustomListItem(
     leadIcon: String? = null,
     subtitle: String? = null,
     trailText: String? = null,
+    trailTextItem: @Composable (() -> Unit)? = null,
     trailItem: @Composable (() -> Unit)? = null,
-    hasDivider: Boolean = true
+    hasDivider: Boolean = true,
+    hasDate: Boolean = false
 ) {
     Column {
         ListItem(
@@ -37,8 +39,10 @@ fun CustomListItem(
             trailingContent = if (trailText != null || trailItem != null) {
                 {
                     Trail(
+                        trailTextItem = trailTextItem,
                         trailText = trailText,
                         trailItem = trailItem,
+                        hasDate = hasDate
                     )
                 }
             } else null,

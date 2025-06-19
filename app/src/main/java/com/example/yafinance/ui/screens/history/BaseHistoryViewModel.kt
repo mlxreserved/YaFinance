@@ -15,6 +15,7 @@ abstract class BaseHistoryViewModel<T> : BaseViewModel<T>() {
     private val _selectedStartDate = MutableStateFlow(
         Calendar.getInstance().apply {
             set(Calendar.DAY_OF_MONTH, 1)
+            set(Calendar.HOUR_OF_DAY, 23)
         }.time
     )
     val selectedStartDate: StateFlow<Date> = _selectedStartDate.asStateFlow()
@@ -43,6 +44,8 @@ abstract class BaseHistoryViewModel<T> : BaseViewModel<T>() {
 
     private fun getCalendarDate(): Date = Calendar.getInstance().apply {
         set(Calendar.DAY_OF_MONTH, 1)
+        set(Calendar.HOUR_OF_DAY, 23)
+
     }.time
 
 }

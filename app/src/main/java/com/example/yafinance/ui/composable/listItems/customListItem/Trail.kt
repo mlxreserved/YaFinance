@@ -12,18 +12,24 @@ import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 fun Trail(
     modifier: Modifier = Modifier,
     trailText: String? = null,
-    trailItem: @Composable (() -> Unit)? = null
+    trailTextItem: @Composable (() -> Unit)? = null,
+    trailItem: @Composable (() -> Unit)? = null,
+    hasDate: Boolean = false
 ) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.End
     ) {
-        if (trailText != null) {
-            Text(
-                style = YaFinanceTheme.typography.title,
-                text = trailText
-            )
+        if(hasDate) {
+            trailTextItem?.invoke()
+        } else {
+            if (trailText != null) {
+                Text(
+                    style = YaFinanceTheme.typography.title,
+                    text = trailText
+                )
+            }
         }
 
         if (trailItem != null) {

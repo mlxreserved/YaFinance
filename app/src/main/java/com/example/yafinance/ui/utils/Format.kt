@@ -2,6 +2,7 @@ package com.example.yafinance.ui.utils
 
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 fun String.formatWithSpaces(): String {
     val parts = this.split(".")
@@ -35,3 +36,15 @@ fun Date.toDateString(): String {
     return sdf.format(this)
 }
 
+fun String.toDateWithTimeString(): String {
+    val format = SimpleDateFormat(
+        "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+        Locale.getDefault()
+    )
+
+    val formatedStringToDate = format.parse(this)!!
+
+    val sdf = SimpleDateFormat("d MMMM HH:mm")
+
+    return sdf.format(formatedStringToDate)
+}
