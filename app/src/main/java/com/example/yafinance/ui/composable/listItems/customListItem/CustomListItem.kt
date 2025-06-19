@@ -1,4 +1,4 @@
-package com.example.yafinance.ui.composable.listItem
+package com.example.yafinance.ui.composable.listItems.customListItem
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,7 +39,6 @@ fun CustomListItem(
                     Trail(
                         trailText = trailText,
                         trailItem = trailItem,
-
                     )
                 }
             } else null,

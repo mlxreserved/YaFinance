@@ -43,6 +43,16 @@ fun MainTheme(
             color = colors.primaryText,
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium
+        ),
+        textButtonReject = TextStyle(
+            color = colors.primaryText,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Medium
+        ),
+        textButtonConfirm = TextStyle(
+            color = colors.primaryText,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold
         )
     )
 

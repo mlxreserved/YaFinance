@@ -1,7 +1,8 @@
 package com.example.yafinance.domain.repositories
 
+import com.example.yafinance.domain.utils.Result
 import com.example.yafinance.domain.models.category.Category
 
 interface CategoryRepository {
-    suspend fun getCategories(): List<Category>
+    suspend fun getCategories(): Result<List<Category>>
 }

@@ -1,46 +1,50 @@
 package com.example.yafinance.ui.screens.editAccount
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.yafinance.domain.models.account.Account
 import com.example.yafinance.domain.usecase.inter.ChangeAccountInfoUseCase
+import com.example.yafinance.domain.utils.Result
+import com.example.yafinance.ui.screens.BaseViewModel
 import com.example.yafinance.ui.utils.currencyToString
 import com.example.yafinance.ui.utils.formatWithoutSpaces
 import com.example.yafinance.ui.utils.state.ScreenState
+import com.example.yafinance.ui.utils.toUserMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class EditAccountViewModel @Inject constructor(private val changeAccountInfoUseCase: ChangeAccountInfoUseCase) :
-    ViewModel() {
+    BaseViewModel<Account>() {
 
-    private val _editAccountState: MutableStateFlow<ScreenState<Account>> =
+    override val _screenState: MutableStateFlow<ScreenState<Account>> =
         MutableStateFlow<ScreenState<Account>>(
             ScreenState.Empty
         )
-    val editAccountState: StateFlow<ScreenState<Account>> = _editAccountState.asStateFlow()
+    override val screenState: StateFlow<ScreenState<Account>> = _screenState.asStateFlow()
 
     private fun changeAccountInfo(id: Int, name: String, sum: String, currency: String) {
         viewModelScope.launch {
-            _editAccountState.update { ScreenState.Loading }
-            try {
-                val accountRequest =
-                    Account(id = id, name = name, sum = sum.formatWithoutSpaces(), currency.currencyToString())
+            updateState(ScreenState.Loading)
+            val accountRequest =
+                Account(
+                    id = id,
+                    name = name,
+                    sum = sum.formatWithoutSpaces(),
+                    currency = currency.currencyToString()
+                )
 
-                val resultAccount =
-                    changeAccountInfoUseCase.changeAccountInfo(
-                        id = id,
-                        accountRequest = accountRequest
-                    )
-
-                _editAccountState.update { ScreenState.Success(resultAccount) }
-            } catch (e: Exception) {
-                _editAccountState.update { ScreenState.Error(e.message ?: "") }
+            when (
+                val response = changeAccountInfoUseCase.changeAccountInfo(
+                    id = id,
+                    accountRequest = accountRequest
+                )
+            ) {
+                is Result.Error -> updateState(ScreenState.Error(response.error.toUserMessage()))
+                is Result.Success<Account> -> updateState(ScreenState.Success(response.result))
             }
         }
     }

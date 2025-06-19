@@ -31,6 +31,12 @@
     <string name="empty_expenses">You have no expenses today</string>
     <string name="empty_accounts">You have no accounts</string>
     <string name="empty_categories">You have no categories</string>
-    <string name="create_first_income">Create first income</string>
-    <string name="create_first_expense">Create first expense</string>
+    <string name="create_first_income">Create income</string>
+    <string name="create_first_expense">Create expense</string>
+    <string name="clear">Clear</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="empty_expenses_history">You have no expenses during this period</string>
+    <string name="empty_incomes_history">You have no incomes during this period</string>
+    <string name="error_template">An error has occurred</string>
 </resources>

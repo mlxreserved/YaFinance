@@ -29,14 +29,9 @@ fun String.currencyToString(): String {
     }
 }
 
-fun Date.toStartDateString(): String {
+fun Date.toDateString(): String {
     val sdf = SimpleDateFormat("d MMMM yyyy")
 
     return sdf.format(this)
 }
 
-fun Date.toEndDateString(): String {
-    val sdf = SimpleDateFormat("hh:mm")
-
-    return sdf.format(this)
-}

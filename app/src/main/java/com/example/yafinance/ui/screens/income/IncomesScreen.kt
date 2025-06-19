@@ -1,8 +1,6 @@
 package com.example.yafinance.ui.screens.income
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -10,18 +8,18 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.yafinance.R
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextDecoration
+import com.example.yafinance.ui.SnackbarViewModel
 import com.example.yafinance.ui.composable.screens.EmptyScreen
 import com.example.yafinance.ui.composable.screens.ErrorScreen
 import com.example.yafinance.ui.composable.screens.LoadingScreen
 import com.example.yafinance.ui.screens.income.composable.IncomeSuccess
-import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 import com.example.yafinance.ui.utils.state.ScreenState
 import com.example.yafinance.ui.utils.state.TopAppBarState
 import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 
 @Composable
 fun IncomesScreen(
+    snackbarViewModel: SnackbarViewModel,
     onTrailIconClick: () -> Unit,
     modifier: Modifier = Modifier,
     incomesViewModel: IncomesViewModel = hiltViewModel()
@@ -35,26 +33,20 @@ fun IncomesScreen(
         )
     )
 
-    val incomeState by incomesViewModel.incomesState.collectAsStateWithLifecycle()
+    val incomeState by incomesViewModel.screenState.collectAsStateWithLifecycle()
 
     when (val state = incomeState) {
         ScreenState.Empty -> {
             EmptyScreen(
                 text = stringResource(R.string.empty_incomes),
-                underTextAction = {
-                    Text(
-                        text = stringResource(R.string.create_first_income),
-                        textDecoration = TextDecoration.Underline,
-                        style = YaFinanceTheme.typography.title,
-                        color = YaFinanceTheme.colors.clickableText,
-                        modifier = Modifier.clickable {}
-                    )
-                }
+                onClick = {},
+                addText = stringResource(R.string.create_first_income)
             )
         }
 
         is ScreenState.Error -> {
             ErrorScreen(screenTitleId = R.string.incomes_today, text = state.message)
+            snackbarViewModel.showMessage(state.message)
         }
 
         ScreenState.Loading -> {

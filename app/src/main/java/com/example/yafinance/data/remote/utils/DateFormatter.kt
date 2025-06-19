@@ -6,13 +6,9 @@ import java.util.Date
 
 object DateFormatter {
     @SuppressLint("SimpleDateFormat")
-    fun Date?.dateToString(): String? {
+    fun Date.dateToString(): String? {
         val sdf = SimpleDateFormat("yyyy-MM-dd")
 
-        return if(this != null) {
-            sdf.format(this)
-        } else {
-            null
-        }
+        return sdf.format(this)
     }
 }

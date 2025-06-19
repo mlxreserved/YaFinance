@@ -7,17 +7,20 @@ import com.example.yafinance.ui.screens.accounts.composable.success.AccountSucce
 import com.example.yafinance.ui.utils.state.ScreenState
 import com.example.yafinance.ui.utils.state.TopAppBarState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavHostController
 import com.example.yafinance.domain.models.account.Account
+import com.example.yafinance.ui.SnackbarViewModel
+import com.example.yafinance.ui.composable.screens.EmptyScreen
 import com.example.yafinance.ui.composable.screens.ErrorScreen
 import com.example.yafinance.ui.composable.screens.LoadingScreen
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.EditAccountRoute
 import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 
 @Composable
 fun AccountsScreen(
-    navController: NavHostController,
+    snackbarViewModel: SnackbarViewModel,
+    onTrailIconClick: (Account) -> Unit,
+    onBalanceClick: (Account) -> Unit,
     accountsViewModel: AccountsViewModel = hiltViewModel()
 ) {
     TopAppBarStateProvider.update(
@@ -26,15 +29,16 @@ fun AccountsScreen(
         )
     )
 
-    val accountsState by accountsViewModel.accountsState.collectAsStateWithLifecycle()
+    val accountsState by accountsViewModel.screenState.collectAsStateWithLifecycle()
 
     when (val state = accountsState) {
         ScreenState.Empty -> {
-//            EmptyScreen("Empty screen")
+            EmptyScreen(stringResource(R.string.empty_accounts))
         }
 
         is ScreenState.Error -> {
             ErrorScreen(screenTitleId = R.string.my_account, text = state.message)
+            snackbarViewModel.showMessage(state.message)
         }
 
         ScreenState.Loading -> {
@@ -44,24 +48,10 @@ fun AccountsScreen(
         is ScreenState.Success -> {
             val account = state.result.first()
             AccountSuccess(
-                accounts = state.result, onTrailIconClick = {
-                    navigateToEditAccountRoute(account = account, navController = navController)
-                },
-                onBalanceClick = {
-                    navigateToEditAccountRoute(account = account, navController = navController)
-                }
+                accounts = state.result, onTrailIconClick = { onTrailIconClick(account) },
+                onBalanceClick = { onBalanceClick(account) }
             )
         }
     }
 }
 
-fun navigateToEditAccountRoute(account: Account, navController: NavHostController) {
-    navController.navigate(
-        EditAccountRoute(
-            amount = account.sum,
-            currency = account.currency,
-            id = account.id,
-            name = account.name
-        )
-    )
-}

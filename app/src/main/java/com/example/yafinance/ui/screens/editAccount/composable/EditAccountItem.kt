@@ -3,7 +3,6 @@ package com.example.yafinance.ui.screens.editAccount.composable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -30,6 +29,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.yafinance.R
+import com.example.yafinance.ui.composable.listItems.customListItem.Lead
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 
 @Composable
@@ -48,17 +48,14 @@ fun EditAccountItem(
                 .height(56.dp)
         ) {
 
-            Text(
-                text = stringResource(R.string.balance_lead_icon),
-                style = YaFinanceTheme.typography.emoji,
-                modifier = Modifier
-                    .padding(start = 16.dp)
+            Lead(
+                leadIcon = stringResource(R.string.balance_lead_icon),
+                backgroundColor = YaFinanceTheme.colors.white,
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp)
             )
 
-            Spacer(Modifier.width(16.dp))
-
             Text(
-                text = "Баланс",
+                text = stringResource(R.string.balance),
                 style = YaFinanceTheme.typography.title,
                 modifier = Modifier.weight(0.35f)
             )

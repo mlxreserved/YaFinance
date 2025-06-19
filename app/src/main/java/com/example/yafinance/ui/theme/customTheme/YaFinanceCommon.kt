@@ -26,7 +26,9 @@ data class YaFinanceTypography(
     val title: TextStyle,
     val subtitle: TextStyle,
     val emoji: TextStyle,
-    val emojiText: TextStyle
+    val emojiText: TextStyle,
+    val textButtonReject: TextStyle,
+    val textButtonConfirm: TextStyle
 )
 
 object YaFinanceTheme {

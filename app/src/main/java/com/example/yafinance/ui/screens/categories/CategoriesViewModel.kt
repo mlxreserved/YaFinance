@@ -1,24 +1,19 @@
 package com.example.yafinance.ui.screens.categories
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.yafinance.domain.models.category.Category
 import com.example.yafinance.domain.usecase.inter.GetCategoriesUseCase
+import com.example.yafinance.domain.utils.Result
+import com.example.yafinance.ui.screens.BaseViewModel
 import com.example.yafinance.ui.utils.state.ScreenState
+import com.example.yafinance.ui.utils.toUserMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CategoriesViewModel @Inject constructor(private val getCategoriesUseCase: GetCategoriesUseCase) : ViewModel() {
-
-    private val _categoriesState: MutableStateFlow<ScreenState<List<Category>>> =
-        MutableStateFlow(ScreenState.Loading)
-    val categoriesState: StateFlow<ScreenState<List<Category>>> = _categoriesState.asStateFlow()
+class CategoriesViewModel @Inject constructor(private val getCategoriesUseCase: GetCategoriesUseCase) :
+    BaseViewModel<List<Category>>() {
 
     init {
         loadCategories()
@@ -26,25 +21,11 @@ class CategoriesViewModel @Inject constructor(private val getCategoriesUseCase: 
 
     private fun loadCategories() {
         viewModelScope.launch {
-            _categoriesState.update { ScreenState.Loading }
-            try {
-                val categories = getCategoriesUseCase.getCategories()
+            updateState(ScreenState.Loading)
 
-                if (categories.isEmpty()) {
-                    _categoriesState.update { ScreenState.Empty }
-                } else {
-                    _categoriesState.update {
-                        ScreenState.Success(
-                            result = categories
-                        )
-                    }
-                }
-            } catch (e: Exception) {
-                _categoriesState.update {
-                    ScreenState.Error(
-                        e.message ?: ""
-                    )
-                }
+            when(val response = getCategoriesUseCase.getCategories()) {
+                is Result.Error -> updateState(ScreenState.Error(response.error.toUserMessage()))
+                is Result.Success<List<Category>> -> updateStateBasedOnListContent(response.result)
             }
         }
     }

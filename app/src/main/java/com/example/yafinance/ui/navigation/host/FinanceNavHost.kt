@@ -9,8 +9,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
+import com.example.yafinance.domain.models.account.Account
+import com.example.yafinance.ui.SnackbarViewModel
+import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesHistoryRoute
+import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesHistoryRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.AccountsAllRoutes
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.HistoryRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.EditAccountRoute
 import com.example.yafinance.ui.screens.accounts.AccountsScreen
 import com.example.yafinance.ui.screens.expense.ExpensesScreen
@@ -23,15 +26,16 @@ import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesAllRoutes
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.SettingsRoute
 import com.example.yafinance.ui.screens.editAccount.EditAccountScreen
-import com.example.yafinance.ui.screens.history.HistoryScreen
+import com.example.yafinance.ui.screens.history.expensesHistory.ExpensesHistoryScreen
+import com.example.yafinance.ui.screens.history.incomesHistory.IncomesHistoryScreen
 import com.example.yafinance.ui.screens.income.IncomesScreen
 import com.example.yafinance.ui.screens.settings.SettingsScreen
-import com.example.yafinance.ui.utils.HistoryType
-import com.example.yafinance.ui.utils.Settings.settings
+import com.example.yafinance.ui.screens.settings.model.Settings.settings
 
 @Composable
 fun FinanceNavHost(
     navController: NavHostController,
+    snackbarViewModel: SnackbarViewModel,
     paddingValues: PaddingValues
 ) {
     NavHost(
@@ -45,14 +49,14 @@ fun FinanceNavHost(
         ) {
             composable<ExpensesRoute> {
                 ExpensesScreen(
-                    onTrailIconClick = { navController.navigate(HistoryRoute(historyType = HistoryType.EXPENSES)) }
+                    snackbarViewModel = snackbarViewModel,
+                    onTrailIconClick = { navController.navigate(ExpensesHistoryRoute) }
                 )
             }
-            composable<HistoryRoute> {
-                val args = it.toRoute<HistoryRoute>()
-
-                HistoryScreen(
-                    historyType = args.historyType
+            composable<ExpensesHistoryRoute> {
+                ExpensesHistoryScreen(
+                    snackbarViewModel = snackbarViewModel,
+                    onLeadIconClick = { navController.navigateUp() }
                 )
             }
         }
@@ -61,14 +65,14 @@ fun FinanceNavHost(
         ) {
             composable<IncomesRoute> {
                 IncomesScreen(
-                    onTrailIconClick = { navController.navigate(HistoryRoute(historyType = HistoryType.INCOMES)) }
+                    snackbarViewModel = snackbarViewModel,
+                    onTrailIconClick = { navController.navigate(IncomesHistoryRoute) }
                 )
             }
-            composable<HistoryRoute> {
-                val args = it.toRoute<HistoryRoute>()
-
-                HistoryScreen(
-                    historyType = args.historyType
+            composable<IncomesHistoryRoute> {
+                IncomesHistoryScreen(
+                    snackbarViewModel = snackbarViewModel,
+                    onLeadIconClick = { navController.navigateUp() }
                 )
             }
         }
@@ -77,22 +81,36 @@ fun FinanceNavHost(
         ) {
 
             composable<AccountsRoute> {
-                AccountsScreen(navController = navController)
+                AccountsScreen(
+                    snackbarViewModel = snackbarViewModel,
+                    onTrailIconClick = { account ->
+                        navigateToEditAccountRoute(account = account, navController = navController)
+                    },
+                    onBalanceClick = { account ->
+                        navigateToEditAccountRoute(account = account, navController = navController)
+                    }
+                )
             }
             composable<EditAccountRoute> {
                 val args = it.toRoute<EditAccountRoute>()
 
                 EditAccountScreen(
-                    navController = navController,
+                    snackbarViewModel = snackbarViewModel,
+                    onLeadIconClick = {
+                        navController.navigateUp()
+                    },
+                    onSuccess = {
+                        navController.navigateUp()
+                    },
                     currency = args.currency,
-                    sum = args.amount,
+                    sum = args.sum,
                     id = args.id,
                     name = args.name
                 )
             }
         }
         composable<CategoriesRoute> {
-            CategoriesScreen()
+            CategoriesScreen(snackbarViewModel = snackbarViewModel)
         }
         composable<SettingsRoute> {
             SettingsScreen(settings = settings)
@@ -100,3 +118,13 @@ fun FinanceNavHost(
     }
 }
 
+fun navigateToEditAccountRoute(account: Account, navController: NavHostController) {
+    navController.navigate(
+        EditAccountRoute(
+            sum = account.sum,
+            currency = account.currency,
+            id = account.id,
+            name = account.name
+        )
+    )
+}

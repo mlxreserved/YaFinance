@@ -7,17 +7,26 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import com.example.yafinance.ui.composable.listItem.CustomListItem
+import com.example.yafinance.R
+import com.example.yafinance.domain.models.income.Income
+import com.example.yafinance.ui.composable.listItems.customListItem.CustomListItem
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
+import com.example.yafinance.ui.utils.formatWithSpaces
 
 @Composable
-fun IncomeItem(title: String, trailText: String, trailIcon: ImageVector) {
+fun IncomeItem(income: Income) {
+    val formattedAmount = income.amount.formatWithSpaces()
+    val trailText = "$formattedAmount ${income.currency}"
+    val trailIcon = ImageVector.vectorResource(R.drawable.ic_more_vert)
+
     CustomListItem(
+        leadIcon = income.leadIcon,
         title = {
             Text(
                 style = YaFinanceTheme.typography.title,
-                text = title
+                text = income.title
             )
         },
         trailText = trailText,

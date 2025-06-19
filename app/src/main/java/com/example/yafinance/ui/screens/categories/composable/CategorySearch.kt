@@ -2,7 +2,6 @@ package com.example.yafinance.ui.screens.categories.composable
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -15,12 +14,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.example.yafinance.R
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 
 @Composable
-fun CategorySearch(trailIcon: ImageVector) {
+fun CategorySearch() {
+    val trailIcon = ImageVector.vectorResource(R.drawable.ic_search)
+
     var searchState by rememberSaveable { mutableStateOf("") }
 
     TextField(

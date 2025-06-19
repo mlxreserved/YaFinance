@@ -1,7 +1,6 @@
-package com.example.yafinance.ui.utils
+package com.example.yafinance.ui.screens.settings.model
 
 import com.example.yafinance.R
-import com.example.yafinance.ui.screens.settings.model.Setting
 
 object Settings {
     val settings: List<Setting> = listOf(

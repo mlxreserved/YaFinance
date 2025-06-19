@@ -1,4 +1,4 @@
-package com.example.yafinance.ui.composable.listItem
+package com.example.yafinance.ui.composable.listItems.customListItem
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

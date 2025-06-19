@@ -6,6 +6,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import com.example.yafinance.R
+import com.example.yafinance.ui.SnackbarViewModel
 import com.example.yafinance.ui.composable.screens.EmptyScreen
 import com.example.yafinance.ui.composable.screens.ErrorScreen
 import com.example.yafinance.ui.composable.screens.LoadingScreen
@@ -16,12 +17,13 @@ import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 
 @Composable
 fun CategoriesScreen(
+    snackbarViewModel: SnackbarViewModel,
     modifier: Modifier = Modifier,
     categoriesViewModel: CategoriesViewModel = hiltViewModel()
 ) {
     TopAppBarStateProvider.update(TopAppBarState(titleId = R.string.my_categories))
 
-    val categoriesState by categoriesViewModel.categoriesState.collectAsStateWithLifecycle()
+    val categoriesState by categoriesViewModel.screenState.collectAsStateWithLifecycle()
 
     when(val state = categoriesState){
         ScreenState.Empty -> {
@@ -29,6 +31,7 @@ fun CategoriesScreen(
         }
         is ScreenState.Error -> {
             ErrorScreen(screenTitleId = R.string.my_categories, text =state.message)
+            snackbarViewModel.showMessage(state.message)
         }
         ScreenState.Loading -> {
             LoadingScreen(screenTitleId = R.string.my_categories)

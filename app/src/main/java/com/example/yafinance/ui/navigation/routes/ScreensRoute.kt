@@ -1,6 +1,5 @@
 package com.example.yafinance.ui.navigation.routes
 
-import com.example.yafinance.ui.utils.HistoryType
 import kotlinx.serialization.Serializable
 
 sealed interface ScreensRoute {
@@ -33,12 +32,13 @@ sealed interface ScreensRoute {
     data class EditAccountRoute(
         val id: Int,
         val name: String,
-        val amount: String,
+        val sum: String,
         val currency: String
     ) : ScreensRoute
 
     @Serializable
-    data class HistoryRoute(
-        val historyType: HistoryType
-    ) : ScreensRoute
+    object IncomesHistoryRoute : ScreensRoute
+
+    @Serializable
+    object ExpensesHistoryRoute : ScreensRoute
 }

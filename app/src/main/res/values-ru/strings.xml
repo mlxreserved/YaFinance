@@ -32,6 +32,12 @@
     <string name="empty_expenses">Сегодня у вас нет расходов</string>
     <string name="empty_accounts">У вас нет счетов</string>
     <string name="empty_categories">У вас нет статей</string>
-    <string name="create_first_income">Добавить сегодняшний доход</string>
-    <string name="create_first_expense">Добавить сегодняшний расход</string>
+    <string name="create_first_income">Добавить доход</string>
+    <string name="create_first_expense">Добавить расход</string>
+    <string name="clear">Очистить</string>
+    <string name="cancel">Отмена</string>
+    <string name="ok">ОК</string>
+    <string name="empty_expenses_history">В этом периоде у вас нет расходов</string>
+    <string name="empty_incomes_history">В этом периоде у вас нет доходов</string>
+    <string name="error_template">Произошла ошибка</string>
 </resources>

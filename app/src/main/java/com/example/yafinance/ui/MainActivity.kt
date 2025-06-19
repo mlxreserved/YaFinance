@@ -1,4 +1,4 @@
-package com.example.yafinance
+package com.example.yafinance.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -21,4 +21,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-

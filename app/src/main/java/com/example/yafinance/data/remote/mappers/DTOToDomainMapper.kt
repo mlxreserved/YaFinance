@@ -41,4 +41,5 @@ fun TransactionResponseDTO.toIncomeDomain() = Income(
     amount = this.amount.formatAmountWithSpaces(),
     currency = this.account.currency.stringToCurrency(),
     transactionDate = this.transactionDate,
+    leadIcon = this.category.emoji
 )

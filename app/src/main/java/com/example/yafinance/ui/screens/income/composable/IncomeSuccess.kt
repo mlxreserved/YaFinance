@@ -8,10 +8,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
-import com.example.yafinance.R
 import com.example.yafinance.domain.models.income.Income
+import com.example.yafinance.ui.composable.listItems.TotalItem
 import com.example.yafinance.ui.utils.formatWithSpaces
 
 @Composable
@@ -23,16 +21,11 @@ fun IncomeSuccess(incomes: List<Income>, modifier: Modifier = Modifier) {
         val formattedTotalAmount = totalAmount.formatWithSpaces()
         val trailTotalText = "$formattedTotalAmount ${incomes.first().currency}"
 
-        IncomeTotal(trailTotalText)
+        TotalItem(trailTotalText)
 
         LazyColumn {
-
             items(items = incomes, key = { it.id }) { income ->
-                val formattedAmount = income.amount.formatWithSpaces()
-                val trailText = "$formattedAmount ${income.currency}"
-                val trailIcon = ImageVector.vectorResource(R.drawable.ic_more_vert)
-
-                IncomeItem(title = income.title, trailText = trailText, trailIcon = trailIcon)
+                IncomeItem(income = income)
             }
         }
     }

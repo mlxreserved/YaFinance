@@ -1,4 +1,4 @@
-package com.example.yafinance.ui.composable.listItem
+package com.example.yafinance.ui.composable.listItems.customListItem
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -17,12 +17,13 @@ import com.example.yafinance.ui.utils.isEmoji
 @Composable
 fun Lead(
     leadIcon: String? = null,
-    backgroundColor: Color = YaFinanceTheme.colors.secondaryBackground
+    backgroundColor: Color = YaFinanceTheme.colors.secondaryBackground,
+    modifier: Modifier = Modifier
 ) {
     if (leadIcon != null) {
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier
+            modifier = modifier
                 .clip(CircleShape)
                 .size(24.dp)
                 .background(color = backgroundColor)

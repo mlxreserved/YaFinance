@@ -11,15 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 @Composable
-fun EmptyScreen(text: String, underTextAction: @Composable (() -> Unit)? = null) {
+fun EmptyScreen(text: String, onClick: (() -> Unit)? = null, addText: String? = null) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = text, style = YaFinanceTheme.typography.title, modifier = Modifier.padding(bottom = 8.dp))
-        if(underTextAction != null) {
-            underTextAction()
+        if(onClick != null && addText != null) {
+            EmptyScreenAddButton(onClick = onClick, addText = addText)
         }
     }
 }
