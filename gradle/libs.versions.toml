@@ -10,10 +10,15 @@ activityCompose = "1.10.1"
 composeBom = "2024.09.00"
 
 navigation = "2.9.0"
-serialization = "2.1.20"
-serializationJson = "1.8.1"
+serialization = "2.1.10"
+serializationJson = "1.8.0"
 lottie = "6.6.6"
 googleMaterial = "1.11.0"
+hilt = "2.51.1"
+ksp = "2.0.21-1.0.27"
+retrofit = "2.11.0"
+okhttp = "4.11.0"
+hiltNavigationComposeVersion = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -30,14 +35,30 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+
 # Navigation
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation"}
+
 # Serialization
 jetbrains-kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serializationJson"}
+
 # Lottie
 airbnb-lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie"}
+
 # Material
 google-android-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial"}
+
+# Hilt
+google-dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationComposeVersion" }
+google-dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+
+#Retrofit
+squareup-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+squareup-converter-kotlinx-serialization = { group = "com.squareup.retrofit2", name = "converter-kotlinx-serialization", version.ref = "retrofit"}
+
+#OkHttp
+squareup-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 
 
 [plugins]
@@ -48,3 +69,8 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 # Serialization
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization"}
 
+#Ksp
+google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+#Hilt
+google-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }

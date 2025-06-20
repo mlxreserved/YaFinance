@@ -1,13 +1,20 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(libs.plugins.google.hilt)
+    alias(libs.plugins.google.ksp)
 }
 
 android {
     namespace = "com.example.yafinance"
     compileSdk = 35
+
+    val properties = Properties()
+    properties.load(project.rootProject.file("local.properties").reader())
 
     defaultConfig {
         applicationId = "com.example.yafinance"
@@ -17,6 +24,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        resValue("string", "token", properties.getProperty("token"))
     }
 
     buildTypes {
@@ -44,13 +53,27 @@ dependencies {
 
     // Navigation
     implementation(libs.androidx.navigation.compose)
+
     // Serialization
     implementation(libs.jetbrains.kotlinx.serialization.json)
+
     // Lottie
     implementation(libs.airbnb.lottie.compose)
 
     //Material
     implementation(libs.google.android.material)
+
+    //Hilt
+    implementation(libs.google.dagger.hilt.android)
+    ksp(libs.google.dagger.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+
+    //Retrofit
+    implementation(libs.squareup.retrofit)
+    implementation(libs.squareup.converter.kotlinx.serialization)
+
+    //Okhttp
+    implementation(libs.squareup.okhttp)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

@@ -14,7 +14,12 @@ data class YaFinanceColors(
     val tertiaryBackground: Color,
     val tertiaryText: Color,
     val moreColor: Color,
-    val outlineColor: Color
+    val outlineColor: Color,
+    val bottomNavColor: Color,
+    val deleteColor: Color,
+    val white: Color,
+    val clickableText: Color,
+    val errorColor: Color
 )
 
 data class YaFinanceTypography(
@@ -22,7 +27,9 @@ data class YaFinanceTypography(
     val title: TextStyle,
     val subtitle: TextStyle,
     val emoji: TextStyle,
-    val emojiText: TextStyle
+    val emojiText: TextStyle,
+    val textButtonReject: TextStyle,
+    val textButtonConfirm: TextStyle
 )
 
 object YaFinanceTheme {

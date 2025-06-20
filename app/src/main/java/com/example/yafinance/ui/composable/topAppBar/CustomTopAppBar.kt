@@ -16,7 +16,20 @@ import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomTopAppBar() {
+
     CenterAlignedTopAppBar(
+        navigationIcon = {
+            TopAppBarStateProvider.topAppBarState.leadId?.let { leadIcon ->
+                IconButton(
+                    onClick = { TopAppBarStateProvider.topAppBarState.onLeadIconClick?.invoke() }
+                ) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(leadIcon),
+                        contentDescription = null
+                    )
+                }
+            }
+        },
         title = {
             TopAppBarStateProvider.topAppBarState.titleId?.let { title ->
                 Text(
@@ -28,7 +41,7 @@ fun CustomTopAppBar() {
         actions = {
             TopAppBarStateProvider.topAppBarState.trailId?.let { trailIcon ->
                 IconButton(
-                    onClick = {}
+                    onClick = { TopAppBarStateProvider.topAppBarState.onTrailIconClick?.invoke() }
                 ) {
                     Icon(
                         imageVector = ImageVector.vectorResource(trailIcon),
