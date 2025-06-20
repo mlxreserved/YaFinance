@@ -7,6 +7,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.yafinance.R
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.example.yafinance.ui.SnackbarViewModel
 import com.example.yafinance.ui.composable.screens.EmptyScreen
@@ -16,6 +17,7 @@ import com.example.yafinance.ui.screens.income.composable.IncomeSuccess
 import com.example.yafinance.ui.utils.state.ScreenState
 import com.example.yafinance.ui.utils.state.TopAppBarState
 import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
+import com.example.yafinance.ui.utils.toUserMessage
 
 @Composable
 fun IncomesScreen(
@@ -24,6 +26,7 @@ fun IncomesScreen(
     modifier: Modifier = Modifier,
     incomesViewModel: IncomesViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
 
     TopAppBarStateProvider.update(
         TopAppBarState(
@@ -45,8 +48,18 @@ fun IncomesScreen(
         }
 
         is ScreenState.Error -> {
-            ErrorScreen(screenTitleId = R.string.incomes_today, text = state.message)
-            snackbarViewModel.showMessage(state.message)
+            if(state.count > 0){
+                snackbarViewModel.showMessage(state.message.toUserMessage(context))
+            }
+            ErrorScreen(
+                screenTitleId = R.string.incomes_today,
+                text = state.message.toUserMessage(context),
+                onClick = {
+                    incomesViewModel.onRetryClicked()
+                }
+            )
+
+
         }
 
         ScreenState.Loading -> {

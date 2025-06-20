@@ -39,4 +39,11 @@
     <string name="empty_expenses_history">You have no expenses during this period</string>
     <string name="empty_incomes_history">You have no incomes during this period</string>
     <string name="error_template">An error has occurred</string>
+    <string name="success_edit_account">Success edit account</string>
+    <string name="error_internet">No internet connection</string>
+    <string name="error_unknown">An unknown error has occurred</string>
+    <string name="error_unauthorized">Unauthorized access</string>
+    <string name="error_too_many_requests">There are too many requests. Try again later</string>
+    <string name="error_server">Server error. Try again later</string>
+    <string name="error_client">Error. Contact support</string>
 </resources>

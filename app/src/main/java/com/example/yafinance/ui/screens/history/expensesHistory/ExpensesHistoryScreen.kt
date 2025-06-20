@@ -5,6 +5,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.yafinance.R
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import com.example.yafinance.domain.models.expense.Expense
 import com.example.yafinance.ui.SnackbarViewModel
 import com.example.yafinance.ui.composable.screens.ErrorScreen
@@ -14,6 +15,7 @@ import com.example.yafinance.ui.screens.history.expensesHistory.composable.Expen
 import com.example.yafinance.ui.utils.state.ScreenState
 import com.example.yafinance.ui.utils.state.TopAppBarState
 import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
+import com.example.yafinance.ui.utils.toUserMessage
 
 @Composable
 fun ExpensesHistoryScreen(
@@ -21,6 +23,7 @@ fun ExpensesHistoryScreen(
     onLeadIconClick: () -> Unit,
     historyViewModel: ExpensesHistoryViewModel = hiltViewModel<ExpensesHistoryViewModel>()
 ) {
+    val context = LocalContext.current
 
     val historyState by historyViewModel.screenState.collectAsStateWithLifecycle()
     val startDate by historyViewModel.selectedStartDate.collectAsStateWithLifecycle()
@@ -45,11 +48,17 @@ fun ExpensesHistoryScreen(
             )
         }
         is ScreenState.Error -> {
+            if(state.count > 0) {
+                snackbarViewModel.showMessage(state.message.toUserMessage(context))
+            }
+
             ErrorScreen(
                 screenTitleId = R.string.my_history,
-                text = state.message
+                text = state.message.toUserMessage(context),
+                onClick = {
+                    historyViewModel.onRetryClicked()
+                }
             )
-            snackbarViewModel.showMessage(state.message)
         }
         ScreenState.Loading -> {
             LoadingScreen(screenTitleId = R.string.my_history)

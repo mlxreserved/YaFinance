@@ -1,5 +1,8 @@
 package com.example.yafinance.ui
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
@@ -8,6 +11,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -15,21 +19,25 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.yafinance.ui.composable.floatingButton.CustomFloatingButton
 import com.example.yafinance.ui.composable.snackbar.CustomSnackbarHost
 import com.example.yafinance.ui.composable.topAppBar.CustomTopAppBar
+import com.example.yafinance.ui.composable.topAppBar.NetworkStatusBanner
 import com.example.yafinance.ui.navigation.bottomNavBar.BottomNavigationBar
 import com.example.yafinance.ui.navigation.host.FinanceNavHost
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesRoute
+import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 
 @Composable
 fun MainScreen(
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    snackbarViewModel: SnackbarViewModel = viewModel()
+    snackbarViewModel: SnackbarViewModel = viewModel(),
+    networkStatusViewModel: NetworkStatusViewModel = hiltViewModel()
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val snackbarHostState = remember { SnackbarHostState() }
     val currentRoute = navBackStackEntry?.destination?.route
     val snackbarMessage by snackbarViewModel.snackbarMessage.collectAsStateWithLifecycle()
+    val isConnected by networkStatusViewModel.isConnected.collectAsStateWithLifecycle()
 
     LaunchedEffect(snackbarMessage) {
         snackbarMessage?.let {
@@ -48,7 +56,14 @@ fun MainScreen(
             }
         },
         topBar = {
-            CustomTopAppBar()
+            Column {
+                CustomTopAppBar()
+                NetworkStatusBanner(
+                    isConnected = isConnected,
+                    modifier = Modifier.fillMaxWidth()
+                        .background(color = YaFinanceTheme.colors.primaryBackground)
+                )
+            }
         },
         bottomBar = {
             BottomNavigationBar(navController)
@@ -62,6 +77,10 @@ fun MainScreen(
         },
         modifier = modifier
     ) { innerPadding ->
-        FinanceNavHost(snackbarViewModel = snackbarViewModel, navController = navController, paddingValues = innerPadding)
+        FinanceNavHost(
+            snackbarViewModel = snackbarViewModel,
+            navController = navController,
+            paddingValues = innerPadding
+        )
     }
 }

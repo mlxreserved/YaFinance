@@ -6,7 +6,6 @@ import com.example.yafinance.domain.usecase.inter.GetExpensesUseCase
 import com.example.yafinance.domain.utils.Result
 import com.example.yafinance.ui.screens.BaseViewModel
 import com.example.yafinance.ui.utils.state.ScreenState
-import com.example.yafinance.ui.utils.toUserMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -21,7 +20,7 @@ class ExpensesViewModel @Inject constructor(
         getTodayExpenses()
     }
 
-    fun getTodayExpenses() {
+    fun getTodayExpenses(countErrors: Int = 0) {
         viewModelScope.launch {
             updateState(ScreenState.Loading)
 
@@ -29,9 +28,13 @@ class ExpensesViewModel @Inject constructor(
             val currentEndDate = Date()
 
             when(val response = getExpensesUseCase.getExpenses(currentStartDate, currentEndDate)) {
-                is Result.Error -> updateState(ScreenState.Error(response.error.toUserMessage()))
+                is Result.Error -> updateState(ScreenState.Error(response.error, countErrors))
                 is Result.Success<List<Expense>> -> updateStateBasedOnListContent(response.result)
             }
         }
+    }
+
+    fun onRetryClicked() {
+        getTodayExpenses(countErrors = 1)
     }
 }

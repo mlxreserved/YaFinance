@@ -5,9 +5,11 @@ import com.example.yafinance.R
 import com.example.yafinance.data.remote.api.FinanceApi
 import com.example.yafinance.data.remote.repositories.AccountRepositoryImpl
 import com.example.yafinance.data.remote.repositories.CategoryRepositoryImpl
+import com.example.yafinance.data.remote.repositories.NetworkMonitorImpl
 import com.example.yafinance.data.remote.repositories.TransactionRepositoryImpl
 import com.example.yafinance.domain.repositories.AccountRepository
 import com.example.yafinance.domain.repositories.CategoryRepository
+import com.example.yafinance.domain.repositories.NetworkMonitor
 import com.example.yafinance.domain.repositories.TransactionRepository
 import com.example.yafinance.domain.usecase.inter.GetAccountsUseCase
 import dagger.Module
@@ -95,5 +97,14 @@ object NetworkModule {
         TransactionRepositoryImpl(
             financeApi = financeApi,
             getAccountsUseCase = getAccountsUseCase,
+        )
+
+    @Singleton
+    @Provides
+    fun provideNetworkMonitor(
+        @ApplicationContext context: Context
+    ): NetworkMonitor =
+        NetworkMonitorImpl(
+            context = context
         )
 }

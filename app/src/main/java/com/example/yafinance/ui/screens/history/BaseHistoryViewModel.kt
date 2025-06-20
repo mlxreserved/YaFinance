@@ -10,14 +10,13 @@ import java.util.Date
 
 abstract class BaseHistoryViewModel<T> : BaseViewModel<T>() {
 
-    protected abstract fun getHistory(startDate: Date? = null, endDate: Date? = null)
-
-    private val _selectedStartDate = MutableStateFlow(
-        Calendar.getInstance().apply {
-            set(Calendar.DAY_OF_MONTH, 1)
-            set(Calendar.HOUR_OF_DAY, 23)
-        }.time
+    protected abstract fun getHistory(
+        startDate: Date? = null,
+        endDate: Date? = null,
+        countErrors: Int = 0
     )
+
+    private val _selectedStartDate = MutableStateFlow(getCalendarDate())
     val selectedStartDate: StateFlow<Date> = _selectedStartDate.asStateFlow()
 
     private val _selectedEndDate = MutableStateFlow(Date())
@@ -33,10 +32,9 @@ abstract class BaseHistoryViewModel<T> : BaseViewModel<T>() {
     }
 
     fun updateEndDate(newEndDateMillis: Long?) {
-        if(newEndDateMillis != null) {
+        if (newEndDateMillis != null) {
             _selectedEndDate.update { Date(newEndDateMillis) }
-        }
-        else {
+        } else {
             _selectedEndDate.update { Date() }
         }
         getHistory(startDate = selectedStartDate.value, endDate = _selectedEndDate.value)

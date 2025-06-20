@@ -7,6 +7,7 @@ import com.example.yafinance.ui.screens.accounts.composable.success.AccountSucce
 import com.example.yafinance.ui.utils.state.ScreenState
 import com.example.yafinance.ui.utils.state.TopAppBarState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.yafinance.domain.models.account.Account
@@ -15,6 +16,7 @@ import com.example.yafinance.ui.composable.screens.EmptyScreen
 import com.example.yafinance.ui.composable.screens.ErrorScreen
 import com.example.yafinance.ui.composable.screens.LoadingScreen
 import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
+import com.example.yafinance.ui.utils.toUserMessage
 
 @Composable
 fun AccountsScreen(
@@ -23,6 +25,8 @@ fun AccountsScreen(
     onBalanceClick: (Account) -> Unit,
     accountsViewModel: AccountsViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+
     TopAppBarStateProvider.update(
         TopAppBarState(
             titleId = R.string.my_account,
@@ -37,8 +41,16 @@ fun AccountsScreen(
         }
 
         is ScreenState.Error -> {
-            ErrorScreen(screenTitleId = R.string.my_account, text = state.message)
-            snackbarViewModel.showMessage(state.message)
+            if(state.count > 0) {
+                snackbarViewModel.showMessage(state.message.toUserMessage(context))
+            }
+            ErrorScreen(
+                screenTitleId = R.string.my_account,
+                text = state.message.toUserMessage(context),
+                onClick = {
+                    accountsViewModel.onRetryClicked()
+                }
+            )
         }
 
         ScreenState.Loading -> {

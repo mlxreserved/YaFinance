@@ -6,7 +6,6 @@ import com.example.yafinance.domain.usecase.inter.GetIncomesUseCase
 import com.example.yafinance.domain.utils.Result
 import com.example.yafinance.ui.screens.history.BaseHistoryViewModel
 import com.example.yafinance.ui.utils.state.ScreenState
-import com.example.yafinance.ui.utils.toUserMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -21,14 +20,18 @@ class IncomesHistoryViewModel @Inject constructor(
         getHistory()
     }
 
-    override fun getHistory(startDate: Date?, endDate: Date?) {
+    override fun getHistory(startDate: Date?, endDate: Date?, countErrors: Int) {
         viewModelScope.launch {
             updateState(ScreenState.Loading)
             when (val response = getIncomesUseCase.getIncomes(startDate, endDate)) {
-                is Result.Error -> updateState(ScreenState.Error(response.error.toUserMessage()))
+                is Result.Error -> updateState(ScreenState.Error(response.error, countErrors))
                 is Result.Success<List<Income>> -> updateStateBasedOnListContent(response.result)
             }
         }
+    }
+
+    fun onRetryClicked() {
+        getHistory(countErrors = 1)
     }
 
 }

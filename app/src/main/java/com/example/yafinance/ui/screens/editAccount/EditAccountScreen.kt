@@ -17,6 +17,7 @@ import com.example.yafinance.ui.screens.editAccount.composable.EditAccountItem
 import com.example.yafinance.ui.utils.state.ScreenState
 import com.example.yafinance.ui.utils.state.TopAppBarState
 import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
+import com.example.yafinance.ui.utils.toUserMessage
 
 @Composable
 fun EditAccountScreen(
@@ -30,6 +31,7 @@ fun EditAccountScreen(
     editViewModel: EditAccountViewModel = hiltViewModel()
 ) {
     var currentSum by rememberSaveable { mutableStateOf(sum) }
+    val context = LocalContext.current
 
     TopAppBarStateProvider.update(
         TopAppBarState(
@@ -51,13 +53,14 @@ fun EditAccountScreen(
             EditAccountItem(currency =  currency, currentSum = currentSum, onTextChange = { input -> currentSum = input })
         }
         is ScreenState.Error -> {
-            snackbarViewModel.showMessage(state.message)
+            EditAccountItem(currency =  currency, currentSum = currentSum, onTextChange = { input -> currentSum = input })
+            snackbarViewModel.showMessage(state.message.toUserMessage(context))
         }
         ScreenState.Loading -> {
             LoadingScreen(screenTitleId = R.string.my_account)
         }
         is ScreenState.Success<Account> -> {
-            snackbarViewModel.showMessage(stringResource(R.string.ok))
+            snackbarViewModel.showMessage(stringResource(R.string.success_edit_account))
             onSuccess()
         }
     }

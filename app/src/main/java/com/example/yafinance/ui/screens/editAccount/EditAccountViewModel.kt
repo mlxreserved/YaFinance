@@ -8,7 +8,6 @@ import com.example.yafinance.ui.screens.BaseViewModel
 import com.example.yafinance.ui.utils.currencyToString
 import com.example.yafinance.ui.utils.formatWithoutSpaces
 import com.example.yafinance.ui.utils.state.ScreenState
-import com.example.yafinance.ui.utils.toUserMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,6 +24,7 @@ class EditAccountViewModel @Inject constructor(private val changeAccountInfoUseC
             ScreenState.Empty
         )
     override val screenState: StateFlow<ScreenState<Account>> = _screenState.asStateFlow()
+
 
     private fun changeAccountInfo(id: Int, name: String, sum: String, currency: String) {
         viewModelScope.launch {
@@ -43,7 +43,7 @@ class EditAccountViewModel @Inject constructor(private val changeAccountInfoUseC
                     accountRequest = accountRequest
                 )
             ) {
-                is Result.Error -> updateState(ScreenState.Error(response.error.toUserMessage()))
+                is Result.Error -> updateState(ScreenState.Error(response.error))
                 is Result.Success<Account> -> updateState(ScreenState.Success(response.result))
             }
         }

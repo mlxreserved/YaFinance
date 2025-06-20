@@ -40,4 +40,12 @@
     <string name="empty_expenses_history">В этом периоде у вас нет расходов</string>
     <string name="empty_incomes_history">В этом периоде у вас нет доходов</string>
     <string name="error_template">Произошла ошибка</string>
+    <string name="success_edit_account">Счет успешно изменен</string>
+
+    <string name="error_internet">Нет подключения к интернету</string>
+    <string name="error_unknown">Произошла неизвестная ошибка</string>
+    <string name="error_unauthorized">Неавторизованный доступ</string>
+    <string name="error_too_many_requests">Слишком много запросов. Попробуйте позже</string>
+    <string name="error_server">Ошибка сервера. Попробуйте позже</string>
+    <string name="error_client">Ошибка. Обратитесь в поддержку</string>
 </resources>

@@ -18,7 +18,7 @@ import com.example.yafinance.ui.utils.state.TopAppBarState
 import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 
 @Composable
-fun ErrorScreen(screenTitleId: Int, text: String) {
+fun ErrorScreen(screenTitleId: Int, text: String, onClick: () -> Unit) {
 
     TopAppBarStateProvider.update(TopAppBarState(titleId = screenTitleId))
 
@@ -33,7 +33,7 @@ fun ErrorScreen(screenTitleId: Int, text: String) {
             modifier = Modifier.padding(bottom = 8.dp)
         )
         TextButton(
-            onClick = {},
+            onClick = { onClick() },
             colors = ButtonDefaults.buttonColors(
                 containerColor = YaFinanceTheme.colors.primaryBackground,
                 contentColor = YaFinanceTheme.colors.primaryText
