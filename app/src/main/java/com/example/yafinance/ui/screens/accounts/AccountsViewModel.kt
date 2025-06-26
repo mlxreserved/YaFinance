@@ -6,11 +6,9 @@ import com.example.yafinance.domain.usecase.inter.GetAccountUseCase
 import com.example.yafinance.domain.utils.Result
 import com.example.yafinance.ui.screens.BaseViewModel
 import com.example.yafinance.ui.utils.state.ScreenState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
 class AccountsViewModel @Inject constructor(private val getAccountUseCase: GetAccountUseCase) :
     BaseViewModel<Account>() {
 

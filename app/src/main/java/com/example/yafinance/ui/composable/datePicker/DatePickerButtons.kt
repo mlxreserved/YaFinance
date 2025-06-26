@@ -24,7 +24,6 @@ fun DatePickerButtons(
             .padding(start = 12.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        // 1. Clear button
         PickerButton(
             buttonType = ButtonType.CLEAR,
             onDismiss = onDismiss,
@@ -32,10 +31,8 @@ fun DatePickerButtons(
         )
 
         Row {
-            // 2. Close button
             PickerButton(buttonType = ButtonType.CANCEL, onDismiss = onDismiss)
 
-            // Ok button
             PickerButton(
                 buttonType = ButtonType.OK,
                 onDismiss = onDismiss,

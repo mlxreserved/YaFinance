@@ -8,7 +8,6 @@ import com.example.yafinance.domain.utils.Result
 import com.example.yafinance.ui.utils.currencyToString
 import com.example.yafinance.ui.utils.formatWithoutSpaces
 import com.example.yafinance.ui.utils.state.ScreenState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,7 +15,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
 class EditAccountViewModel @Inject constructor(private val changeAccountInfoUseCase: ChangeAccountInfoUseCase) :
     ViewModel() {
 

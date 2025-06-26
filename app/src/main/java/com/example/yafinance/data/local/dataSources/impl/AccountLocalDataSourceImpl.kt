@@ -7,10 +7,13 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.yafinance.data.local.dataSources.inter.AccountLocalDataSource
+import com.example.yafinance.di.module.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class AccountLocalDataSourceImpl(
+class AccountLocalDataSourceImpl @Inject constructor(
+    @ApplicationContext
     private val context: Context
 ) : AccountLocalDataSource {
     override val getAccountId: Flow<Int?>

@@ -11,7 +11,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -28,11 +28,13 @@ import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 
 @Composable
 fun MainScreen(
+    viewModelFactory: ViewModelProvider.Factory,
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    snackbarViewModel: SnackbarViewModel = viewModel(),
-    networkStatusViewModel: NetworkStatusViewModel = hiltViewModel()
 ) {
+    val snackbarViewModel: SnackbarViewModel = viewModel(factory = viewModelFactory)
+    val networkStatusViewModel: NetworkStatusViewModel = viewModel(factory = viewModelFactory)
+
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val snackbarHostState = remember { SnackbarHostState() }
     val currentRoute = navBackStackEntry?.destination?.route
@@ -80,6 +82,7 @@ fun MainScreen(
         FinanceNavHost(
             snackbarViewModel = snackbarViewModel,
             navController = navController,
+            viewModelFactory = viewModelFactory,
             paddingValues = innerPadding
         )
     }

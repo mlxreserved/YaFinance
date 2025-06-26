@@ -2,10 +2,11 @@ package com.example.yafinance.ui.screens.categories
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.yafinance.R
 import com.example.yafinance.ui.SnackbarViewModel
 import com.example.yafinance.ui.composable.screens.EmptyScreen
@@ -19,9 +20,10 @@ import com.example.yafinance.ui.utils.toUserMessage
 
 @Composable
 fun CategoriesScreen(
+    viewModelFactory: ViewModelProvider.Factory,
     snackbarViewModel: SnackbarViewModel,
     modifier: Modifier = Modifier,
-    categoriesViewModel: CategoriesViewModel = hiltViewModel()
+    categoriesViewModel: CategoriesViewModel = viewModel(factory = viewModelFactory)
 ) {
     val context = LocalContext.current
     TopAppBarStateProvider.update(TopAppBarState(titleId = R.string.my_categories))

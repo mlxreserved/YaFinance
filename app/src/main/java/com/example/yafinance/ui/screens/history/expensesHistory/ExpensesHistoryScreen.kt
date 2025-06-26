@@ -1,11 +1,12 @@
 package com.example.yafinance.ui.screens.history.expensesHistory
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.yafinance.R
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.yafinance.domain.models.expense.Expense
 import com.example.yafinance.ui.SnackbarViewModel
 import com.example.yafinance.ui.composable.screens.ErrorScreen
@@ -19,9 +20,10 @@ import com.example.yafinance.ui.utils.toUserMessage
 
 @Composable
 fun ExpensesHistoryScreen(
+    viewModelFactory: ViewModelProvider.Factory,
     snackbarViewModel: SnackbarViewModel,
     onLeadIconClick: () -> Unit,
-    historyViewModel: ExpensesHistoryViewModel = hiltViewModel<ExpensesHistoryViewModel>()
+    historyViewModel: ExpensesHistoryViewModel = viewModel(factory = viewModelFactory)
 ) {
     val context = LocalContext.current
 

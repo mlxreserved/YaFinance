@@ -7,8 +7,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.yafinance.R
 import com.example.yafinance.domain.models.account.Account
 import com.example.yafinance.ui.SnackbarViewModel
@@ -21,6 +22,7 @@ import com.example.yafinance.ui.utils.toUserMessage
 
 @Composable
 fun EditAccountScreen(
+    viewModelFactory: ViewModelProvider.Factory,
     snackbarViewModel: SnackbarViewModel,
     onLeadIconClick: () -> Unit,
     onSuccess: () -> Unit,
@@ -28,7 +30,7 @@ fun EditAccountScreen(
     currency: String,
     id: Int,
     name: String,
-    editViewModel: EditAccountViewModel = hiltViewModel()
+    editViewModel: EditAccountViewModel = viewModel(factory = viewModelFactory)
 ) {
     var currentSum by rememberSaveable { mutableStateOf(sum) }
     val context = LocalContext.current

@@ -2,12 +2,13 @@ package com.example.yafinance.ui.screens.expense
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.yafinance.R
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.yafinance.ui.SnackbarViewModel
 import com.example.yafinance.ui.composable.screens.EmptyScreen
 import com.example.yafinance.ui.composable.screens.ErrorScreen
@@ -22,9 +23,12 @@ import com.example.yafinance.ui.utils.toUserMessage
 fun ExpensesScreen(
     onTrailIconClick: () -> Unit,
     modifier: Modifier = Modifier,
-    expensesViewModel: ExpensesViewModel = hiltViewModel(),
+    viewModelFactory: ViewModelProvider.Factory,
+    expensesViewModel: ExpensesViewModel = viewModel(factory = viewModelFactory),
     snackbarViewModel: SnackbarViewModel
 ) {
+
+
     val context = LocalContext.current
 
     TopAppBarStateProvider.update(

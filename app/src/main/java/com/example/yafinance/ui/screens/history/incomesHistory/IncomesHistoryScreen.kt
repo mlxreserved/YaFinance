@@ -3,8 +3,9 @@ package com.example.yafinance.ui.screens.history.incomesHistory
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.yafinance.R
 import com.example.yafinance.domain.models.income.Income
 import com.example.yafinance.ui.SnackbarViewModel
@@ -19,9 +20,10 @@ import com.example.yafinance.ui.utils.toUserMessage
 
 @Composable
 fun IncomesHistoryScreen(
+    viewModelFactory: ViewModelProvider.Factory,
     snackbarViewModel: SnackbarViewModel,
     onLeadIconClick: () -> Unit,
-    historyViewModel: IncomesHistoryViewModel = hiltViewModel()
+    historyViewModel: IncomesHistoryViewModel = viewModel(factory = viewModelFactory)
 ) {
     val context = LocalContext.current
 

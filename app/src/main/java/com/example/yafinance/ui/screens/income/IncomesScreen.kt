@@ -3,12 +3,13 @@ package com.example.yafinance.ui.screens.income
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.yafinance.R
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.yafinance.ui.SnackbarViewModel
 import com.example.yafinance.ui.composable.screens.EmptyScreen
 import com.example.yafinance.ui.composable.screens.ErrorScreen
@@ -22,9 +23,10 @@ import com.example.yafinance.ui.utils.toUserMessage
 @Composable
 fun IncomesScreen(
     snackbarViewModel: SnackbarViewModel,
+    viewModelFactory: ViewModelProvider.Factory,
     onTrailIconClick: () -> Unit,
     modifier: Modifier = Modifier,
-    incomesViewModel: IncomesViewModel = hiltViewModel()
+    incomesViewModel: IncomesViewModel = viewModel(factory = viewModelFactory)
 ) {
     val context = LocalContext.current
 

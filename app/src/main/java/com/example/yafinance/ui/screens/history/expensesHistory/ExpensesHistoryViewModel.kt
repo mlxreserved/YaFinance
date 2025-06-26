@@ -6,12 +6,10 @@ import com.example.yafinance.domain.usecase.inter.GetExpensesUseCase
 import com.example.yafinance.domain.utils.Result
 import com.example.yafinance.ui.screens.history.BaseHistoryViewModel
 import com.example.yafinance.ui.utils.state.ScreenState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.Date
 import javax.inject.Inject
 
-@HiltViewModel
 class ExpensesHistoryViewModel @Inject constructor(
     private val getExpensesUseCase: GetExpensesUseCase
 ) : BaseHistoryViewModel<List<Expense>>() {

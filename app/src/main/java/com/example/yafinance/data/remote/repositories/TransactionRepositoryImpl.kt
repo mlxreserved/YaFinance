@@ -68,7 +68,7 @@ class TransactionRepositoryImpl @Inject constructor(
                 )
                     .filter { it.category.isIncome == true }
                     .sortedByDescending { it.transactionDate }
-                    .map { expanse -> expanse.toIncomeDomain() }
+                    .map { income -> income.toIncomeDomain() }
             }
         }
     }
