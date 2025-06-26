@@ -20,7 +20,7 @@ class IncomesViewModel @Inject constructor(
         getTodayIncomes()
     }
 
-    private fun getTodayIncomes(countErrors: Int = 0) {
+    private fun getTodayIncomes(isRetried: Boolean = false) {
         viewModelScope.launch {
             updateState(ScreenState.Loading)
 
@@ -28,14 +28,14 @@ class IncomesViewModel @Inject constructor(
             val currentEndDate = Date()
 
             when(val response = getIncomesUseCase.getIncomes(currentStartDate, currentEndDate)){
-                is Result.Error -> updateState(ScreenState.Error(response.error, countErrors))
+                is Result.Error -> updateState(ScreenState.Error(response.error, isRetried))
                 is Result.Success<List<Income>> -> updateStateBasedOnListContent(response.result)
             }
         }
     }
 
     fun onRetryClicked() {
-        getTodayIncomes(countErrors = 1)
+        getTodayIncomes(isRetried = true)
     }
 
 }

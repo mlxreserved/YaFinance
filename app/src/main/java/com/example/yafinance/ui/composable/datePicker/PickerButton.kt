@@ -12,11 +12,16 @@ import com.example.yafinance.ui.utils.types.ButtonType
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PickerButton(buttonType: ButtonType, onDismiss: () -> Unit, onDateSelected: ((Long?) -> Unit)? = null, datePickerState: DatePickerState? = null) {
+fun PickerButton(
+    buttonType: ButtonType,
+    onDismiss: () -> Unit,
+    onDateSelected: ((Long?) -> Unit)? = null,
+    datePickerState: DatePickerState? = null
+) {
     TextButton(
         onClick = {
-            if(onDateSelected != null ) {
-                when(buttonType) {
+            if (onDateSelected != null) {
+                when (buttonType) {
                     ButtonType.CLEAR -> onDateSelected(null)
                     ButtonType.OK -> onDateSelected(datePickerState?.selectedDateMillis)
                     ButtonType.CANCEL -> {}
@@ -25,10 +30,21 @@ fun PickerButton(buttonType: ButtonType, onDismiss: () -> Unit, onDateSelected: 
             onDismiss()
         },
     ) {
-        when(buttonType){
-            ButtonType.CLEAR -> Text(text = stringResource(R.string.clear), style = YaFinanceTheme.typography.textButtonReject)
-            ButtonType.OK -> Text(text = stringResource(R.string.ok), style = YaFinanceTheme.typography.textButtonConfirm)
-            ButtonType.CANCEL -> Text(text = stringResource(R.string.cancel), style = YaFinanceTheme.typography.textButtonReject)
+        when (buttonType) {
+            ButtonType.CLEAR -> Text(
+                text = stringResource(R.string.clear),
+                style = YaFinanceTheme.typography.textButtonReject
+            )
+
+            ButtonType.OK -> Text(
+                text = stringResource(R.string.ok),
+                style = YaFinanceTheme.typography.textButtonConfirm
+            )
+
+            ButtonType.CANCEL -> Text(
+                text = stringResource(R.string.cancel),
+                style = YaFinanceTheme.typography.textButtonReject
+            )
         }
     }
 }

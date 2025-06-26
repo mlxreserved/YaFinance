@@ -7,20 +7,19 @@ import com.example.yafinance.data.remote.utils.DateFormatter.dateToString
 import com.example.yafinance.domain.models.expense.Expense
 import com.example.yafinance.domain.models.income.Income
 import com.example.yafinance.domain.repositories.TransactionRepository
-import com.example.yafinance.domain.usecase.inter.GetAccountsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.Calendar
 import com.example.yafinance.domain.utils.Result
 import com.example.yafinance.data.remote.utils.safeCallWithRetry
-import com.example.yafinance.domain.models.account.Account
+import com.example.yafinance.domain.usecase.inter.GetAccountIdUseCase
 import java.net.UnknownHostException
 import java.util.Date
 import javax.inject.Inject
 
 class TransactionRepositoryImpl @Inject constructor(
     private val financeApi: FinanceApi,
-    private val getAccountsUseCase: GetAccountsUseCase
+    private val getAccountIdUseCase: GetAccountIdUseCase
 ) :
     TransactionRepository {
     private val emptyStartDate = Calendar.getInstance().apply {
@@ -45,6 +44,7 @@ class TransactionRepositoryImpl @Inject constructor(
                     endDate = remoteEndDate
                 )
                     .filter { it.category.isIncome == false }
+                    .sortedByDescending { it.transactionDate }
                     .map { expanse -> expanse.toExpenseDomain() }
             }
         }
@@ -67,16 +67,16 @@ class TransactionRepositoryImpl @Inject constructor(
                     endDate = remoteEndDate
                 )
                     .filter { it.category.isIncome == true }
-                    .sortedBy { it.transactionDate }
+                    .sortedByDescending { it.transactionDate }
                     .map { expanse -> expanse.toIncomeDomain() }
             }
         }
     }
 
     suspend fun getAccountId(): Int = withContext(Dispatchers.IO) {
-        when(val accounts = getAccountsUseCase.getAccounts()) {
+        when(val accountId = getAccountIdUseCase.getAccountId()) {
             is Result.Error -> throw UnknownHostException("Не удалось получить accountId")
-            is Result.Success<List<Account>> -> accounts.result.first().id
+            is Result.Success<Int> -> accountId.result
         }
     }
 }

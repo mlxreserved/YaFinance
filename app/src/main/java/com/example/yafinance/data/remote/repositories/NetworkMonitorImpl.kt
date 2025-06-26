@@ -28,7 +28,7 @@ class NetworkMonitorImpl @Inject constructor(
     override val isConnected: StateFlow<Boolean> = _isConnected.asStateFlow()
 
     private val connectivityManager: ConnectivityManager =
-        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        this.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     private val callback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
@@ -38,7 +38,7 @@ class NetworkMonitorImpl @Inject constructor(
 
         override fun onLost(network: Network) {
             lostJob = scope.launch {
-                delay(1000)
+                delay(DELAY_BEFORE_CHECK)
                 val isStillConnected = getCurrentConnectivity()
                 if (!isStillConnected) {
                     _isConnected.update { false }
@@ -79,6 +79,10 @@ class NetworkMonitorImpl @Inject constructor(
         val network = connectivityManager.activeNetwork ?: return false
         val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
         return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
+
+    companion object {
+        private const val DELAY_BEFORE_CHECK = 1000L
     }
 
 }

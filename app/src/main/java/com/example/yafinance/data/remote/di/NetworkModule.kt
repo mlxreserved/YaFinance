@@ -3,15 +3,6 @@ package com.example.yafinance.data.remote.di
 import android.content.Context
 import com.example.yafinance.R
 import com.example.yafinance.data.remote.api.FinanceApi
-import com.example.yafinance.data.remote.repositories.AccountRepositoryImpl
-import com.example.yafinance.data.remote.repositories.CategoryRepositoryImpl
-import com.example.yafinance.data.remote.repositories.NetworkMonitorImpl
-import com.example.yafinance.data.remote.repositories.TransactionRepositoryImpl
-import com.example.yafinance.domain.repositories.AccountRepository
-import com.example.yafinance.domain.repositories.CategoryRepository
-import com.example.yafinance.domain.repositories.NetworkMonitor
-import com.example.yafinance.domain.repositories.TransactionRepository
-import com.example.yafinance.domain.usecase.inter.GetAccountsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -70,41 +61,4 @@ object NetworkModule {
     fun provideFinanceApi(retrofit: Retrofit): FinanceApi =
         retrofit.create(FinanceApi::class.java)
 
-    @Singleton
-    @Provides
-    fun provideAccountRepository(
-        financeApi: FinanceApi
-    ): AccountRepository =
-        AccountRepositoryImpl(
-            financeApi = financeApi
-        )
-
-    @Singleton
-    @Provides
-    fun provideCategoryRepository(
-        financeApi: FinanceApi
-    ): CategoryRepository =
-        CategoryRepositoryImpl(
-            financeApi = financeApi
-        )
-
-    @Singleton
-    @Provides
-    fun provideTransactionRepository(
-        financeApi: FinanceApi,
-        getAccountsUseCase: GetAccountsUseCase
-    ): TransactionRepository =
-        TransactionRepositoryImpl(
-            financeApi = financeApi,
-            getAccountsUseCase = getAccountsUseCase,
-        )
-
-    @Singleton
-    @Provides
-    fun provideNetworkMonitor(
-        @ApplicationContext context: Context
-    ): NetworkMonitor =
-        NetworkMonitorImpl(
-            context = context
-        )
 }

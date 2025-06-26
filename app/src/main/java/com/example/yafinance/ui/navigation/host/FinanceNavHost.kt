@@ -30,7 +30,7 @@ import com.example.yafinance.ui.screens.history.expensesHistory.ExpensesHistoryS
 import com.example.yafinance.ui.screens.history.incomesHistory.IncomesHistoryScreen
 import com.example.yafinance.ui.screens.income.IncomesScreen
 import com.example.yafinance.ui.screens.settings.SettingsScreen
-import com.example.yafinance.ui.screens.settings.model.Settings.settings
+import com.example.yafinance.ui.screens.settings.model.settings
 
 @Composable
 fun FinanceNavHost(

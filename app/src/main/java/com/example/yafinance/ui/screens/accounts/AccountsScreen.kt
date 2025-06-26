@@ -41,7 +41,7 @@ fun AccountsScreen(
         }
 
         is ScreenState.Error -> {
-            if(state.count > 0) {
+            if(state.isRetried) {
                 snackbarViewModel.showMessage(state.message.toUserMessage(context))
             }
             ErrorScreen(
@@ -58,9 +58,9 @@ fun AccountsScreen(
         }
 
         is ScreenState.Success -> {
-            val account = state.result.first()
+            val account = state.result
             AccountSuccess(
-                accounts = state.result, onTrailIconClick = { onTrailIconClick(account) },
+                account = account, onTrailIconClick = { onTrailIconClick(account) },
                 onBalanceClick = { onBalanceClick(account) }
             )
         }

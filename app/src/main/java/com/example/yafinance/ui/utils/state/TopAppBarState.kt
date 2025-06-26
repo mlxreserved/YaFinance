@@ -12,6 +12,9 @@ data class TopAppBarState(
     val onLeadIconClick: (() -> Unit)? = null
 )
 
+/**
+ *
+ * **/
 object TopAppBarStateProvider {
     var topAppBarState: TopAppBarState by mutableStateOf(TopAppBarState())
         private set

@@ -20,19 +20,19 @@ class ExpensesHistoryViewModel @Inject constructor(
         getHistory()
     }
 
-    override fun getHistory(startDate: Date?, endDate: Date?, countErrors: Int) {
+    override fun getHistory(startDate: Date?, endDate: Date?, isRetried: Boolean) {
         viewModelScope.launch {
             updateState(ScreenState.Loading)
 
             when (val response = getExpensesUseCase.getExpenses(startDate, endDate)) {
-                is Result.Error -> updateState(ScreenState.Error(response.error, countErrors))
+                is Result.Error -> updateState(ScreenState.Error(response.error, isRetried))
                 is Result.Success<List<Expense>> -> updateStateBasedOnListContent(response.result)
             }
         }
     }
 
     fun onRetryClicked() {
-        getHistory(countErrors = 1)
+        getHistory(isRetried = true)
     }
 
 }

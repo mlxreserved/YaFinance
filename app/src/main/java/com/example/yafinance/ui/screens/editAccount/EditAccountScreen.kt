@@ -39,26 +39,40 @@ fun EditAccountScreen(
             trailId = R.drawable.ic_save,
             leadId = R.drawable.ic_cross,
             onTrailIconClick = {
-                editViewModel.onApplyEditAccountInfo(id = id, name = name, sum = currentSum, currency = currency)
+                editViewModel.onApplyEditAccountInfo(
+                    id = id,
+                    name = name,
+                    sum = currentSum,
+                    currency = currency
+                )
             },
             onLeadIconClick = onLeadIconClick
         )
     )
 
-    val editAccountState by editViewModel.screenState.collectAsStateWithLifecycle()
+    val editAccountState by editViewModel.editAccountState.collectAsStateWithLifecycle()
 
 
-    when(val state = editAccountState){
+    when (val state = editAccountState) {
         ScreenState.Empty -> {
-            EditAccountItem(currency =  currency, currentSum = currentSum, onTextChange = { input -> currentSum = input })
+            EditAccountItem(
+                currency = currency,
+                currentSum = currentSum,
+                onTextChange = { input -> currentSum = input })
         }
+
         is ScreenState.Error -> {
-            EditAccountItem(currency =  currency, currentSum = currentSum, onTextChange = { input -> currentSum = input })
+            EditAccountItem(
+                currency = currency,
+                currentSum = currentSum,
+                onTextChange = { input -> currentSum = input })
             snackbarViewModel.showMessage(state.message.toUserMessage(context))
         }
+
         ScreenState.Loading -> {
             LoadingScreen(screenTitleId = R.string.my_account)
         }
+
         is ScreenState.Success<Account> -> {
             snackbarViewModel.showMessage(stringResource(R.string.success_edit_account))
             onSuccess()

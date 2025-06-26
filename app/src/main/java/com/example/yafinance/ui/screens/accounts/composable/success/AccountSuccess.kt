@@ -1,8 +1,6 @@
 package com.example.yafinance.ui.screens.accounts.composable.success
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -15,7 +13,7 @@ import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 
 @Composable
 fun AccountSuccess(
-    accounts: List<Account>,
+    account: Account,
     onTrailIconClick: () -> Unit,
     onBalanceClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -28,17 +26,13 @@ fun AccountSuccess(
         )
     )
 
-    LazyColumn(modifier = modifier) {
-        items(items = accounts, key = { it.id }) { account ->
-            val balanceFormattedAmount = account.sum.formatWithSpaces()
-            val trailBalanceText = "$balanceFormattedAmount ${account.currency}"
-            val trailIcon = ImageVector.vectorResource(R.drawable.ic_more_vert)
+    val balanceFormattedAmount = account.sum.formatWithSpaces()
+    val trailBalanceText = "$balanceFormattedAmount ${account.currency}"
+    val trailIcon = ImageVector.vectorResource(R.drawable.ic_more_vert)
 
-            Column(modifier = modifier) {
-                Balance(trailText = trailBalanceText, trailIcon = trailIcon, onBalanceClick = onBalanceClick)
+    Column(modifier = modifier) {
+        Balance(trailText = trailBalanceText, trailIcon = trailIcon, onBalanceClick = onBalanceClick)
 
-                Currency(currency = account.currency, trailIcon = trailIcon)
-            }
-        }
+        Currency(currency = account.currency, trailIcon = trailIcon)
     }
 }

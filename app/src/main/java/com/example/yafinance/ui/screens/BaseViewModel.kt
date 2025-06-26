@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.update
 
 abstract class BaseViewModel<T> : ViewModel() {
 
-    protected open val _screenState: MutableStateFlow<ScreenState<T>> =
+    private val _screenState: MutableStateFlow<ScreenState<T>> =
         MutableStateFlow(ScreenState.Loading)
-    open val screenState: StateFlow<ScreenState<T>> = _screenState.asStateFlow()
+    val screenState: StateFlow<ScreenState<T>> = _screenState.asStateFlow()
 
 
     protected fun updateState(state: ScreenState<T>) {

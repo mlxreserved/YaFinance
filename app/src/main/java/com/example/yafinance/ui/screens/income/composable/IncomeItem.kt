@@ -29,6 +29,7 @@ fun IncomeItem(income: Income) {
                 text = income.title
             )
         },
+        subtitle = income.subtitle,
         trailText = trailText,
         trailItem = {
             Icon(

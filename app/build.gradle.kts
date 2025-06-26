@@ -1,3 +1,4 @@
+import io.gitlab.arturbosch.detekt.Detekt
 import java.util.Properties
 
 plugins {
@@ -7,6 +8,21 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.google.hilt)
     alias(libs.plugins.google.ksp)
+    alias(libs.plugins.arturbosch.detekt)
+}
+
+detekt {
+    buildUponDefaultConfig = true
+    config.setFrom(file("$rootDir/app/detekt.yml"))
+    tasks.withType<Detekt>().configureEach {
+        reports {
+            html.required.set(true)  // build/reports/detekt/detekt.html
+            xml.required.set(false)
+            txt.required.set(false)
+            sarif.required.set(false)
+        }
+        ignoreFailures = true
+    }
 }
 
 android {
@@ -74,6 +90,9 @@ dependencies {
 
     //Okhttp
     implementation(libs.squareup.okhttp)
+
+    //DataStore
+    implementation(libs.androidx.datastore.preferences)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

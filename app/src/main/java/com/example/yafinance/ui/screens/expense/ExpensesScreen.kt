@@ -47,7 +47,7 @@ fun ExpensesScreen(
         }
 
         is ScreenState.Error -> {
-            if(state.count > 0) {
+            if(state.isRetried) {
                 snackbarViewModel.showMessage(state.message.toUserMessage(context))
             }
             ErrorScreen(

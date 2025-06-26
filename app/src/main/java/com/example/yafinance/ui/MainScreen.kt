@@ -70,7 +70,7 @@ fun MainScreen(
         },
         floatingActionButton = {
             when (currentRoute) {
-                ExpensesRoute.javaClass.canonicalName -> CustomFloatingButton {}
+                ExpensesRoute.javaClass.canonicalName -> CustomFloatingButton { }
 
                 IncomesRoute.javaClass.canonicalName -> CustomFloatingButton { }
             }

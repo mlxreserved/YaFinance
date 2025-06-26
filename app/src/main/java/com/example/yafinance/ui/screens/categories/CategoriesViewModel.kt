@@ -18,19 +18,19 @@ class CategoriesViewModel @Inject constructor(private val getCategoriesUseCase: 
         loadCategories()
     }
 
-    private fun loadCategories(countErrors: Int = 0) {
+    private fun loadCategories(isRetried: Boolean = false) {
         viewModelScope.launch {
             updateState(ScreenState.Loading)
 
             when(val response = getCategoriesUseCase.getCategories()) {
-                is Result.Error -> updateState(ScreenState.Error(response.error, countErrors))
+                is Result.Error -> updateState(ScreenState.Error(response.error, isRetried))
                 is Result.Success<List<Category>> -> updateStateBasedOnListContent(response.result)
             }
         }
     }
 
     fun onRetryClicked() {
-        loadCategories(countErrors = 1)
+        loadCategories(isRetried = true)
     }
 
 }
