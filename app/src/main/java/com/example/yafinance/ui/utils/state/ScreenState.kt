@@ -14,6 +14,7 @@ sealed interface ScreenState<out T> {
      * isRetried показывает была ли совершена попытка повторного получения данных.
      */
     data class Error(val message: ErrorModel, val isRetried: Boolean = false) : ScreenState<Nothing>
+
     /** При загрузке данных **/
     object Loading : ScreenState<Nothing>
 

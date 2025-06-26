@@ -30,6 +30,10 @@ class NetworkMonitorImpl @Inject constructor(
     private val connectivityManager: ConnectivityManager =
         this.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
+    private var isRegistered = false
+
+    private var lostJob: Job? = null
+
     private val callback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
             lostJob?.cancel()
@@ -51,13 +55,9 @@ class NetworkMonitorImpl @Inject constructor(
     init {
         _isConnected.update { getCurrentConnectivity() }
 
-        val request = NetworkRequest.Builder().build()
-        connectivityManager.registerNetworkCallback(request, callback)
+        registerCallback()
     }
 
-    private var isRegistered = false
-
-    private var lostJob: Job? = null
 
     override fun registerCallback() {
         if (!isRegistered) {

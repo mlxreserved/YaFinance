@@ -13,7 +13,7 @@ data class TopAppBarState(
 )
 
 /**
- *
+ * Провайдер для предоставления состояния top app bar в экраны и для изменения состояния
  * **/
 object TopAppBarStateProvider {
     var topAppBarState: TopAppBarState by mutableStateOf(TopAppBarState())

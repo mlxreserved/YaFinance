@@ -20,8 +20,8 @@ import javax.inject.Inject
 class TransactionRepositoryImpl @Inject constructor(
     private val financeApi: FinanceApi,
     private val getAccountIdUseCase: GetAccountIdUseCase
-) :
-    TransactionRepository {
+) : TransactionRepository {
+
     private val emptyStartDate = Calendar.getInstance().apply {
         set(Calendar.DAY_OF_MONTH, 1)
         set(Calendar.HOUR_OF_DAY, 23)
@@ -74,7 +74,7 @@ class TransactionRepositoryImpl @Inject constructor(
     }
 
     suspend fun getAccountId(): Int = withContext(Dispatchers.IO) {
-        when(val accountId = getAccountIdUseCase.getAccountId()) {
+        when (val accountId = getAccountIdUseCase.getAccountId()) {
             is Result.Error -> throw UnknownHostException("Не удалось получить accountId")
             is Result.Success<Int> -> accountId.result
         }
