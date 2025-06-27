@@ -7,63 +7,78 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.yafinance.R
 import com.example.yafinance.domain.models.account.Account
-import com.example.yafinance.ui.SnackbarViewModel
+import com.example.yafinance.ui.LocalSnackbarViewModel
+import com.example.yafinance.ui.LocalTopAppBarViewModel
 import com.example.yafinance.ui.composable.screens.LoadingScreen
 import com.example.yafinance.ui.screens.editAccount.composable.EditAccountItem
 import com.example.yafinance.ui.utils.state.ScreenState
 import com.example.yafinance.ui.utils.state.TopAppBarState
-import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 import com.example.yafinance.ui.utils.toUserMessage
 
 @Composable
 fun EditAccountScreen(
-    snackbarViewModel: SnackbarViewModel,
+    viewModelFactory: ViewModelProvider.Factory,
     onLeadIconClick: () -> Unit,
     onSuccess: () -> Unit,
     sum: String,
     currency: String,
     id: Int,
     name: String,
-    editViewModel: EditAccountViewModel = hiltViewModel()
+    editViewModel: EditAccountViewModel = viewModel(factory = viewModelFactory)
 ) {
     var currentSum by rememberSaveable { mutableStateOf(sum) }
+    val topAppBarViewModel = LocalTopAppBarViewModel.current
+    val snackbarViewModel = LocalSnackbarViewModel.current
     val context = LocalContext.current
 
-    TopAppBarStateProvider.update(
+    topAppBarViewModel.update(
         TopAppBarState(
             titleId = R.string.my_account,
             trailId = R.drawable.ic_save,
             leadId = R.drawable.ic_cross,
             onTrailIconClick = {
-                editViewModel.onApplyEditAccountInfo(id = id, name = name, sum = currentSum, currency = currency)
+                editViewModel.onApplyEditAccountInfo(
+                    id = id,
+                    name = name,
+                    sum = currentSum,
+                    currency = currency
+                )
             },
             onLeadIconClick = onLeadIconClick
         )
     )
 
-    val editAccountState by editViewModel.screenState.collectAsStateWithLifecycle()
+    val editAccountState by editViewModel.editAccountState.collectAsStateWithLifecycle()
 
 
-    when(val state = editAccountState){
+    when (val state = editAccountState) {
         ScreenState.Empty -> {
-            EditAccountItem(currency =  currency, currentSum = currentSum, onTextChange = { input -> currentSum = input })
+            EditAccountItem(
+                currency = currency,
+                currentSum = currentSum,
+                onTextChange = { input -> currentSum = input })
         }
+
         is ScreenState.Error -> {
-            EditAccountItem(currency =  currency, currentSum = currentSum, onTextChange = { input -> currentSum = input })
+            EditAccountItem(
+                currency = currency,
+                currentSum = currentSum,
+                onTextChange = { input -> currentSum = input })
             snackbarViewModel.showMessage(state.message.toUserMessage(context))
         }
+
         ScreenState.Loading -> {
             LoadingScreen(screenTitleId = R.string.my_account)
         }
+
         is ScreenState.Success<Account> -> {
             snackbarViewModel.showMessage(stringResource(R.string.success_edit_account))
             onSuccess()
         }
     }
-
-
 }

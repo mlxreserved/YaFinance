@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 
 @Composable
@@ -33,7 +34,11 @@ fun CustomListItem(
             } else null,
             supportingContent = if (subtitle != null) {
                 {
-                    Text(text = subtitle, style = YaFinanceTheme.typography.subtitle)
+                    Text(
+                        text = subtitle,
+                        style = YaFinanceTheme.typography.subtitle,
+                        overflow = TextOverflow.Ellipsis
+                    )
                 }
             } else null,
             trailingContent = if (trailText != null || trailItem != null) {
@@ -50,7 +55,7 @@ fun CustomListItem(
             modifier = modifier
         )
 
-        if(hasDivider)
+        if (hasDivider)
             HorizontalDivider(modifier = Modifier.fillMaxWidth())
     }
 }

@@ -1,6 +1,6 @@
 package com.example.yafinance.data.remote.repositories
 
-import com.example.yafinance.data.remote.api.FinanceApi
+import com.example.yafinance.data.remote.api.CategoryApi
 import com.example.yafinance.data.remote.mappers.toDomain
 import com.example.yafinance.domain.models.category.Category
 import com.example.yafinance.domain.repositories.CategoryRepository
@@ -10,11 +10,15 @@ import com.example.yafinance.data.remote.utils.safeCallWithRetry
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class CategoryRepositoryImpl @Inject constructor(private val financeApi: FinanceApi) :
-    CategoryRepository {
+
+/** Репозиторий для работы с категориями **/
+class CategoryRepositoryImpl @Inject constructor(
+    private val categoryApi: CategoryApi
+) : CategoryRepository {
+    /** Получить список всех категорий **/
     override suspend fun getCategories(): Result<List<Category>> = safeCallWithRetry {
         withContext(Dispatchers.IO) {
-            financeApi.getCategories().map { category -> category.toDomain() }
+            categoryApi.getCategories().map { category -> category.toDomain() }
         }
     }
 }

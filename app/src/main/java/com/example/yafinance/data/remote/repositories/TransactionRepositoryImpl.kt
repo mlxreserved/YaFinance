@@ -1,28 +1,28 @@
 package com.example.yafinance.data.remote.repositories
 
-import com.example.yafinance.data.remote.api.FinanceApi
+import com.example.yafinance.data.remote.api.TransactionApi
 import com.example.yafinance.data.remote.mappers.toExpenseDomain
 import com.example.yafinance.data.remote.mappers.toIncomeDomain
-import com.example.yafinance.data.remote.utils.DateFormatter.dateToString
+import com.example.yafinance.data.remote.utils.dateToString
 import com.example.yafinance.domain.models.expense.Expense
 import com.example.yafinance.domain.models.income.Income
 import com.example.yafinance.domain.repositories.TransactionRepository
-import com.example.yafinance.domain.usecase.inter.GetAccountsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.Calendar
 import com.example.yafinance.domain.utils.Result
 import com.example.yafinance.data.remote.utils.safeCallWithRetry
-import com.example.yafinance.domain.models.account.Account
+import com.example.yafinance.domain.usecase.inter.GetAccountIdUseCase
 import java.net.UnknownHostException
 import java.util.Date
 import javax.inject.Inject
 
+
+/** Репозиторий для работы с транзакциями **/
 class TransactionRepositoryImpl @Inject constructor(
-    private val financeApi: FinanceApi,
-    private val getAccountsUseCase: GetAccountsUseCase
-) :
-    TransactionRepository {
+    private val transactionApi: TransactionApi,
+    private val getAccountIdUseCase: GetAccountIdUseCase
+) : TransactionRepository {
     private val emptyStartDate = Calendar.getInstance().apply {
         set(Calendar.DAY_OF_MONTH, 1)
         set(Calendar.HOUR_OF_DAY, 23)
@@ -30,6 +30,7 @@ class TransactionRepositoryImpl @Inject constructor(
 
     private val emptyEndDate = Date()
 
+    /** Получение расходов за определенный период **/
     override suspend fun getExpenses(
         startDate: Date?,
         endDate: Date?
@@ -39,17 +40,19 @@ class TransactionRepositoryImpl @Inject constructor(
 
         return safeCallWithRetry {
             withContext(Dispatchers.IO) {
-                financeApi.getTransactions(
+                transactionApi.getTransactions(
                     accountId = getAccountId(),
                     startDate = remoteStartDate,
                     endDate = remoteEndDate
                 )
                     .filter { it.category.isIncome == false }
+                    .sortedByDescending { it.transactionDate }
                     .map { expanse -> expanse.toExpenseDomain() }
             }
         }
     }
 
+    /** Получение доходов за определенный период **/
     override suspend fun getIncomes(
         startDate: Date?,
         endDate: Date?
@@ -61,22 +64,23 @@ class TransactionRepositoryImpl @Inject constructor(
 
         return safeCallWithRetry {
             withContext(Dispatchers.IO) {
-                financeApi.getTransactions(
+                transactionApi.getTransactions(
                     accountId = getAccountId(),
                     startDate = remoteStartDate,
                     endDate = remoteEndDate
                 )
                     .filter { it.category.isIncome == true }
-                    .sortedBy { it.transactionDate }
-                    .map { expanse -> expanse.toIncomeDomain() }
+                    .sortedByDescending { it.transactionDate }
+                    .map { income -> income.toIncomeDomain() }
             }
         }
     }
 
-    suspend fun getAccountId(): Int = withContext(Dispatchers.IO) {
-        when(val accounts = getAccountsUseCase.getAccounts()) {
+    /** Получить ID счета для использования при запросе транзакций **/
+    private suspend fun getAccountId(): Int = withContext(Dispatchers.IO) {
+        when (val accountId = getAccountIdUseCase.getAccountId()) {
             is Result.Error -> throw UnknownHostException("Не удалось получить accountId")
-            is Result.Success<List<Account>> -> accounts.result.first().id
+            is Result.Success<Int> -> accountId.result
         }
     }
 }

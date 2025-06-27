@@ -9,11 +9,10 @@ import java.util.Calendar
 import java.util.Date
 
 abstract class BaseHistoryViewModel<T> : BaseViewModel<T>() {
-
     protected abstract fun getHistory(
         startDate: Date? = null,
         endDate: Date? = null,
-        countErrors: Int = 0
+        isRetried: Boolean = false
     )
 
     private val _selectedStartDate = MutableStateFlow(getCalendarDate())
@@ -43,7 +42,5 @@ abstract class BaseHistoryViewModel<T> : BaseViewModel<T>() {
     private fun getCalendarDate(): Date = Calendar.getInstance().apply {
         set(Calendar.DAY_OF_MONTH, 1)
         set(Calendar.HOUR_OF_DAY, 23)
-
     }.time
-
 }

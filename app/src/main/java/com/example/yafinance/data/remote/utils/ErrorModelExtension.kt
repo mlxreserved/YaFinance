@@ -10,9 +10,10 @@ fun Exception.toErrorModel(): ErrorModel = when (this) {
     is HttpException -> when (code()) {
         429 -> ErrorModel.TooManyRequests
         500 -> ErrorModel.InternalServerError
-        400 -> ErrorModel.ClientError(400, "Bad request")
+        400 -> ErrorModel.ClientError(code(), "Bad request")
         401 -> ErrorModel.Unauthorized
         else -> ErrorModel.Unknown
     }
+
     else -> ErrorModel.Unknown
 }

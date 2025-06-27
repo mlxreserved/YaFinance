@@ -19,16 +19,24 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/** Проверка подклчюния пользователя к сети **/
 class NetworkMonitorImpl @Inject constructor(
     private val context: Context
 ) : NetworkMonitor {
     val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     private val _isConnected: MutableStateFlow<Boolean> = MutableStateFlow(false)
+
+    /** Состояние показывающее есть ли у пользователя подключение к интернету **/
     override val isConnected: StateFlow<Boolean> = _isConnected.asStateFlow()
 
     private val connectivityManager: ConnectivityManager =
-        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        this.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+    private var isRegistered = false
+
+    /** Job в которой выполняется работа при потери сети **/
+    private var lostJob: Job? = null
 
     private val callback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
@@ -38,7 +46,7 @@ class NetworkMonitorImpl @Inject constructor(
 
         override fun onLost(network: Network) {
             lostJob = scope.launch {
-                delay(1000)
+                delay(DELAY_BEFORE_CHECK)
                 val isStillConnected = getCurrentConnectivity()
                 if (!isStillConnected) {
                     _isConnected.update { false }
@@ -51,14 +59,10 @@ class NetworkMonitorImpl @Inject constructor(
     init {
         _isConnected.update { getCurrentConnectivity() }
 
-        val request = NetworkRequest.Builder().build()
-        connectivityManager.registerNetworkCallback(request, callback)
+        registerCallback()
     }
 
-    private var isRegistered = false
-
-    private var lostJob: Job? = null
-
+    /** Установка callback для мониторинга состояния сети **/
     override fun registerCallback() {
         if (!isRegistered) {
             val request = NetworkRequest.Builder().build()
@@ -67,6 +71,7 @@ class NetworkMonitorImpl @Inject constructor(
         }
     }
 
+    /** Отмена callback для мониторинга состояния сети **/
     override fun unregisterCallback() {
         if (isRegistered) {
             connectivityManager.unregisterNetworkCallback(callback)
@@ -75,10 +80,18 @@ class NetworkMonitorImpl @Inject constructor(
         }
     }
 
+    /**
+     * Получить текущее состояние сети пользователя
+     *
+     * Необходимо в случае, когда пользователь переключается с WiFi на мобильную сеть
+     * **/
     private fun getCurrentConnectivity(): Boolean {
         val network = connectivityManager.activeNetwork ?: return false
         val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
         return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
+    companion object {
+        private const val DELAY_BEFORE_CHECK = 1000L
+    }
 }

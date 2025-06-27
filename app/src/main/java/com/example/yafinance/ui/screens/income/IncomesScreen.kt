@@ -3,32 +3,35 @@ package com.example.yafinance.ui.screens.income
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.yafinance.R
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.example.yafinance.ui.SnackbarViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.yafinance.ui.LocalSnackbarViewModel
+import com.example.yafinance.ui.LocalTopAppBarViewModel
 import com.example.yafinance.ui.composable.screens.EmptyScreen
 import com.example.yafinance.ui.composable.screens.ErrorScreen
 import com.example.yafinance.ui.composable.screens.LoadingScreen
 import com.example.yafinance.ui.screens.income.composable.IncomeSuccess
 import com.example.yafinance.ui.utils.state.ScreenState
 import com.example.yafinance.ui.utils.state.TopAppBarState
-import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 import com.example.yafinance.ui.utils.toUserMessage
 
 @Composable
 fun IncomesScreen(
-    snackbarViewModel: SnackbarViewModel,
+    viewModelFactory: ViewModelProvider.Factory,
     onTrailIconClick: () -> Unit,
     modifier: Modifier = Modifier,
-    incomesViewModel: IncomesViewModel = hiltViewModel()
+    incomesViewModel: IncomesViewModel = viewModel(factory = viewModelFactory)
 ) {
+    val topAppBarViewModel = LocalTopAppBarViewModel.current
+    val snackbarViewModel = LocalSnackbarViewModel.current
     val context = LocalContext.current
 
-    TopAppBarStateProvider.update(
+    topAppBarViewModel.update(
         TopAppBarState(
             titleId = R.string.incomes_today,
             trailId = R.drawable.ic_history,
@@ -48,7 +51,7 @@ fun IncomesScreen(
         }
 
         is ScreenState.Error -> {
-            if(state.count > 0){
+            if (state.isRetried) {
                 snackbarViewModel.showMessage(state.message.toUserMessage(context))
             }
             ErrorScreen(
@@ -70,5 +73,4 @@ fun IncomesScreen(
             IncomeSuccess(incomes = state.result, modifier = Modifier.fillMaxSize())
         }
     }
-
 }

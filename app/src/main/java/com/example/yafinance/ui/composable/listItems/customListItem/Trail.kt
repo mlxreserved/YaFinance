@@ -21,7 +21,7 @@ fun Trail(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.End
     ) {
-        if(hasDate) {
+        if (hasDate) {
             trailTextItem?.invoke()
         } else {
             if (trailText != null) {

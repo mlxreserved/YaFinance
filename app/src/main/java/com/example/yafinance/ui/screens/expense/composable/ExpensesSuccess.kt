@@ -6,20 +6,36 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import com.example.yafinance.R
 import com.example.yafinance.domain.models.expense.Expense
+import com.example.yafinance.ui.LocalTopAppBarViewModel
 import com.example.yafinance.ui.composable.listItems.TotalItem
+import com.example.yafinance.ui.utils.calculatedSumAsString
 import com.example.yafinance.ui.utils.formatWithSpaces
+import com.example.yafinance.ui.utils.state.TopAppBarState
 
 @Composable
 fun ExpensesSuccess(
     expenses: List<Expense>,
+    onTrailIconClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val topAppBarViewModel = LocalTopAppBarViewModel.current
 
-    val totalAmount by remember {
-        mutableStateOf(expenses.sumOf { it.amount.toDouble() }.toString())
+    topAppBarViewModel.update(
+        TopAppBarState(
+            titleId = R.string.expenses_today,
+            trailId = R.drawable.ic_history,
+            onTrailIconClick = onTrailIconClick
+        )
+    )
+
+    val totalAmount by rememberSaveable {
+        mutableStateOf(
+            expenses.calculatedSumAsString { it.amount.toDouble() }
+        )
     }
     val formattedTotalAmount = totalAmount.formatWithSpaces()
     val trailTotalText = "$formattedTotalAmount ${expenses.first().currency}"
@@ -36,5 +52,4 @@ fun ExpensesSuccess(
             }
         }
     }
-
 }

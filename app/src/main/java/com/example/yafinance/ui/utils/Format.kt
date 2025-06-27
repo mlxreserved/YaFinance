@@ -17,12 +17,12 @@ fun String.formatWithSpaces(): String {
 
 fun String.formatWithoutSpaces(): String {
     return this
-        .replace(" ", "")  // Удаляем все пробелы
-        .replace(",", ".")  // Заменяем запятую на точку для десятичной части
+        .replace(" ", "")
+        .replace(",", ".")
 }
 
 fun String.currencyToString(): String {
-    return when(this) {
+    return when (this) {
         "₽" -> "RUB"
         "$" -> "USD"
         "€" -> "EUR"

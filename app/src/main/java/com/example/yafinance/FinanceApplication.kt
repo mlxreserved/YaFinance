@@ -1,7 +1,22 @@
 package com.example.yafinance
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import android.content.Context
+import com.example.yafinance.di.AppComponent
+import com.example.yafinance.di.DaggerAppComponent
 
-@HiltAndroidApp
-class FinanceApplication : Application()
+class FinanceApplication : Application() {
+    lateinit var appComponent: AppComponent
+
+    override fun onCreate() {
+        super.onCreate()
+
+        appComponent = DaggerAppComponent.factory().create(this)
+    }
+}
+
+val Context.appComponent: AppComponent
+    get() = when (this) {
+        is FinanceApplication -> appComponent
+        else -> applicationContext.appComponent
+    }

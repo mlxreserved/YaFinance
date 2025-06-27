@@ -43,6 +43,8 @@ fun CategorySearch() {
             unfocusedIndicatorColor = YaFinanceTheme.colors.outlineColor
         ),
         singleLine = true,
-        modifier = Modifier.height(56.dp).fillMaxWidth(),
+        modifier = Modifier
+            .height(56.dp)
+            .fillMaxWidth(),
     )
 }

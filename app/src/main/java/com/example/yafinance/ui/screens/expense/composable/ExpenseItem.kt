@@ -43,6 +43,4 @@ fun ExpenseItem(
         },
         modifier = Modifier.height(72.dp)
     )
-
-
 }

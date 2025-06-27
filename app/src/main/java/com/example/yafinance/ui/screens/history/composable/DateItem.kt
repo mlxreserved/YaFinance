@@ -17,7 +17,7 @@ import java.util.Date
 fun DateItem(isStart: Boolean, date: Date, onDateItemClick: () -> Unit) {
     CustomListItem(
         title = {
-            if(isStart) {
+            if (isStart) {
                 Text(
                     stringResource(R.string.start_date),
                     style = YaFinanceTheme.typography.title
@@ -31,6 +31,8 @@ fun DateItem(isStart: Boolean, date: Date, onDateItemClick: () -> Unit) {
         },
         trailText = date.toDateString(),
         backgroundContainerColor = YaFinanceTheme.colors.secondaryBackground,
-        modifier = Modifier.height(56.dp).clickable{ onDateItemClick() }
+        modifier = Modifier
+            .height(56.dp)
+            .clickable { onDateItemClick() }
     )
 }

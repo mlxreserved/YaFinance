@@ -1,33 +1,36 @@
 package com.example.yafinance.ui.screens.accounts
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.yafinance.R
-import com.example.yafinance.ui.screens.accounts.composable.success.AccountSuccess
+import com.example.yafinance.ui.screens.accounts.composable.AccountSuccess
 import com.example.yafinance.ui.utils.state.ScreenState
 import com.example.yafinance.ui.utils.state.TopAppBarState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.yafinance.domain.models.account.Account
-import com.example.yafinance.ui.SnackbarViewModel
+import com.example.yafinance.ui.LocalSnackbarViewModel
+import com.example.yafinance.ui.LocalTopAppBarViewModel
 import com.example.yafinance.ui.composable.screens.EmptyScreen
 import com.example.yafinance.ui.composable.screens.ErrorScreen
 import com.example.yafinance.ui.composable.screens.LoadingScreen
-import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 import com.example.yafinance.ui.utils.toUserMessage
 
 @Composable
 fun AccountsScreen(
-    snackbarViewModel: SnackbarViewModel,
+    viewModelFactory: ViewModelProvider.Factory,
     onTrailIconClick: (Account) -> Unit,
     onBalanceClick: (Account) -> Unit,
-    accountsViewModel: AccountsViewModel = hiltViewModel()
+    accountsViewModel: AccountsViewModel = viewModel(factory = viewModelFactory)
 ) {
+    val topAppBarViewModel = LocalTopAppBarViewModel.current
+    val snackbarViewModel = LocalSnackbarViewModel.current
     val context = LocalContext.current
 
-    TopAppBarStateProvider.update(
+    topAppBarViewModel.update(
         TopAppBarState(
             titleId = R.string.my_account,
         )
@@ -41,7 +44,7 @@ fun AccountsScreen(
         }
 
         is ScreenState.Error -> {
-            if(state.count > 0) {
+            if (state.isRetried) {
                 snackbarViewModel.showMessage(state.message.toUserMessage(context))
             }
             ErrorScreen(
@@ -58,9 +61,9 @@ fun AccountsScreen(
         }
 
         is ScreenState.Success -> {
-            val account = state.result.first()
+            val account = state.result
             AccountSuccess(
-                accounts = state.result, onTrailIconClick = { onTrailIconClick(account) },
+                account = account, onTrailIconClick = { onTrailIconClick(account) },
                 onBalanceClick = { onBalanceClick(account) }
             )
         }

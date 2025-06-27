@@ -10,13 +10,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import com.example.yafinance.domain.models.income.Income
 import com.example.yafinance.ui.composable.listItems.TotalItem
+import com.example.yafinance.ui.utils.calculatedSumAsString
 import com.example.yafinance.ui.utils.formatWithSpaces
 
 @Composable
 fun IncomeSuccess(incomes: List<Income>, modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         val totalAmount by rememberSaveable {
-            mutableStateOf(incomes.sumOf { it.amount.toDouble() }.toString())
+            mutableStateOf(incomes.calculatedSumAsString { it.amount.toDouble() })
         }
         val formattedTotalAmount = totalAmount.formatWithSpaces()
         val trailTotalText = "$formattedTotalAmount ${incomes.first().currency}"

@@ -61,5 +61,4 @@ fun MainTheme(
         LocalYaFinanceTypography provides typography,
         content = content
     )
-
 }

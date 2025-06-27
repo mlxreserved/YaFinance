@@ -2,7 +2,7 @@ package com.example.yafinance.data.remote.utils
 
 
 fun String.stringToCurrency(): String {
-    return when(this) {
+    return when (this) {
         "RUB" -> "₽"
         "USD" -> "$"
         "EUR" -> "€"
@@ -15,7 +15,7 @@ fun String.formatAmountWithSpaces(): String {
     val integerPart = parts[0].replace(Regex("(\\d)(?=(\\d{3})+$)"), "$1 ")
     return if (parts.size > 1) {
         val decimalPart = parts[1].padEnd(2, '0').take(2)
-        if(decimalPart == "00") integerPart else "$integerPart,$decimalPart"
+        if (decimalPart == "00") integerPart else "$integerPart,$decimalPart"
     } else {
         integerPart
     }

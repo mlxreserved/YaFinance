@@ -12,5 +12,4 @@ class GetIncomesUseCaseImpl @Inject constructor(
 ) : GetIncomesUseCase {
     override suspend fun getIncomes(startDate: Date?, endDate: Date?): Result<List<Income>> =
         transactionRepository.getIncomes(startDate = startDate, endDate = endDate)
-
 }
