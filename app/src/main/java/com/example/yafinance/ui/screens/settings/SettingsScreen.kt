@@ -6,15 +6,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import com.example.yafinance.R
+import com.example.yafinance.ui.LocalTopAppBarViewModel
 import com.example.yafinance.ui.screens.settings.composable.SettingsItem
 import com.example.yafinance.ui.screens.settings.composable.SettingsSwitcher
 import com.example.yafinance.ui.screens.settings.model.Setting
 import com.example.yafinance.ui.utils.state.TopAppBarState
-import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 
 @Composable
 fun SettingsScreen(settings: List<Setting>) {
-    TopAppBarStateProvider.update(TopAppBarState(titleId = R.string.settings, trailId = null))
+    val topAppBarViewModel = LocalTopAppBarViewModel.current
+
+    topAppBarViewModel.update(TopAppBarState(titleId = R.string.settings, trailId = null))
 
     LazyColumn {
         items(items = settings, key = { it.titleId }) { setting ->

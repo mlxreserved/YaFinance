@@ -10,17 +10,18 @@ import com.example.yafinance.R
 
 @Composable
 fun SplashScreen(onSplashFinished: () -> Unit) {
-
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lottie))
     val logoAnimationState =
         animateLottieCompositionAsState(
             composition = composition,
             speed = 2f,
         )
+
     LottieAnimation(
         composition = composition,
         progress = { logoAnimationState.progress }
     )
+
     if (logoAnimationState.isAtEnd && logoAnimationState.isPlaying) {
         onSplashFinished()
     }

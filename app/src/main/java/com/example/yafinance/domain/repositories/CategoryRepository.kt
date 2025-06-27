@@ -5,6 +5,5 @@ import com.example.yafinance.domain.models.category.Category
 
 
 interface CategoryRepository {
-
     suspend fun getCategories(): Result<List<Category>>
 }

@@ -20,7 +20,6 @@ import com.example.yafinance.ui.utils.toDateWithTimeString
 
 @Composable
 fun IncomeHistoryItem(historyItem: Income) {
-
     val formattedAmount = historyItem.amount.formatWithSpaces()
 
     val trailText = "$formattedAmount ${historyItem.currency}"

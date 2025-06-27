@@ -68,5 +68,4 @@ object NetworkModule {
     @Provides
     fun provideTransactionApi(retrofit: Retrofit): TransactionApi =
         retrofit.create(TransactionApi::class.java)
-
 }

@@ -13,7 +13,6 @@ import javax.inject.Inject
 class ExpensesViewModel @Inject constructor(
     private val getExpensesUseCase: GetExpensesUseCase
 ) : BaseViewModel<List<Expense>>() {
-
     init {
         getTodayExpenses()
     }

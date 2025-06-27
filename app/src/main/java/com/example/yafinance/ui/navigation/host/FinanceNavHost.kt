@@ -11,7 +11,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import com.example.yafinance.domain.models.account.Account
-import com.example.yafinance.ui.SnackbarViewModel
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesHistoryRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesHistoryRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.AccountsAllRoutes
@@ -37,7 +36,6 @@ import com.example.yafinance.ui.screens.settings.model.settings
 fun FinanceNavHost(
     viewModelFactory: ViewModelProvider.Factory,
     navController: NavHostController,
-    snackbarViewModel: SnackbarViewModel,
     paddingValues: PaddingValues
 ) {
     NavHost(
@@ -45,13 +43,11 @@ fun FinanceNavHost(
         startDestination = ExpensesAllRoutes,
         modifier = Modifier.padding(paddingValues = paddingValues)
     ) {
-
         navigation<ExpensesAllRoutes>(
             startDestination = ExpensesRoute
         ) {
             composable<ExpensesRoute> {
                 ExpensesScreen(
-                    snackbarViewModel = snackbarViewModel,
                     viewModelFactory = viewModelFactory,
                     onTrailIconClick = { navController.navigate(ExpensesHistoryRoute) }
                 )
@@ -59,17 +55,16 @@ fun FinanceNavHost(
             composable<ExpensesHistoryRoute> {
                 ExpensesHistoryScreen(
                     viewModelFactory = viewModelFactory,
-                    snackbarViewModel = snackbarViewModel,
                     onLeadIconClick = { navController.navigateUp() }
                 )
             }
         }
+
         navigation<IncomesAllRoutes>(
             startDestination = IncomesRoute
         ) {
             composable<IncomesRoute> {
                 IncomesScreen(
-                    snackbarViewModel = snackbarViewModel,
                     viewModelFactory = viewModelFactory,
                     onTrailIconClick = { navController.navigate(IncomesHistoryRoute) }
                 )
@@ -77,11 +72,11 @@ fun FinanceNavHost(
             composable<IncomesHistoryRoute> {
                 IncomesHistoryScreen(
                     viewModelFactory = viewModelFactory,
-                    snackbarViewModel = snackbarViewModel,
                     onLeadIconClick = { navController.navigateUp() }
                 )
             }
         }
+
         navigation<AccountsAllRoutes>(
             startDestination = AccountsRoute
         ) {
@@ -89,7 +84,6 @@ fun FinanceNavHost(
             composable<AccountsRoute> {
                 AccountsScreen(
                     viewModelFactory = viewModelFactory,
-                    snackbarViewModel = snackbarViewModel,
                     onTrailIconClick = { account ->
                         navigateToEditAccountRoute(account = account, navController = navController)
                     },
@@ -103,7 +97,6 @@ fun FinanceNavHost(
 
                 EditAccountScreen(
                     viewModelFactory = viewModelFactory,
-                    snackbarViewModel = snackbarViewModel,
                     onLeadIconClick = {
                         navController.navigateUp()
                     },
@@ -117,12 +110,13 @@ fun FinanceNavHost(
                 )
             }
         }
+
         composable<CategoriesRoute> {
             CategoriesScreen(
-                viewModelFactory = viewModelFactory,
-                snackbarViewModel = snackbarViewModel
+                viewModelFactory = viewModelFactory
             )
         }
+
         composable<SettingsRoute> {
             SettingsScreen(settings = settings)
         }

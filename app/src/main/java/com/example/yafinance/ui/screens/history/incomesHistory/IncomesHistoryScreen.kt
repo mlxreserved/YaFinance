@@ -8,30 +8,31 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.yafinance.R
 import com.example.yafinance.domain.models.income.Income
-import com.example.yafinance.ui.SnackbarViewModel
+import com.example.yafinance.ui.LocalSnackbarViewModel
+import com.example.yafinance.ui.LocalTopAppBarViewModel
 import com.example.yafinance.ui.composable.screens.ErrorScreen
 import com.example.yafinance.ui.composable.screens.LoadingScreen
 import com.example.yafinance.ui.screens.history.incomesHistory.composable.IncomesHistoryEmptyScreen
 import com.example.yafinance.ui.screens.history.incomesHistory.composable.IncomesHistorySuccess
 import com.example.yafinance.ui.utils.state.ScreenState
 import com.example.yafinance.ui.utils.state.TopAppBarState
-import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 import com.example.yafinance.ui.utils.toUserMessage
 
 @Composable
 fun IncomesHistoryScreen(
     viewModelFactory: ViewModelProvider.Factory,
-    snackbarViewModel: SnackbarViewModel,
     onLeadIconClick: () -> Unit,
     historyViewModel: IncomesHistoryViewModel = viewModel(factory = viewModelFactory)
 ) {
     val context = LocalContext.current
+    val topAppBarViewModel = LocalTopAppBarViewModel.current
+    val snackbarViewModel = LocalSnackbarViewModel.current
 
     val historyState by historyViewModel.screenState.collectAsStateWithLifecycle()
     val startDate by historyViewModel.selectedStartDate.collectAsStateWithLifecycle()
     val endDate by historyViewModel.selectedEndDate.collectAsStateWithLifecycle()
 
-    TopAppBarStateProvider.update(
+    topAppBarViewModel.update(
         TopAppBarState(
             titleId = R.string.my_history,
             leadId = R.drawable.ic_back,
@@ -59,7 +60,9 @@ fun IncomesHistoryScreen(
                 text = state.message.toUserMessage(context),
                 onClick = {
                     historyViewModel.onRetryClicked()
-                }
+                },
+                onLeadIconClick = onLeadIconClick,
+                leadId = R.drawable.ic_back
             )
         }
 

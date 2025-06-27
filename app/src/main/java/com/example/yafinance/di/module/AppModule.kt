@@ -7,7 +7,6 @@ import javax.inject.Singleton
 
 @Module
 object AppModule {
-
     @Provides
     @Singleton
     @ApplicationContext

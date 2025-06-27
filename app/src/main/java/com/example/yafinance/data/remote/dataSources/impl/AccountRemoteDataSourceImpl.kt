@@ -13,7 +13,6 @@ import javax.inject.Inject
 class AccountRemoteDataSourceImpl @Inject constructor(
     private val accountApi: AccountApi
 ) : AccountRemoteDataSource {
-
     /** Получение аккаунт **/
     override suspend fun getAccount(): AccountDTO = withContext(Dispatchers.IO) {
         accountApi.getAccounts().first()

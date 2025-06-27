@@ -15,7 +15,6 @@ import javax.inject.Inject
 class CategoryRepositoryImpl @Inject constructor(
     private val categoryApi: CategoryApi
 ) : CategoryRepository {
-
     /** Получить список всех категорий **/
     override suspend fun getCategories(): Result<List<Category>> = safeCallWithRetry {
         withContext(Dispatchers.IO) {

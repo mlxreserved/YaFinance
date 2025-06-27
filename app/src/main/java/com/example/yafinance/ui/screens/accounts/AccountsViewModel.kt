@@ -9,9 +9,9 @@ import com.example.yafinance.ui.utils.state.ScreenState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class AccountsViewModel @Inject constructor(private val getAccountUseCase: GetAccountUseCase) :
-    BaseViewModel<Account>() {
-
+class AccountsViewModel @Inject constructor(
+    private val getAccountUseCase: GetAccountUseCase
+) : BaseViewModel<Account>() {
     init {
         loadAccounts()
     }

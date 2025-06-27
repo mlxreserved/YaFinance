@@ -9,9 +9,9 @@ import com.example.yafinance.ui.utils.state.ScreenState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class CategoriesViewModel @Inject constructor(private val getCategoriesUseCase: GetCategoriesUseCase) :
-    BaseViewModel<List<Category>>() {
-
+class CategoriesViewModel @Inject constructor(
+    private val getCategoriesUseCase: GetCategoriesUseCase
+) : BaseViewModel<List<Category>>() {
     init {
         loadCategories()
     }
@@ -30,5 +30,4 @@ class CategoriesViewModel @Inject constructor(private val getCategoriesUseCase: 
     fun onRetryClicked() {
         loadCategories(isRetried = true)
     }
-
 }

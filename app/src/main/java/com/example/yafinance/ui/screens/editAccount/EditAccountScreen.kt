@@ -12,18 +12,17 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.yafinance.R
 import com.example.yafinance.domain.models.account.Account
-import com.example.yafinance.ui.SnackbarViewModel
+import com.example.yafinance.ui.LocalSnackbarViewModel
+import com.example.yafinance.ui.LocalTopAppBarViewModel
 import com.example.yafinance.ui.composable.screens.LoadingScreen
 import com.example.yafinance.ui.screens.editAccount.composable.EditAccountItem
 import com.example.yafinance.ui.utils.state.ScreenState
 import com.example.yafinance.ui.utils.state.TopAppBarState
-import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 import com.example.yafinance.ui.utils.toUserMessage
 
 @Composable
 fun EditAccountScreen(
     viewModelFactory: ViewModelProvider.Factory,
-    snackbarViewModel: SnackbarViewModel,
     onLeadIconClick: () -> Unit,
     onSuccess: () -> Unit,
     sum: String,
@@ -33,9 +32,11 @@ fun EditAccountScreen(
     editViewModel: EditAccountViewModel = viewModel(factory = viewModelFactory)
 ) {
     var currentSum by rememberSaveable { mutableStateOf(sum) }
+    val topAppBarViewModel = LocalTopAppBarViewModel.current
+    val snackbarViewModel = LocalSnackbarViewModel.current
     val context = LocalContext.current
 
-    TopAppBarStateProvider.update(
+    topAppBarViewModel.update(
         TopAppBarState(
             titleId = R.string.my_account,
             trailId = R.drawable.ic_save,
@@ -80,6 +81,4 @@ fun EditAccountScreen(
             onSuccess()
         }
     }
-
-
 }

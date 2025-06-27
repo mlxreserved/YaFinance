@@ -4,7 +4,6 @@ import com.example.yafinance.domain.utils.ErrorModel
 
 /** Состояние экрана при получении данных **/
 sealed interface ScreenState<out T> {
-
     /** При успешном получении данных они записываются в Success **/
     data class Success<T>(val result: T) : ScreenState<T>
 

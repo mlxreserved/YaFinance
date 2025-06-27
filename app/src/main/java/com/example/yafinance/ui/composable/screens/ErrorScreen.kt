@@ -13,14 +13,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.yafinance.R
+import com.example.yafinance.ui.LocalTopAppBarViewModel
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 import com.example.yafinance.ui.utils.state.TopAppBarState
-import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 
 @Composable
-fun ErrorScreen(screenTitleId: Int, text: String, onClick: () -> Unit) {
+fun ErrorScreen(
+    screenTitleId: Int,
+    text: String,
+    onClick: () -> Unit,
+    leadId: Int? = null,
+    onLeadIconClick: (() -> Unit)? = null
+) {
+    val topAppBarViewModel = LocalTopAppBarViewModel.current
 
-    TopAppBarStateProvider.update(TopAppBarState(titleId = screenTitleId))
+    topAppBarViewModel.update(
+        TopAppBarState(
+            titleId = screenTitleId,
+            leadId = leadId,
+            onLeadIconClick = onLeadIconClick
+        )
+    )
 
     Column(
         modifier = Modifier.fillMaxSize(),

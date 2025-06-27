@@ -6,7 +6,6 @@ import com.example.yafinance.di.AppComponent
 import com.example.yafinance.di.DaggerAppComponent
 
 class FinanceApplication : Application() {
-
     lateinit var appComponent: AppComponent
 
     override fun onCreate() {
@@ -14,7 +13,6 @@ class FinanceApplication : Application() {
 
         appComponent = DaggerAppComponent.factory().create(this)
     }
-
 }
 
 val Context.appComponent: AppComponent

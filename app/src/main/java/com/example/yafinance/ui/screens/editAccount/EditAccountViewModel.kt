@@ -15,15 +15,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class EditAccountViewModel @Inject constructor(private val changeAccountInfoUseCase: ChangeAccountInfoUseCase) :
-    ViewModel() {
-
+class EditAccountViewModel @Inject constructor(
+    private val changeAccountInfoUseCase: ChangeAccountInfoUseCase
+) : ViewModel() {
     private val _editAccountState: MutableStateFlow<ScreenState<Account>> =
         MutableStateFlow<ScreenState<Account>>(
             ScreenState.Empty
         )
     val editAccountState: StateFlow<ScreenState<Account>> = _editAccountState.asStateFlow()
-
 
     private fun changeAccountInfo(id: Int, name: String, sum: String, currency: String) {
         viewModelScope.launch {

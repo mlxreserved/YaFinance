@@ -1,6 +1,5 @@
-package com.example.yafinance.ui.screens.accounts.composable.success
+package com.example.yafinance.ui.screens.accounts.composable
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
@@ -15,11 +14,10 @@ import com.example.yafinance.ui.composable.listItems.customListItem.CustomListIt
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 
 @Composable
-fun Balance(trailText: String, trailIcon: ImageVector, onBalanceClick: () -> Unit) {
+fun Currency(currency: String, trailIcon: ImageVector) {
     CustomListItem(
-        title = { Text(stringResource(R.string.balance)) },
-        leadIcon = stringResource(R.string.balance_lead_icon),
-        trailText = trailText,
+        title = { Text(stringResource(R.string.currency)) },
+        trailText = currency,
         trailItem = {
             Icon(
                 imageVector = trailIcon,
@@ -28,9 +26,8 @@ fun Balance(trailText: String, trailIcon: ImageVector, onBalanceClick: () -> Uni
             )
         },
         backgroundContainerColor = YaFinanceTheme.colors.secondaryBackground,
-        backgroundLeadColor = YaFinanceTheme.colors.surface,
-        modifier = Modifier
-            .height(56.dp)
-            .clickable(onClick = { onBalanceClick() })
+        hasDivider = false,
+        modifier = Modifier.height(56.dp)
+
     )
 }

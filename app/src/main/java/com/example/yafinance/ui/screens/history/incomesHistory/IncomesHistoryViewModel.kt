@@ -13,7 +13,6 @@ import javax.inject.Inject
 class IncomesHistoryViewModel @Inject constructor(
     private val getIncomesUseCase: GetIncomesUseCase
 ) : BaseHistoryViewModel<List<Income>>() {
-
     init {
         getHistory()
     }
@@ -31,5 +30,4 @@ class IncomesHistoryViewModel @Inject constructor(
     fun onRetryClicked() {
         getHistory(isRetried = true)
     }
-
 }

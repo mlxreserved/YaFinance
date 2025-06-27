@@ -11,7 +11,6 @@ import com.example.yafinance.ui.theme.customTheme.MainTheme
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 

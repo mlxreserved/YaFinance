@@ -14,7 +14,6 @@ import javax.inject.Inject
 class IncomesViewModel @Inject constructor(
     private val getIncomesUseCase: GetIncomesUseCase,
 ) : BaseViewModel<List<Income>>() {
-
     init {
         getTodayIncomes()
     }
@@ -36,5 +35,4 @@ class IncomesViewModel @Inject constructor(
     fun onRetryClicked() {
         getTodayIncomes(isRetried = true)
     }
-
 }

@@ -13,6 +13,7 @@ import com.example.yafinance.domain.models.expense.Expense
 import com.example.yafinance.ui.composable.datePicker.CustomDatePicker
 import com.example.yafinance.ui.composable.listItems.TotalItem
 import com.example.yafinance.ui.screens.history.composable.DateItem
+import com.example.yafinance.ui.utils.calculatedSumAsString
 import com.example.yafinance.ui.utils.formatWithSpaces
 import com.example.yafinance.ui.utils.types.DatePickerType
 import java.util.Date
@@ -25,7 +26,11 @@ fun ExpensesHistorySuccess(
     startDate: Date,
     endDate: Date
 ) {
-    val total by rememberSaveable { mutableStateOf(history.sumOf { it.amount.toInt() }.toString()) }
+    val total by rememberSaveable {
+        mutableStateOf(
+            history.calculatedSumAsString { it.amount.toDouble() }
+        )
+    }
     var showPicker by remember { mutableStateOf(false) }
     var currentPicking: DatePickerType by remember { mutableStateOf(DatePickerType.START) }
 

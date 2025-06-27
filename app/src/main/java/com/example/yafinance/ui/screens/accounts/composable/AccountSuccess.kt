@@ -1,4 +1,4 @@
-package com.example.yafinance.ui.screens.accounts.composable.success
+package com.example.yafinance.ui.screens.accounts.composable
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
@@ -7,9 +7,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import com.example.yafinance.R
 import com.example.yafinance.domain.models.account.Account
+import com.example.yafinance.ui.LocalTopAppBarViewModel
 import com.example.yafinance.ui.utils.formatWithSpaces
 import com.example.yafinance.ui.utils.state.TopAppBarState
-import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
 
 @Composable
 fun AccountSuccess(
@@ -18,7 +18,9 @@ fun AccountSuccess(
     onBalanceClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    TopAppBarStateProvider.update(
+    val topAppBarViewModel = LocalTopAppBarViewModel.current
+
+    topAppBarViewModel.update(
         TopAppBarState(
             titleId = R.string.my_account,
             trailId = R.drawable.ic_edit,

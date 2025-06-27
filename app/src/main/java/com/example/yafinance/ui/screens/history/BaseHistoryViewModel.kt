@@ -9,7 +9,6 @@ import java.util.Calendar
 import java.util.Date
 
 abstract class BaseHistoryViewModel<T> : BaseViewModel<T>() {
-
     protected abstract fun getHistory(
         startDate: Date? = null,
         endDate: Date? = null,
@@ -44,5 +43,4 @@ abstract class BaseHistoryViewModel<T> : BaseViewModel<T>() {
         set(Calendar.DAY_OF_MONTH, 1)
         set(Calendar.HOUR_OF_DAY, 23)
     }.time
-
 }

@@ -94,5 +94,4 @@ class NetworkMonitorImpl @Inject constructor(
     companion object {
         private const val DELAY_BEFORE_CHECK = 1000L
     }
-
 }

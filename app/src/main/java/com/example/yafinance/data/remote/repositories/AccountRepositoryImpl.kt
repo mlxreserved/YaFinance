@@ -19,8 +19,6 @@ class AccountRepositoryImpl @Inject constructor(
     private val accountRemoteDataSource: AccountRemoteDataSource,
     private val accountLocalDataSource: AccountLocalDataSource
 ) : AccountRepository {
-
-
     /** Получить счет с информацией о нем **/
     override suspend fun getAccount(): Result<Account> =
         safeCallWithRetry {

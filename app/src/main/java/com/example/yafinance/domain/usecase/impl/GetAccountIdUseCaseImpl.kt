@@ -10,5 +10,4 @@ class GetAccountIdUseCaseImpl @Inject constructor(
 ) : GetAccountIdUseCase {
     override suspend fun getAccountId(): Result<Int> =
         accountRepository.getAccountId()
-
 }

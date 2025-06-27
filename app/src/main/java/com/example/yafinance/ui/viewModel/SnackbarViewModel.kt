@@ -1,4 +1,4 @@
-package com.example.yafinance.ui
+package com.example.yafinance.ui.viewModel
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

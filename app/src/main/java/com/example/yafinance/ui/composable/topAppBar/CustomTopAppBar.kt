@@ -11,17 +11,16 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
-import com.example.yafinance.ui.utils.state.TopAppBarStateProvider
+import com.example.yafinance.ui.utils.state.TopAppBarState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomTopAppBar() {
-
+fun CustomTopAppBar(topAppBarState: TopAppBarState) {
     CenterAlignedTopAppBar(
         navigationIcon = {
-            TopAppBarStateProvider.topAppBarState.leadId?.let { leadIcon ->
+            topAppBarState.leadId?.let { leadIcon ->
                 IconButton(
-                    onClick = { TopAppBarStateProvider.topAppBarState.onLeadIconClick?.invoke() }
+                    onClick = { topAppBarState.onLeadIconClick?.invoke() }
                 ) {
                     Icon(
                         imageVector = ImageVector.vectorResource(leadIcon),
@@ -31,7 +30,7 @@ fun CustomTopAppBar() {
             }
         },
         title = {
-            TopAppBarStateProvider.topAppBarState.titleId?.let { title ->
+            topAppBarState.titleId?.let { title ->
                 Text(
                     text = stringResource(title),
                     style = YaFinanceTheme.typography.header
@@ -39,9 +38,9 @@ fun CustomTopAppBar() {
             }
         },
         actions = {
-            TopAppBarStateProvider.topAppBarState.trailId?.let { trailIcon ->
+            topAppBarState.trailId?.let { trailIcon ->
                 IconButton(
-                    onClick = { TopAppBarStateProvider.topAppBarState.onTrailIconClick?.invoke() }
+                    onClick = { topAppBarState.onTrailIconClick?.invoke() }
                 ) {
                     Icon(
                         imageVector = ImageVector.vectorResource(trailIcon),
