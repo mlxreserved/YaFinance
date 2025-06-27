@@ -7,6 +7,9 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 import javax.inject.Singleton
 
+
+/** ViewModel предоставляющая возможность показывать snackbar
+ *  и хранящая его состояние **/
 @Singleton
 class SnackbarViewModel @Inject constructor() : ViewModel() {
     private val _snackbarMessage = MutableStateFlow<String?>(null)

@@ -12,15 +12,20 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
+
+/** Получение и сохранение информации о счете локально **/
 class AccountLocalDataSourceImpl @Inject constructor(
     @ApplicationContext
     private val context: Context
 ) : AccountLocalDataSource {
+
+    /** Получение ID счета **/
     override val getAccountId: Flow<Int?>
         get() = context.dataStore.data.map { preferences ->
             preferences[ACCOUNT_ID_KEY]
         }
 
+    /** Сохранение ID счета **/
     override suspend fun saveAccountId(accountId: Int) {
         context.dataStore.edit { preferences ->
             preferences[ACCOUNT_ID_KEY] = accountId

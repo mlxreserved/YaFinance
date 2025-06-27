@@ -17,6 +17,8 @@ import java.net.UnknownHostException
 import java.util.Date
 import javax.inject.Inject
 
+
+/** Репозиторий для работы с транзакциями **/
 class TransactionRepositoryImpl @Inject constructor(
     private val financeApi: FinanceApi,
     private val getAccountIdUseCase: GetAccountIdUseCase
@@ -29,6 +31,7 @@ class TransactionRepositoryImpl @Inject constructor(
 
     private val emptyEndDate = Date()
 
+    /** Получение расходов за определенный период **/
     override suspend fun getExpenses(
         startDate: Date?,
         endDate: Date?
@@ -50,6 +53,7 @@ class TransactionRepositoryImpl @Inject constructor(
         }
     }
 
+    /** Получение доходов за определенный период **/
     override suspend fun getIncomes(
         startDate: Date?,
         endDate: Date?
@@ -73,7 +77,8 @@ class TransactionRepositoryImpl @Inject constructor(
         }
     }
 
-    suspend fun getAccountId(): Int = withContext(Dispatchers.IO) {
+    /** Получить ID счета для использования при запросе транзакций **/
+    private suspend fun getAccountId(): Int = withContext(Dispatchers.IO) {
         when (val accountId = getAccountIdUseCase.getAccountId()) {
             is Result.Error -> throw UnknownHostException("Не удалось получить accountId")
             is Result.Success<Int> -> accountId.result

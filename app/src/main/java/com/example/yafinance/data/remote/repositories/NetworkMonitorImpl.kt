@@ -19,12 +19,15 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/** Проверка подклчюния пользователя к сети **/
 class NetworkMonitorImpl @Inject constructor(
     private val context: Context
 ) : NetworkMonitor {
     val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     private val _isConnected: MutableStateFlow<Boolean> = MutableStateFlow(false)
+
+    /** Состояние показывающее есть ли у пользователя подключение к интернету **/
     override val isConnected: StateFlow<Boolean> = _isConnected.asStateFlow()
 
     private val connectivityManager: ConnectivityManager =
@@ -32,6 +35,7 @@ class NetworkMonitorImpl @Inject constructor(
 
     private var isRegistered = false
 
+    /** Job в которой выполняется работа при потери сети **/
     private var lostJob: Job? = null
 
     private val callback = object : ConnectivityManager.NetworkCallback() {
@@ -58,7 +62,7 @@ class NetworkMonitorImpl @Inject constructor(
         registerCallback()
     }
 
-
+    /** Установка callback для мониторинга состояния сети **/
     override fun registerCallback() {
         if (!isRegistered) {
             val request = NetworkRequest.Builder().build()
@@ -67,6 +71,7 @@ class NetworkMonitorImpl @Inject constructor(
         }
     }
 
+    /** Отмена callback для мониторинга состояния сети **/
     override fun unregisterCallback() {
         if (isRegistered) {
             connectivityManager.unregisterNetworkCallback(callback)
@@ -75,6 +80,11 @@ class NetworkMonitorImpl @Inject constructor(
         }
     }
 
+    /**
+     * Получить текущее состояние сети пользователя
+     *
+     * Необходимо в случае, когда пользователь переключается с WiFi на мобильную сеть
+     * **/
     private fun getCurrentConnectivity(): Boolean {
         val network = connectivityManager.activeNetwork ?: return false
         val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false

@@ -8,14 +8,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+
+/**Получение и отправка данных о счете в сеть**/
 class AccountRemoteDataSourceImpl @Inject constructor(
     private val financeApi: FinanceApi
 ) : AccountRemoteDataSource {
+
+    /** Получение аккаунт **/
     override suspend fun getAccount(): AccountDTO = withContext(Dispatchers.IO) {
         financeApi.getAccounts().first()
     }
 
-
+    /** Изменение информации об аккаунте **/
     override suspend fun changeAccountInfo(
         id: Int,
         accountRequest: AccountRequestDTO

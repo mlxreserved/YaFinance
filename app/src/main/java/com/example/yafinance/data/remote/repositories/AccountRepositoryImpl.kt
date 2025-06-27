@@ -13,11 +13,15 @@ import com.example.yafinance.data.remote.utils.safeCallWithRetry
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
+
+/** Репозиторий для работы со счетом **/
 class AccountRepositoryImpl @Inject constructor(
     private val accountRemoteDataSource: AccountRemoteDataSource,
     private val accountLocalDataSource: AccountLocalDataSource
 ) : AccountRepository {
 
+
+    /** Получить счет с информацией о нем **/
     override suspend fun getAccount(): Result<Account> =
         safeCallWithRetry {
             withContext(Dispatchers.IO) {
@@ -25,7 +29,7 @@ class AccountRepositoryImpl @Inject constructor(
             }
         }
 
-
+    /** Изменить информацию счета **/
     override suspend fun changeAccountInfo(id: Int, accountRequest: Account): Result<Account> =
         safeCallWithRetry {
             accountRemoteDataSource.changeAccountInfo(
@@ -34,6 +38,7 @@ class AccountRepositoryImpl @Inject constructor(
             ).toDomain()
         }
 
+    /** Получить ID счета **/
     override suspend fun getAccountId(): Result<Int> {
         accountLocalDataSource.getAccountId.first()?.let { accountId ->
             return Result.Success(accountId)
