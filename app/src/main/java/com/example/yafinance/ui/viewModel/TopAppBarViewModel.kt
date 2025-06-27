@@ -15,7 +15,6 @@ import javax.inject.Singleton
  * **/
 @Singleton
 class TopAppBarViewModel @Inject constructor() : ViewModel() {
-
     private val _topAppBarState = MutableStateFlow(TopAppBarState())
     val topAppBarState: StateFlow<TopAppBarState> = _topAppBarState.asStateFlow()
 

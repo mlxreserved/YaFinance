@@ -9,7 +9,6 @@ import javax.inject.Singleton
 class NetworkStatusViewModel @Inject constructor(
     private val networkMonitor: NetworkMonitor
 ) : ViewModel() {
-
     val isConnected = networkMonitor.isConnected
 
     override fun onCleared() {

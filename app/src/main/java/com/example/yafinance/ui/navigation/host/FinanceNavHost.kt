@@ -1,5 +1,8 @@
 package com.example.yafinance.ui.navigation.host
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -39,6 +42,18 @@ fun FinanceNavHost(
     paddingValues: PaddingValues
 ) {
     NavHost(
+        exitTransition = {
+            fadeOut(tween(0))
+        },
+        enterTransition = {
+            fadeIn(tween(0))
+        },
+        popExitTransition = {
+            fadeOut(tween(0))
+        },
+        popEnterTransition = {
+            fadeIn(tween(0))
+        },
         navController = navController,
         startDestination = ExpensesAllRoutes,
         modifier = Modifier.padding(paddingValues = paddingValues)

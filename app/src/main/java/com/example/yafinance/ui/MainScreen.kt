@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -40,7 +40,7 @@ fun MainScreen(
     val networkStatusViewModel: NetworkStatusViewModel = viewModel(factory = viewModelFactory)
     val topAppBarViewModel: TopAppBarViewModel = viewModel(factory = viewModelFactory)
 
-    val snackbarHostState = rememberSaveable { SnackbarHostState() }
+    val snackbarHostState = remember { SnackbarHostState() }
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
