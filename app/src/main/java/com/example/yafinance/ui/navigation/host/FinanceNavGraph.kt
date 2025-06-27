@@ -12,7 +12,8 @@ import com.example.yafinance.ui.screens.splash.SplashScreen
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun FinanceNavGraph(viewModelFactory: ViewModelProvider.Factory
+fun FinanceNavGraph(
+    viewModelFactory: ViewModelProvider.Factory
 ) {
     val navController = rememberNavController()
     var splashFinished by rememberSaveable { mutableStateOf(false) }

@@ -20,9 +20,14 @@ class AccountsViewModel @Inject constructor(private val getAccountUseCase: GetAc
         viewModelScope.launch {
             updateState(ScreenState.Loading)
 
-            when(val response = getAccountUseCase.getAccounts()) {
+            when (val response = getAccountUseCase.getAccounts()) {
                 is Result.Success -> updateState(ScreenState.Success(result = response.result))
-                is Result.Error -> updateState(ScreenState.Error(message = response.error, isRetried))
+                is Result.Error -> updateState(
+                    ScreenState.Error(
+                        message = response.error,
+                        isRetried
+                    )
+                )
             }
         }
     }

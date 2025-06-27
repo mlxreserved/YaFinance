@@ -42,7 +42,10 @@ fun IncomesHistoryEmptyScreen(
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            Text(text = stringResource(R.string.empty_incomes_history), style = YaFinanceTheme.typography.title)
+            Text(
+                text = stringResource(R.string.empty_incomes_history),
+                style = YaFinanceTheme.typography.title
+            )
         }
     }
 

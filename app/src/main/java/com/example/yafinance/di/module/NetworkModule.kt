@@ -2,7 +2,9 @@ package com.example.yafinance.di.module
 
 import android.content.Context
 import com.example.yafinance.R
-import com.example.yafinance.data.remote.api.FinanceApi
+import com.example.yafinance.data.remote.api.AccountApi
+import com.example.yafinance.data.remote.api.CategoryApi
+import com.example.yafinance.data.remote.api.TransactionApi
 import dagger.Module
 import dagger.Provides
 import kotlinx.serialization.json.Json
@@ -54,7 +56,17 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideFinanceApi(retrofit: Retrofit): FinanceApi =
-        retrofit.create(FinanceApi::class.java)
+    fun provideAccountApi(retrofit: Retrofit): AccountApi =
+        retrofit.create(AccountApi::class.java)
+
+    @Singleton
+    @Provides
+    fun provideCategoryApi(retrofit: Retrofit): CategoryApi =
+        retrofit.create(CategoryApi::class.java)
+
+    @Singleton
+    @Provides
+    fun provideTransactionApi(retrofit: Retrofit): TransactionApi =
+        retrofit.create(TransactionApi::class.java)
 
 }

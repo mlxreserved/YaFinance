@@ -30,7 +30,7 @@ fun Lead(
         ) {
             Text(
                 text = leadIcon,
-                style = if(leadIcon.isEmoji()) YaFinanceTheme.typography.emoji else YaFinanceTheme.typography.emojiText
+                style = if (leadIcon.isEmoji()) YaFinanceTheme.typography.emoji else YaFinanceTheme.typography.emojiText
             )
         }
 

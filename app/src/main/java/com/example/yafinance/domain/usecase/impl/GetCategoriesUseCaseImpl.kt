@@ -9,5 +9,6 @@ import javax.inject.Inject
 class GetCategoriesUseCaseImpl @Inject constructor(
     private val categoryRepository: CategoryRepository
 ) : GetCategoriesUseCase {
-    override suspend fun getCategories(): Result<List<Category>> = categoryRepository.getCategories()
+    override suspend fun getCategories(): Result<List<Category>> =
+        categoryRepository.getCategories()
 }

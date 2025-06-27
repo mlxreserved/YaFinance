@@ -1,6 +1,6 @@
 package com.example.yafinance.data.remote.repositories
 
-import com.example.yafinance.data.remote.api.FinanceApi
+import com.example.yafinance.data.remote.api.TransactionApi
 import com.example.yafinance.data.remote.mappers.toExpenseDomain
 import com.example.yafinance.data.remote.mappers.toIncomeDomain
 import com.example.yafinance.data.remote.utils.DateFormatter.dateToString
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 /** Репозиторий для работы с транзакциями **/
 class TransactionRepositoryImpl @Inject constructor(
-    private val financeApi: FinanceApi,
+    private val transactionApi: TransactionApi,
     private val getAccountIdUseCase: GetAccountIdUseCase
 ) : TransactionRepository {
 
@@ -41,7 +41,7 @@ class TransactionRepositoryImpl @Inject constructor(
 
         return safeCallWithRetry {
             withContext(Dispatchers.IO) {
-                financeApi.getTransactions(
+                transactionApi.getTransactions(
                     accountId = getAccountId(),
                     startDate = remoteStartDate,
                     endDate = remoteEndDate
@@ -65,7 +65,7 @@ class TransactionRepositoryImpl @Inject constructor(
 
         return safeCallWithRetry {
             withContext(Dispatchers.IO) {
-                financeApi.getTransactions(
+                transactionApi.getTransactions(
                     accountId = getAccountId(),
                     startDate = remoteStartDate,
                     endDate = remoteEndDate

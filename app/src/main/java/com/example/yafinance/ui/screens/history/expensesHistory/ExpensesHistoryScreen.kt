@@ -49,8 +49,9 @@ fun ExpensesHistoryScreen(
                 onEndDateSelected = { time -> historyViewModel.updateEndDate(time) }
             )
         }
+
         is ScreenState.Error -> {
-            if(state.isRetried) {
+            if (state.isRetried) {
                 snackbarViewModel.showMessage(state.message.toUserMessage(context))
             }
 
@@ -62,9 +63,11 @@ fun ExpensesHistoryScreen(
                 }
             )
         }
+
         ScreenState.Loading -> {
             LoadingScreen(screenTitleId = R.string.my_history)
         }
+
         is ScreenState.Success<List<Expense>> -> {
             ExpensesHistorySuccess(
                 history = state.result,

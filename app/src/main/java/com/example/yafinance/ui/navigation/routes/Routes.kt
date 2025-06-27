@@ -5,7 +5,6 @@ import com.example.yafinance.ui.navigation.routes.ScreensRoute.AccountsAllRoutes
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.CategoriesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesAllRoutes
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesAllRoutes
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.SettingsRoute
 
 object Routes {

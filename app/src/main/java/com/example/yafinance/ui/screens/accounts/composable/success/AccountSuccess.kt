@@ -31,7 +31,11 @@ fun AccountSuccess(
     val trailIcon = ImageVector.vectorResource(R.drawable.ic_more_vert)
 
     Column(modifier = modifier) {
-        Balance(trailText = trailBalanceText, trailIcon = trailIcon, onBalanceClick = onBalanceClick)
+        Balance(
+            trailText = trailBalanceText,
+            trailIcon = trailIcon,
+            onBalanceClick = onBalanceClick
+        )
 
         Currency(currency = account.currency, trailIcon = trailIcon)
     }

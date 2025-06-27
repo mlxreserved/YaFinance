@@ -14,5 +14,6 @@ fun Exception.toErrorModel(): ErrorModel = when (this) {
         401 -> ErrorModel.Unauthorized
         else -> ErrorModel.Unknown
     }
+
     else -> ErrorModel.Unknown
 }

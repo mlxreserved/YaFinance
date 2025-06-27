@@ -62,7 +62,8 @@ fun MainScreen(
                 CustomTopAppBar()
                 NetworkStatusBanner(
                     isConnected = isConnected,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .background(color = YaFinanceTheme.colors.primaryBackground)
                 )
             }

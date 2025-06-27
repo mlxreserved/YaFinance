@@ -18,7 +18,7 @@ class FinanceApplication : Application() {
 }
 
 val Context.appComponent: AppComponent
-    get() = when(this) {
+    get() = when (this) {
         is FinanceApplication -> appComponent
         else -> applicationContext.appComponent
     }

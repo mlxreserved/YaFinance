@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.serialization)
-//    alias(libs.plugins.google.hilt)
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.arturbosch.detekt)
 }
@@ -78,11 +77,6 @@ dependencies {
 
     //Material
     implementation(libs.google.android.material)
-
-    //Hilt
-//    implementation(libs.google.dagger.hilt.android)
-//    ksp(libs.google.dagger.hilt.compiler)
-//    implementation(libs.androidx.hilt.navigation.compose)
 
     //Dagger
     implementation(libs.google.dagger.dagger)

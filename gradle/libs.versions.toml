@@ -14,11 +14,9 @@ serialization = "2.1.10"
 serializationJson = "1.8.0"
 lottie = "6.6.6"
 googleMaterial = "1.11.0"
-hilt = "2.51.1"
 ksp = "2.0.21-1.0.27"
 retrofit = "2.11.0"
 okhttp = "4.11.0"
-hiltNavigationComposeVersion = "1.2.0"
 datastore = "1.1.7"
 detekt = "1.23.8"
 
@@ -52,11 +50,6 @@ airbnb-lottie-compose = { group = "com.airbnb.android", name = "lottie-compose",
 # Material
 google-android-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial"}
 
-# Hilt
-#google-dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-#androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationComposeVersion" }
-#google-dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
-
 # Dagger 2
 google-dagger-dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger"}
 google-dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
@@ -85,9 +78,6 @@ jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serializati
 
 #Ksp
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-
-#Hilt
-google-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 #Detekt
 arturbosch-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt"}

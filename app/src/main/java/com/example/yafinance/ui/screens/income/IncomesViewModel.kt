@@ -26,7 +26,7 @@ class IncomesViewModel @Inject constructor(
             val currentStartDate = Date()
             val currentEndDate = Date()
 
-            when(val response = getIncomesUseCase.getIncomes(currentStartDate, currentEndDate)){
+            when (val response = getIncomesUseCase.getIncomes(currentStartDate, currentEndDate)) {
                 is Result.Error -> updateState(ScreenState.Error(response.error, isRetried))
                 is Result.Success<List<Income>> -> updateStateBasedOnListContent(response.result)
             }

@@ -43,7 +43,7 @@ fun AccountsScreen(
         }
 
         is ScreenState.Error -> {
-            if(state.isRetried) {
+            if (state.isRetried) {
                 snackbarViewModel.showMessage(state.message.toUserMessage(context))
             }
             ErrorScreen(

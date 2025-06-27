@@ -29,11 +29,11 @@ class EditAccountViewModel @Inject constructor(private val changeAccountInfoUseC
         viewModelScope.launch {
             updateState(ScreenState.Loading)
             val accountRequest = Account(
-                    id = id,
-                    name = name,
-                    sum = sum.formatWithoutSpaces(),
-                    currency = currency.currencyToString()
-                )
+                id = id,
+                name = name,
+                sum = sum.formatWithoutSpaces(),
+                currency = currency.currencyToString()
+            )
 
             when (
                 val response = changeAccountInfoUseCase.changeAccountInfo(

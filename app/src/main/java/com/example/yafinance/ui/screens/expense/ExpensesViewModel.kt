@@ -25,7 +25,7 @@ class ExpensesViewModel @Inject constructor(
             val currentStartDate = Date()
             val currentEndDate = Date()
 
-            when(val response = getExpensesUseCase.getExpenses(currentStartDate, currentEndDate)) {
+            when (val response = getExpensesUseCase.getExpenses(currentStartDate, currentEndDate)) {
                 is Result.Error -> updateState(ScreenState.Error(response.error, isRetried))
                 is Result.Success<List<Expense>> -> updateStateBasedOnListContent(response.result)
             }

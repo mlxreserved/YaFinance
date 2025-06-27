@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class IncomesHistoryViewModel @Inject constructor(
     private val getIncomesUseCase: GetIncomesUseCase
-): BaseHistoryViewModel<List<Income>>() {
+) : BaseHistoryViewModel<List<Income>>() {
 
     init {
         getHistory()

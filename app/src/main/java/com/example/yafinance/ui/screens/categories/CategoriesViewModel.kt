@@ -20,7 +20,7 @@ class CategoriesViewModel @Inject constructor(private val getCategoriesUseCase: 
         viewModelScope.launch {
             updateState(ScreenState.Loading)
 
-            when(val response = getCategoriesUseCase.getCategories()) {
+            when (val response = getCategoriesUseCase.getCategories()) {
                 is Result.Error -> updateState(ScreenState.Error(response.error, isRetried))
                 is Result.Success<List<Category>> -> updateStateBasedOnListContent(response.result)
             }
