@@ -8,6 +8,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -27,13 +28,15 @@ fun ErrorScreen(
 ) {
     val topAppBarViewModel = LocalTopAppBarViewModel.current
 
-    topAppBarViewModel.update(
-        TopAppBarState(
-            titleId = screenTitleId,
-            leadId = leadId,
-            onLeadIconClick = onLeadIconClick
+    LaunchedEffect(Unit) {
+        topAppBarViewModel.update(
+            TopAppBarState(
+                titleId = screenTitleId,
+                leadId = leadId,
+                onLeadIconClick = onLeadIconClick
+            )
         )
-    )
+    }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -46,7 +49,7 @@ fun ErrorScreen(
             modifier = Modifier.padding(bottom = 8.dp)
         )
         TextButton(
-            onClick = { onClick() },
+            onClick = onClick,
             colors = ButtonDefaults.buttonColors(
                 containerColor = YaFinanceTheme.colors.primaryBackground,
                 contentColor = YaFinanceTheme.colors.primaryText

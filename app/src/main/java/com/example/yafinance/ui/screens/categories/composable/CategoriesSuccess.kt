@@ -8,10 +8,18 @@ import androidx.compose.ui.Modifier
 import com.example.yafinance.domain.models.category.Category
 
 @Composable
-fun CategoriesSuccess(categories: List<Category>, modifier: Modifier = Modifier) {
+fun CategoriesSuccess(
+    categories: List<Category>,
+    modifier: Modifier = Modifier,
+    onSearchChanged: (String) -> Unit,
+    searchQuery: String
+) {
 
     Column(modifier = modifier) {
-        CategorySearch()
+        CategorySearch(
+            onSearchChanged = onSearchChanged,
+            searchQuery = searchQuery
+        )
 
         LazyColumn {
             items(items = categories, key = { it.id }) { category ->

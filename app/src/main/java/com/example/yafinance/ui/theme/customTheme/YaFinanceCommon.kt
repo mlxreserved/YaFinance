@@ -16,10 +16,9 @@ data class YaFinanceColors(
     val moreColor: Color,
     val outlineColor: Color,
     val bottomNavColor: Color,
-    val deleteColor: Color,
+    val errorColor: Color,
     val white: Color,
-    val clickableText: Color,
-    val errorColor: Color
+    val clickableText: Color
 )
 
 data class YaFinanceTypography(

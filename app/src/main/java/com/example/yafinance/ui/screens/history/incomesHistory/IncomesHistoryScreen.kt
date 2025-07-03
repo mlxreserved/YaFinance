@@ -1,6 +1,7 @@
 package com.example.yafinance.ui.screens.history.incomesHistory
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModelProvider
@@ -32,14 +33,16 @@ fun IncomesHistoryScreen(
     val startDate by historyViewModel.selectedStartDate.collectAsStateWithLifecycle()
     val endDate by historyViewModel.selectedEndDate.collectAsStateWithLifecycle()
 
-    topAppBarViewModel.update(
-        TopAppBarState(
-            titleId = R.string.my_history,
-            leadId = R.drawable.ic_back,
-            trailId = R.drawable.ic_analys,
-            onLeadIconClick = onLeadIconClick
+    LaunchedEffect(Unit) {
+        topAppBarViewModel.update(
+            TopAppBarState(
+                titleId = R.string.my_history,
+                leadId = R.drawable.ic_back,
+                trailId = R.drawable.ic_analys,
+                onLeadIconClick = onLeadIconClick
+            )
         )
-    )
+    }
 
     when (val state = historyState) {
         ScreenState.Empty -> {
@@ -47,7 +50,8 @@ fun IncomesHistoryScreen(
                 startDate = startDate,
                 endDate = endDate,
                 onStartDateSelected = { time -> historyViewModel.updateStartDate(time) },
-                onEndDateSelected = { time -> historyViewModel.updateEndDate(time) }
+                onEndDateSelected = { time -> historyViewModel.updateEndDate(time) },
+                onLeadIconClick = onLeadIconClick
             )
         }
 
@@ -76,7 +80,8 @@ fun IncomesHistoryScreen(
                 startDate = startDate,
                 endDate = endDate,
                 onStartDateSelected = { time -> historyViewModel.updateStartDate(time) },
-                onEndDateSelected = { time -> historyViewModel.updateEndDate(time) }
+                onEndDateSelected = { time -> historyViewModel.updateEndDate(time) },
+                onLeadIconClick = onLeadIconClick
             )
         }
     }

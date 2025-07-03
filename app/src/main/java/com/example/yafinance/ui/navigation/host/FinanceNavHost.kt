@@ -34,6 +34,7 @@ import com.example.yafinance.ui.screens.history.incomesHistory.IncomesHistoryScr
 import com.example.yafinance.ui.screens.income.IncomesScreen
 import com.example.yafinance.ui.screens.settings.SettingsScreen
 import com.example.yafinance.ui.screens.settings.model.settings
+import com.example.yafinance.ui.utils.formatWithoutSpaces
 
 @Composable
 fun FinanceNavHost(
@@ -101,9 +102,6 @@ fun FinanceNavHost(
                     viewModelFactory = viewModelFactory,
                     onTrailIconClick = { account ->
                         navigateToEditAccountRoute(account = account, navController = navController)
-                    },
-                    onBalanceClick = { account ->
-                        navigateToEditAccountRoute(account = account, navController = navController)
                     }
                 )
             }
@@ -141,7 +139,7 @@ fun FinanceNavHost(
 fun navigateToEditAccountRoute(account: Account, navController: NavHostController) {
     navController.navigate(
         EditAccountRoute(
-            sum = account.sum,
+            sum = account.sum.formatWithoutSpaces(),
             currency = account.currency,
             id = account.id,
             name = account.name

@@ -3,7 +3,7 @@ package com.example.yafinance.data.remote.mappers
 import com.example.yafinance.data.remote.models.account.AccountDTO
 import com.example.yafinance.data.remote.models.category.CategoryDTO
 import com.example.yafinance.data.remote.models.transaction.response.TransactionResponseDTO
-import com.example.yafinance.data.remote.utils.stringToCurrency
+import com.example.yafinance.data.remote.utils.toCurrency
 import com.example.yafinance.data.remote.utils.formatAmountWithSpaces
 import com.example.yafinance.domain.models.account.Account
 import com.example.yafinance.domain.models.category.Category
@@ -14,7 +14,7 @@ fun AccountDTO.toDomain() = Account(
     id = this.id,
     name = this.name,
     sum = this.balance.formatAmountWithSpaces(),
-    currency = this.currency.stringToCurrency()
+    currency = this.currency.toCurrency()
 )
 
 fun CategoryDTO.toDomain() = Category(
@@ -30,7 +30,7 @@ fun TransactionResponseDTO.toExpenseDomain() = Expense(
     title = this.category.name,
     subtitle = this.comment,
     amount = this.amount.formatAmountWithSpaces(),
-    currency = this.account.currency.stringToCurrency(),
+    currency = this.account.currency.toCurrency(),
     transactionDate = this.transactionDate
 )
 
@@ -39,7 +39,7 @@ fun TransactionResponseDTO.toIncomeDomain() = Income(
     title = this.category.name,
     subtitle = this.comment,
     amount = this.amount.formatAmountWithSpaces(),
-    currency = this.account.currency.stringToCurrency(),
+    currency = this.account.currency.toCurrency(),
     transactionDate = this.transactionDate,
     leadIcon = this.category.emoji
 )

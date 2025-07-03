@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import com.example.yafinance.R
 import com.example.yafinance.ui.screens.accounts.composable.AccountSuccess
 import com.example.yafinance.ui.utils.state.ScreenState
-import com.example.yafinance.ui.utils.state.TopAppBarState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -13,7 +12,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.yafinance.domain.models.account.Account
 import com.example.yafinance.ui.LocalSnackbarViewModel
-import com.example.yafinance.ui.LocalTopAppBarViewModel
 import com.example.yafinance.ui.composable.screens.EmptyScreen
 import com.example.yafinance.ui.composable.screens.ErrorScreen
 import com.example.yafinance.ui.composable.screens.LoadingScreen
@@ -23,24 +21,19 @@ import com.example.yafinance.ui.utils.toUserMessage
 fun AccountsScreen(
     viewModelFactory: ViewModelProvider.Factory,
     onTrailIconClick: (Account) -> Unit,
-    onBalanceClick: (Account) -> Unit,
     accountsViewModel: AccountsViewModel = viewModel(factory = viewModelFactory)
 ) {
-    val topAppBarViewModel = LocalTopAppBarViewModel.current
     val snackbarViewModel = LocalSnackbarViewModel.current
     val context = LocalContext.current
-
-    topAppBarViewModel.update(
-        TopAppBarState(
-            titleId = R.string.my_account,
-        )
-    )
 
     val accountsState by accountsViewModel.screenState.collectAsStateWithLifecycle()
 
     when (val state = accountsState) {
         ScreenState.Empty -> {
-            EmptyScreen(stringResource(R.string.empty_accounts))
+            EmptyScreen(
+                text = stringResource(R.string.empty_accounts),
+                screenTitleId = R.string.my_account,
+            )
         }
 
         is ScreenState.Error -> {
@@ -62,9 +55,10 @@ fun AccountsScreen(
 
         is ScreenState.Success -> {
             val account = state.result
+
             AccountSuccess(
-                account = account, onTrailIconClick = { onTrailIconClick(account) },
-                onBalanceClick = { onBalanceClick(account) }
+                account = account,
+                onTrailIconClick = { onTrailIconClick(account) }
             )
         }
     }

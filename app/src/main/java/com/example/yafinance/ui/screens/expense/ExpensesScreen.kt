@@ -10,13 +10,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.yafinance.ui.LocalSnackbarViewModel
-import com.example.yafinance.ui.LocalTopAppBarViewModel
 import com.example.yafinance.ui.composable.screens.EmptyScreen
 import com.example.yafinance.ui.composable.screens.ErrorScreen
 import com.example.yafinance.ui.composable.screens.LoadingScreen
 import com.example.yafinance.ui.screens.expense.composable.ExpensesSuccess
 import com.example.yafinance.ui.utils.state.ScreenState
-import com.example.yafinance.ui.utils.state.TopAppBarState
 import com.example.yafinance.ui.utils.toUserMessage
 
 @Composable
@@ -26,15 +24,8 @@ fun ExpensesScreen(
     viewModelFactory: ViewModelProvider.Factory,
     expensesViewModel: ExpensesViewModel = viewModel(factory = viewModelFactory)
 ) {
-    val topAppBarViewModel = LocalTopAppBarViewModel.current
     val snackbarViewModel = LocalSnackbarViewModel.current
     val context = LocalContext.current
-
-    topAppBarViewModel.update(
-        TopAppBarState(
-            titleId = R.string.expenses_today
-        )
-    )
 
     val expensesState by expensesViewModel.screenState.collectAsStateWithLifecycle()
 
@@ -43,7 +34,10 @@ fun ExpensesScreen(
             EmptyScreen(
                 text = stringResource(R.string.empty_expenses),
                 onClick = {},
-                addText = stringResource(R.string.create_first_expense)
+                addText = stringResource(R.string.create_first_expense),
+                screenTitleId = R.string.expenses_today,
+                trailId = R.drawable.ic_history,
+                onTrailIconClick = onTrailIconClick
             )
         }
 

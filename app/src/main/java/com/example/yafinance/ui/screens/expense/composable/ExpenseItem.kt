@@ -14,6 +14,7 @@ import com.example.yafinance.domain.models.expense.Expense
 import com.example.yafinance.ui.composable.listItems.customListItem.CustomListItem
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 import com.example.yafinance.ui.utils.formatWithSpaces
+import com.example.yafinance.ui.utils.isEmoji
 
 @Composable
 fun ExpenseItem(
@@ -31,7 +32,12 @@ fun ExpenseItem(
                 text = expense.title
             )
         },
-        leadIcon = expense.leadIcon,
+        leadIcon = {
+            Text(
+                text = expense.leadIcon,
+                style = if (expense.leadIcon.isEmoji()) YaFinanceTheme.typography.emoji else YaFinanceTheme.typography.emojiText
+            )
+        },
         subtitle = expense.subtitle,
         trailText = trailText,
         trailItem = {

@@ -14,6 +14,7 @@ import com.example.yafinance.domain.models.income.Income
 import com.example.yafinance.ui.composable.listItems.customListItem.CustomListItem
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 import com.example.yafinance.ui.utils.formatWithSpaces
+import com.example.yafinance.ui.utils.isEmoji
 
 @Composable
 fun IncomeItem(income: Income) {
@@ -22,7 +23,12 @@ fun IncomeItem(income: Income) {
     val trailIcon = ImageVector.vectorResource(R.drawable.ic_more_vert)
 
     CustomListItem(
-        leadIcon = income.leadIcon,
+        leadIcon = {
+            Text(
+                text = income.leadIcon,
+                style = if (income.leadIcon.isEmoji()) YaFinanceTheme.typography.emoji else YaFinanceTheme.typography.emojiText
+            )
+        },
         title = {
             Text(
                 style = YaFinanceTheme.typography.title,

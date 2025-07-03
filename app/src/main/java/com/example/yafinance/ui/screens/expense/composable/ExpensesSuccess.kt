@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -24,14 +25,6 @@ fun ExpensesSuccess(
 ) {
     val topAppBarViewModel = LocalTopAppBarViewModel.current
 
-    topAppBarViewModel.update(
-        TopAppBarState(
-            titleId = R.string.expenses_today,
-            trailId = R.drawable.ic_history,
-            onTrailIconClick = onTrailIconClick
-        )
-    )
-
     val totalAmount by rememberSaveable {
         mutableStateOf(
             expenses.calculatedSumAsString { it.amount.toDouble() }
@@ -39,6 +32,16 @@ fun ExpensesSuccess(
     }
     val formattedTotalAmount = totalAmount.formatWithSpaces()
     val trailTotalText = "$formattedTotalAmount ${expenses.first().currency}"
+
+    LaunchedEffect(Unit) {
+        topAppBarViewModel.update(
+            TopAppBarState(
+                titleId = R.string.expenses_today,
+                trailId = R.drawable.ic_history,
+                onTrailIconClick = onTrailIconClick
+            )
+        )
+    }
 
     Column {
         TotalItem(trailText = trailTotalText)

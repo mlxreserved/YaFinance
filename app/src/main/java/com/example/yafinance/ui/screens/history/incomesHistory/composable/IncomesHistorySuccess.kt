@@ -4,17 +4,21 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import com.example.yafinance.R
 import com.example.yafinance.domain.models.income.Income
+import com.example.yafinance.ui.LocalTopAppBarViewModel
 import com.example.yafinance.ui.composable.datePicker.CustomDatePicker
 import com.example.yafinance.ui.composable.listItems.TotalItem
 import com.example.yafinance.ui.screens.history.composable.DateItem
 import com.example.yafinance.ui.utils.calculatedSumAsString
 import com.example.yafinance.ui.utils.formatWithSpaces
+import com.example.yafinance.ui.utils.state.TopAppBarState
 import com.example.yafinance.ui.utils.types.DatePickerType
 import java.util.Date
 
@@ -23,9 +27,12 @@ fun IncomesHistorySuccess(
     history: List<Income>,
     onEndDateSelected: (Long?) -> Unit,
     onStartDateSelected: (Long?) -> Unit,
+    onLeadIconClick: () -> Unit,
     startDate: Date,
     endDate: Date
 ) {
+    val topAppBarViewModel = LocalTopAppBarViewModel.current
+
     val total by rememberSaveable {
         mutableStateOf(
             history.calculatedSumAsString { it.amount.toDouble() }
@@ -36,6 +43,17 @@ fun IncomesHistorySuccess(
 
     val formattedTotalAmount = total.formatWithSpaces()
     val trailTotalText = "$formattedTotalAmount ${history.first().currency}"
+
+    LaunchedEffect(Unit) {
+        topAppBarViewModel.update(
+            TopAppBarState(
+                titleId = R.string.my_history,
+                leadId = R.drawable.ic_back,
+                trailId = R.drawable.ic_analys,
+                onLeadIconClick = onLeadIconClick
+            )
+        )
+    }
 
     Column {
         DateItem(isStart = true, date = startDate, onDateItemClick = {

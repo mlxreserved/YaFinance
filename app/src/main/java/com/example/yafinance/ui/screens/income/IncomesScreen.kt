@@ -11,13 +11,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.yafinance.ui.LocalSnackbarViewModel
-import com.example.yafinance.ui.LocalTopAppBarViewModel
 import com.example.yafinance.ui.composable.screens.EmptyScreen
 import com.example.yafinance.ui.composable.screens.ErrorScreen
 import com.example.yafinance.ui.composable.screens.LoadingScreen
 import com.example.yafinance.ui.screens.income.composable.IncomeSuccess
 import com.example.yafinance.ui.utils.state.ScreenState
-import com.example.yafinance.ui.utils.state.TopAppBarState
 import com.example.yafinance.ui.utils.toUserMessage
 
 @Composable
@@ -27,17 +25,8 @@ fun IncomesScreen(
     modifier: Modifier = Modifier,
     incomesViewModel: IncomesViewModel = viewModel(factory = viewModelFactory)
 ) {
-    val topAppBarViewModel = LocalTopAppBarViewModel.current
     val snackbarViewModel = LocalSnackbarViewModel.current
     val context = LocalContext.current
-
-    topAppBarViewModel.update(
-        TopAppBarState(
-            titleId = R.string.incomes_today,
-            trailId = R.drawable.ic_history,
-            onTrailIconClick = onTrailIconClick
-        )
-    )
 
     val incomeState by incomesViewModel.screenState.collectAsStateWithLifecycle()
 
@@ -46,7 +35,10 @@ fun IncomesScreen(
             EmptyScreen(
                 text = stringResource(R.string.empty_incomes),
                 onClick = {},
-                addText = stringResource(R.string.create_first_income)
+                addText = stringResource(R.string.create_first_income),
+                screenTitleId = R.string.incomes_today,
+                onTrailIconClick = onTrailIconClick,
+                trailId = R.drawable.ic_history
             )
         }
 
@@ -70,7 +62,11 @@ fun IncomesScreen(
         }
 
         is ScreenState.Success -> {
-            IncomeSuccess(incomes = state.result, modifier = Modifier.fillMaxSize())
+            IncomeSuccess(
+                incomes = state.result,
+                modifier = Modifier.fillMaxSize(),
+                onTrailIconClick = onTrailIconClick
+            )
         }
     }
 }
