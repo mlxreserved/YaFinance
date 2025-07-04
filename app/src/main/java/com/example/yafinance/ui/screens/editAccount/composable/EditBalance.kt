@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import com.example.yafinance.R
 import com.example.yafinance.ui.composable.listItems.customListItem.Lead
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
-import com.example.yafinance.ui.utils.NumberWithSpacesTransformation
 import com.example.yafinance.ui.utils.isEmoji
 
 @Composable
@@ -66,7 +65,6 @@ fun EditBalance(
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 textStyle = YaFinanceTheme.typography.title.copy(textAlign = TextAlign.End),
-                visualTransformation = NumberWithSpacesTransformation(),
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = YaFinanceTheme.colors.white,
                     unfocusedContainerColor = YaFinanceTheme.colors.white,
