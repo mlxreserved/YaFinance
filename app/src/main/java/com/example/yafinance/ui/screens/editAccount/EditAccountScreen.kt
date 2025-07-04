@@ -45,31 +45,10 @@ fun EditAccountScreen(
     var accountName by rememberSaveable { mutableStateOf(name) }
     var showBottomSheet by remember { mutableStateOf(false) }
 
-    val topAppBarViewModel = LocalTopAppBarViewModel.current
     val snackbarViewModel = LocalSnackbarViewModel.current
     val context = LocalContext.current
 
-    LaunchedEffect(Unit) {
-        topAppBarViewModel.update(
-            TopAppBarState(
-                titleId = R.string.my_account,
-                trailId = R.drawable.ic_save,
-                leadId = R.drawable.ic_cross,
-                onTrailIconClick = {
-                    editViewModel.onApplyEditAccountInfo(
-                        id = id,
-                        name = accountName,
-                        sum = currentSum,
-                        currency = currentCurrency
-                    )
-                },
-                onLeadIconClick = onLeadIconClick
-            )
-        )
-    }
-
     val editAccountState by editViewModel.editAccountState.collectAsStateWithLifecycle()
-
 
     when (val state = editAccountState) {
         ScreenState.Empty -> {
