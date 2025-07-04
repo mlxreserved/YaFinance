@@ -1,7 +1,6 @@
 package com.example.yafinance.ui.screens.history.expensesHistory.composable
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -20,7 +19,10 @@ import com.example.yafinance.ui.utils.isEmoji
 import com.example.yafinance.ui.utils.toDateWithTimeString
 
 @Composable
-fun ExpenseHistoryItem(historyItem: Expense) {
+fun ExpenseHistoryItem(
+    historyItem: Expense,
+    modifier: Modifier = Modifier
+) {
     val formattedAmount = historyItem.amount.formatWithSpaces()
 
     val trailText = "$formattedAmount ${historyItem.currency}"
@@ -62,6 +64,6 @@ fun ExpenseHistoryItem(historyItem: Expense) {
             )
         },
         hasDate = true,
-        modifier = Modifier.height(72.dp)
+        modifier = modifier
     )
 }

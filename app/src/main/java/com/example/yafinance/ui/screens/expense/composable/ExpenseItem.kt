@@ -1,6 +1,5 @@
 package com.example.yafinance.ui.screens.expense.composable
 
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -18,7 +17,8 @@ import com.example.yafinance.ui.utils.isEmoji
 
 @Composable
 fun ExpenseItem(
-    expense: Expense
+    expense: Expense,
+    modifier: Modifier = Modifier
 ) {
     val formattedAmount = expense.amount.formatWithSpaces()
 
@@ -47,6 +47,6 @@ fun ExpenseItem(
                 modifier = Modifier.padding(start = 16.dp)
             )
         },
-        modifier = Modifier.height(72.dp)
+        modifier = modifier
     )
 }

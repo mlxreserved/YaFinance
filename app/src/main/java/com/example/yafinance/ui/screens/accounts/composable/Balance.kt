@@ -1,18 +1,19 @@
 package com.example.yafinance.ui.screens.accounts.composable
 
-import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.example.yafinance.R
 import com.example.yafinance.ui.composable.listItems.customListItem.CustomListItem
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 import com.example.yafinance.ui.utils.isEmoji
 
 @Composable
-fun Balance(trailText: String) {
+fun Balance(
+    trailText: String,
+    modifier: Modifier = Modifier
+) {
     CustomListItem(
         title = {
             Text(
@@ -29,7 +30,6 @@ fun Balance(trailText: String) {
         trailText = trailText,
         backgroundContainerColor = YaFinanceTheme.colors.secondaryBackground,
         backgroundLeadColor = YaFinanceTheme.colors.surface,
-        modifier = Modifier
-            .height(56.dp)
+        modifier = modifier
     )
 }

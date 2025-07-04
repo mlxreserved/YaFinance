@@ -1,5 +1,6 @@
 package com.example.yafinance.ui.screens.expense
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -37,7 +38,8 @@ fun ExpensesScreen(
                 addText = stringResource(R.string.create_first_expense),
                 screenTitleId = R.string.expenses_today,
                 trailId = R.drawable.ic_history,
-                onTrailIconClick = onTrailIconClick
+                onTrailIconClick = onTrailIconClick,
+                modifier = Modifier.fillMaxSize()
             )
         }
 
@@ -50,19 +52,23 @@ fun ExpensesScreen(
                 text = state.message.toUserMessage(context),
                 onClick = {
                     expensesViewModel.onRetryClicked()
-                }
+                },
+                modifier = Modifier.fillMaxSize()
             )
         }
 
         ScreenState.Loading -> {
-            LoadingScreen(screenTitleId = R.string.expenses_today)
+            LoadingScreen(
+                screenTitleId = R.string.expenses_today,
+                modifier = Modifier.fillMaxSize()
+            )
         }
 
         is ScreenState.Success -> {
             ExpensesSuccess(
                 expenses = state.result,
                 onTrailIconClick = onTrailIconClick,
-                modifier = modifier
+                modifier = Modifier.fillMaxSize()
             )
         }
     }

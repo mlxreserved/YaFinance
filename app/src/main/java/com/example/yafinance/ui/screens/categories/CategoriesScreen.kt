@@ -1,5 +1,6 @@
 package com.example.yafinance.ui.screens.categories
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -41,7 +42,8 @@ fun CategoriesScreen(
         ScreenState.Empty -> {
             EmptyScreen(
                 text = stringResource(R.string.empty_categories),
-                screenTitleId = R.string.my_categories
+                screenTitleId = R.string.my_categories,
+                modifier = Modifier.fillMaxSize()
             )
         }
 
@@ -54,12 +56,16 @@ fun CategoriesScreen(
                 text = state.message.toUserMessage(context),
                 onClick = {
                     categoriesViewModel.onRetryClicked()
-                }
+                },
+                modifier = Modifier.fillMaxSize()
             )
         }
 
         ScreenState.Loading -> {
-            LoadingScreen(screenTitleId = R.string.my_categories)
+            LoadingScreen(
+                screenTitleId = R.string.my_categories,
+                modifier = Modifier.fillMaxSize()
+            )
         }
 
         is ScreenState.Success -> {
@@ -69,8 +75,7 @@ fun CategoriesScreen(
                     categoriesViewModel.updateSearchQuery(newSearchQuery)
                     categoriesViewModel.findCategories()
                 },
-                searchQuery = searchQuery,
-                modifier = modifier
+                searchQuery = searchQuery
             )
         }
     }

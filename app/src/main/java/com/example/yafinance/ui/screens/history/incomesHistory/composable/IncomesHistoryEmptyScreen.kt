@@ -28,7 +28,8 @@ fun IncomesHistoryEmptyScreen(
     onStartDateSelected: (Long?) -> Unit,
     onLeadIconClick: () -> Unit,
     startDate: Date,
-    endDate: Date
+    endDate: Date,
+    modifier: Modifier = Modifier
 ) {
     val topAppBarViewModel = LocalTopAppBarViewModel.current
 
@@ -46,15 +47,25 @@ fun IncomesHistoryEmptyScreen(
         )
     }
 
-    Column {
-        DateItem(isStart = true, date = startDate, onDateItemClick = {
-            currentPicking = DatePickerType.START
-            showPicker = true
-        })
-        DateItem(isStart = false, date = endDate, onDateItemClick = {
-            currentPicking = DatePickerType.END
-            showPicker = true
-        })
+    Column(
+        modifier = modifier
+    ) {
+        DateItem(
+            isStart = true,
+            date = startDate,
+            onDateItemClick = {
+                currentPicking = DatePickerType.START
+                showPicker = true
+            }
+        )
+        DateItem(
+            isStart = false,
+            date = endDate,
+            onDateItemClick = {
+                currentPicking = DatePickerType.END
+                showPicker = true
+            }
+        )
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()

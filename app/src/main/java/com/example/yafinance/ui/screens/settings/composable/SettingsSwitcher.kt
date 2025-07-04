@@ -1,6 +1,5 @@
 package com.example.yafinance.ui.screens.settings.composable
 
-import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
@@ -11,12 +10,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.example.yafinance.ui.composable.listItems.customListItem.CustomListItem
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 
 @Composable
-fun SettingsSwitcher(titleId: Int) {
+fun SettingsSwitcher(
+    titleId: Int,
+    modifier: Modifier = Modifier
+) {
     var isDarkTheme by rememberSaveable { mutableStateOf(false) }
 
     CustomListItem(
@@ -33,6 +34,6 @@ fun SettingsSwitcher(titleId: Int) {
                 colors = SwitchDefaults.colors(checkedTrackColor = YaFinanceTheme.colors.primaryBackground)
             )
         },
-        modifier = Modifier.height(56.dp)
+        modifier = modifier
     )
 }

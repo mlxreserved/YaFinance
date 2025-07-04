@@ -1,5 +1,6 @@
 package com.example.yafinance.ui.screens.editAccount
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -8,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModelProvider
@@ -35,6 +37,7 @@ fun EditAccountScreen(
     currency: String,
     id: Int,
     name: String,
+    modifier: Modifier = Modifier,
     editViewModel: EditAccountViewModel = viewModel(factory = viewModelFactory)
 ) {
     var currentSum by rememberSaveable { mutableStateOf(sum) }
@@ -77,6 +80,15 @@ fun EditAccountScreen(
                 onBalanceValueChange = { newSum -> currentSum = newSum },
                 onAccountNameChange = { newAccountName -> accountName = newAccountName },
                 onChangeCurrencyClick = { showBottomSheet = true },
+                onTrailIconClick = {
+                    editViewModel.onApplyEditAccountInfo(
+                        id = id,
+                        name = accountName,
+                        sum = currentSum,
+                        currency = currentCurrency
+                    )
+                },
+                onLeadIconClick = onLeadIconClick
             )
         }
 
@@ -88,12 +100,24 @@ fun EditAccountScreen(
                 onBalanceValueChange = { input -> currentSum = input },
                 onAccountNameChange = { newAccountName -> accountName = newAccountName },
                 onChangeCurrencyClick = { showBottomSheet = true },
+                onTrailIconClick = {
+                    editViewModel.onApplyEditAccountInfo(
+                        id = id,
+                        name = accountName,
+                        sum = currentSum,
+                        currency = currentCurrency
+                    )
+                },
+                onLeadIconClick = onLeadIconClick
             )
             snackbarViewModel.showMessage(state.message.toUserMessage(context))
         }
 
         ScreenState.Loading -> {
-            LoadingScreen(screenTitleId = R.string.my_account)
+            LoadingScreen(
+                screenTitleId = R.string.my_account,
+                modifier = Modifier.fillMaxSize()
+            )
         }
 
         is ScreenState.Success<Account> -> {

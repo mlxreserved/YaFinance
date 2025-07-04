@@ -4,7 +4,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,6 +19,7 @@ import com.example.yafinance.ui.utils.state.TopAppBarState
 fun EmptyScreen(
     text: String,
     @StringRes screenTitleId: Int,
+    modifier: Modifier = Modifier,
     onClick: (() -> Unit)? = null,
     @DrawableRes leadId: Int? = null,
     onLeadIconClick: (() -> Unit)? = null,
@@ -42,7 +42,7 @@ fun EmptyScreen(
     }
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

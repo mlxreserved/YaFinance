@@ -28,9 +28,12 @@ import com.example.yafinance.ui.utils.isEmoji
 fun EditBalance(
     currentSum: String,
     currency: String,
-    onBalanceValueChange: (String) -> Unit
+    onBalanceValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    Column {
+    Column(
+        modifier = modifier
+    ) {
 
         Row(
             verticalAlignment = Alignment.CenterVertically,

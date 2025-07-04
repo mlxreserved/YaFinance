@@ -20,11 +20,13 @@ import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 @Composable
 fun CustomBottomSheet(
     onDismiss: () -> Unit,
-    onSelectCurrency: (String) -> Unit
+    onSelectCurrency: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     ModalBottomSheet(
         containerColor = YaFinanceTheme.colors.white,
-        onDismissRequest = onDismiss
+        onDismissRequest = onDismiss,
+        modifier = modifier
     ) {
         CurrencyItem(
             leadIconId = R.drawable.ruble,
@@ -32,13 +34,14 @@ fun CustomBottomSheet(
             currencyIconId = R.string.ruble_icon,
             onSelectCurrency = onSelectCurrency,
             onDismiss = onDismiss
-            )
+        )
         CurrencyItem(
             leadIconId = R.drawable.dollar,
             currencyId = R.string.dollar,
             currencyIconId = R.string.dollar_icon,
             onSelectCurrency = onSelectCurrency,
             onDismiss = onDismiss
+
         )
         CurrencyItem(
             leadIconId = R.drawable.euro,
@@ -47,7 +50,11 @@ fun CustomBottomSheet(
             onSelectCurrency = onSelectCurrency,
             onDismiss = onDismiss
         )
-        CancelItem(onDismiss = onDismiss)
+        CancelItem(
+            modifier = Modifier
+                .height(72.dp)
+                .clickable { onDismiss() }
+        )
     }
 }
 
@@ -56,8 +63,9 @@ fun CurrencyItem(
     leadIconId: Int,
     currencyId: Int,
     currencyIconId: Int,
+    onDismiss: () -> Unit,
     onSelectCurrency: (String) -> Unit,
-    onDismiss: () -> Unit
+    modifier: Modifier = Modifier
 ) {
     val currencyIcon = stringResource(currencyIconId)
     val currencyTitle = stringResource(currencyId)
@@ -77,7 +85,7 @@ fun CurrencyItem(
                 text = "$currencyTitle $currencyIcon"
             )
         },
-        modifier = Modifier
+        modifier = modifier
             .height(72.dp)
             .clickable {
                 onSelectCurrency(currencyIcon)
@@ -87,7 +95,9 @@ fun CurrencyItem(
 }
 
 @Composable
-fun CancelItem(onDismiss: () -> Unit) {
+fun CancelItem(
+    modifier: Modifier = Modifier
+) {
     CustomListItem(
         leadIcon = {
             Icon(
@@ -104,8 +114,6 @@ fun CancelItem(onDismiss: () -> Unit) {
                 color = YaFinanceTheme.colors.white
             )
         },
-        modifier = Modifier
-            .height(72.dp)
-            .clickable { onDismiss() }
+        modifier = modifier
     )
 }

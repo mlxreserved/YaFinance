@@ -1,10 +1,12 @@
 package com.example.yafinance.ui.screens.accounts
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import com.example.yafinance.R
 import com.example.yafinance.ui.screens.accounts.composable.AccountSuccess
 import com.example.yafinance.ui.utils.state.ScreenState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModelProvider
@@ -33,6 +35,7 @@ fun AccountsScreen(
             EmptyScreen(
                 text = stringResource(R.string.empty_accounts),
                 screenTitleId = R.string.my_account,
+                modifier = Modifier.fillMaxSize()
             )
         }
 
@@ -45,12 +48,16 @@ fun AccountsScreen(
                 text = state.message.toUserMessage(context),
                 onClick = {
                     accountsViewModel.onRetryClicked()
-                }
+                },
+                modifier = Modifier.fillMaxSize()
             )
         }
 
         ScreenState.Loading -> {
-            LoadingScreen(screenTitleId = R.string.my_account)
+            LoadingScreen(
+                screenTitleId = R.string.my_account,
+                modifier = Modifier.fillMaxSize()
+            )
         }
 
         is ScreenState.Success -> {

@@ -1,9 +1,11 @@
 package com.example.yafinance.ui.screens.accounts.composable
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.example.yafinance.R
 import com.example.yafinance.domain.models.account.Account
 import com.example.yafinance.ui.LocalTopAppBarViewModel
@@ -33,15 +35,21 @@ fun AccountSuccess(
 
     Column(modifier = modifier) {
         Balance(
-            trailText = trailBalanceText
+            trailText = trailBalanceText,
+            modifier = Modifier
+                .height(56.dp)
         )
 
         AccountName(
-            accountName = account.name
+            accountName = account.name,
+            modifier = Modifier
+                .height(56.dp)
         )
 
         Currency(
-            currency = account.currency
+            currency = account.currency,
+            modifier = Modifier
+                .height(56.dp)
         )
     }
 }

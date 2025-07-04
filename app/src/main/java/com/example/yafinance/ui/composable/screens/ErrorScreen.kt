@@ -2,7 +2,6 @@ package com.example.yafinance.ui.composable.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -23,8 +22,9 @@ fun ErrorScreen(
     screenTitleId: Int,
     text: String,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
     leadId: Int? = null,
-    onLeadIconClick: (() -> Unit)? = null
+    onLeadIconClick: (() -> Unit)? = null,
 ) {
     val topAppBarViewModel = LocalTopAppBarViewModel.current
 
@@ -39,7 +39,7 @@ fun ErrorScreen(
     }
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

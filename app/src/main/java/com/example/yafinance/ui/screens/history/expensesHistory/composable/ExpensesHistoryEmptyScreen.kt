@@ -28,7 +28,8 @@ fun ExpensesHistoryEmptyScreen(
     onStartDateSelected: (Long?) -> Unit,
     onLeadIconClick: () -> Unit,
     startDate: Date,
-    endDate: Date
+    endDate: Date,
+    modifier: Modifier = Modifier
 ) {
     val topAppBarViewModel = LocalTopAppBarViewModel.current
     var showPicker by remember { mutableStateOf(false) }

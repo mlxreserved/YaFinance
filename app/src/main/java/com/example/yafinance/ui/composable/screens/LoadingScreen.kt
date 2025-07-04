@@ -1,7 +1,6 @@
 package com.example.yafinance.ui.composable.screens
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -12,7 +11,7 @@ import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 import com.example.yafinance.ui.utils.state.TopAppBarState
 
 @Composable
-fun LoadingScreen(screenTitleId: Int) {
+fun LoadingScreen(screenTitleId: Int, modifier: Modifier = Modifier) {
     val topAppBarViewModel = LocalTopAppBarViewModel.current
 
     LaunchedEffect(Unit) {
@@ -20,7 +19,7 @@ fun LoadingScreen(screenTitleId: Int) {
     }
 
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(

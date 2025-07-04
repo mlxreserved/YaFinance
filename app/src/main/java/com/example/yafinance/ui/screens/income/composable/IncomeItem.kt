@@ -1,6 +1,5 @@
 package com.example.yafinance.ui.screens.income.composable
 
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -17,7 +16,10 @@ import com.example.yafinance.ui.utils.formatWithSpaces
 import com.example.yafinance.ui.utils.isEmoji
 
 @Composable
-fun IncomeItem(income: Income) {
+fun IncomeItem(
+    income: Income,
+    modifier: Modifier = Modifier
+) {
     val formattedAmount = income.amount.formatWithSpaces()
     val trailText = "$formattedAmount ${income.currency}"
     val trailIcon = ImageVector.vectorResource(R.drawable.ic_more_vert)
@@ -44,6 +46,6 @@ fun IncomeItem(income: Income) {
                 modifier = Modifier.padding(start = 16.dp)
             )
         },
-        modifier = Modifier.height(72.dp)
+        modifier = modifier
     )
 }

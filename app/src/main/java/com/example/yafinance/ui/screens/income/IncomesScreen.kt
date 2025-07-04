@@ -38,7 +38,8 @@ fun IncomesScreen(
                 addText = stringResource(R.string.create_first_income),
                 screenTitleId = R.string.incomes_today,
                 onTrailIconClick = onTrailIconClick,
-                trailId = R.drawable.ic_history
+                trailId = R.drawable.ic_history,
+                modifier = Modifier.fillMaxSize()
             )
         }
 
@@ -51,14 +52,18 @@ fun IncomesScreen(
                 text = state.message.toUserMessage(context),
                 onClick = {
                     incomesViewModel.onRetryClicked()
-                }
+                },
+                modifier = Modifier.fillMaxSize()
             )
 
 
         }
 
         ScreenState.Loading -> {
-            LoadingScreen(screenTitleId = R.string.incomes_today)
+            LoadingScreen(
+                screenTitleId = R.string.incomes_today,
+                modifier = Modifier.fillMaxSize()
+            )
         }
 
         is ScreenState.Success -> {

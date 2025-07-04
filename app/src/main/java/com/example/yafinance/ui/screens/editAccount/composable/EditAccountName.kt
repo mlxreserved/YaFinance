@@ -22,9 +22,12 @@ import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 @Composable
 fun EditAccountName(
     onAccountNameChange: (String) -> Unit,
-    accountName: String
+    accountName: String,
+    modifier: Modifier = Modifier
 ) {
-    Column {
+    Column(
+        modifier = modifier
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier

@@ -1,6 +1,7 @@
 package com.example.yafinance.ui.screens.history.expensesHistory.composable
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -10,6 +11,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.example.yafinance.R
 import com.example.yafinance.domain.models.expense.Expense
 import com.example.yafinance.ui.LocalTopAppBarViewModel
@@ -29,7 +32,8 @@ fun ExpensesHistorySuccess(
     onStartDateSelected: (Long?) -> Unit,
     onLeadIconClick: () -> Unit,
     startDate: Date,
-    endDate: Date
+    endDate: Date,
+    modifier: Modifier = Modifier
 ) {
     val topAppBarViewModel = LocalTopAppBarViewModel.current
 
@@ -55,19 +59,38 @@ fun ExpensesHistorySuccess(
         )
     }
 
-    Column {
-        DateItem(isStart = true, date = startDate, onDateItemClick = {
-            currentPicking = DatePickerType.START
-            showPicker = true
-        })
-        DateItem(isStart = false, date = endDate, onDateItemClick = {
-            currentPicking = DatePickerType.END
-            showPicker = true
-        })
-        TotalItem(trailText = trailTotalText, hasDivider = false)
+    Column(
+        modifier = modifier
+    ) {
+        DateItem(
+            isStart = true,
+            date = startDate,
+            onDateItemClick = {
+                currentPicking = DatePickerType.START
+                showPicker = true
+            },
+            modifier = Modifier.height(56.dp)
+        )
+        DateItem(
+            isStart = false,
+            date = endDate,
+            onDateItemClick = {
+                currentPicking = DatePickerType.END
+                showPicker = true
+            },
+            modifier = Modifier.height(56.dp)
+        )
+        TotalItem(
+            trailText = trailTotalText,
+            hasDivider = false,
+            modifier = Modifier.height(56.dp)
+        )
         LazyColumn {
             items(items = history, key = { it.id }) { historyItem ->
-                ExpenseHistoryItem(historyItem = historyItem)
+                ExpenseHistoryItem(
+                    historyItem = historyItem,
+                    modifier = Modifier.height(72.dp)
+                )
             }
         }
     }
