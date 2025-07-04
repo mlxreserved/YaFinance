@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -13,9 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.yafinance.R
+import com.example.yafinance.ui.LocalTopAppBarViewModel
 import com.example.yafinance.ui.composable.datePicker.CustomDatePicker
 import com.example.yafinance.ui.screens.history.composable.DateItem
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
+import com.example.yafinance.ui.utils.state.TopAppBarState
 import com.example.yafinance.ui.utils.types.DatePickerType
 import java.util.Date
 
@@ -23,21 +26,46 @@ import java.util.Date
 fun IncomesHistoryEmptyScreen(
     onEndDateSelected: (Long?) -> Unit,
     onStartDateSelected: (Long?) -> Unit,
+    onLeadIconClick: () -> Unit,
     startDate: Date,
-    endDate: Date
+    endDate: Date,
+    modifier: Modifier = Modifier
 ) {
+    val topAppBarViewModel = LocalTopAppBarViewModel.current
+
     var showPicker by remember { mutableStateOf(false) }
     var currentPicking: DatePickerType by remember { mutableStateOf(DatePickerType.START) }
 
-    Column {
-        DateItem(isStart = true, date = startDate, onDateItemClick = {
-            currentPicking = DatePickerType.START
-            showPicker = true
-        })
-        DateItem(isStart = false, date = endDate, onDateItemClick = {
-            currentPicking = DatePickerType.END
-            showPicker = true
-        })
+    LaunchedEffect(Unit) {
+        topAppBarViewModel.update(
+            TopAppBarState(
+                titleId = R.string.my_history,
+                leadId = R.drawable.ic_back,
+                trailId = R.drawable.ic_analys,
+                onLeadIconClick = onLeadIconClick
+            )
+        )
+    }
+
+    Column(
+        modifier = modifier
+    ) {
+        DateItem(
+            isStart = true,
+            date = startDate,
+            onDateItemClick = {
+                currentPicking = DatePickerType.START
+                showPicker = true
+            }
+        )
+        DateItem(
+            isStart = false,
+            date = endDate,
+            onDateItemClick = {
+                currentPicking = DatePickerType.END
+                showPicker = true
+            }
+        )
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()

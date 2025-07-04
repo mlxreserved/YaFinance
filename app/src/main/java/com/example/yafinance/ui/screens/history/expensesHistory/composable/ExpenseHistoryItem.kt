@@ -1,7 +1,6 @@
 package com.example.yafinance.ui.screens.history.expensesHistory.composable
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -16,10 +15,14 @@ import com.example.yafinance.domain.models.expense.Expense
 import com.example.yafinance.ui.composable.listItems.customListItem.CustomListItem
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 import com.example.yafinance.ui.utils.formatWithSpaces
+import com.example.yafinance.ui.utils.isEmoji
 import com.example.yafinance.ui.utils.toDateWithTimeString
 
 @Composable
-fun ExpenseHistoryItem(historyItem: Expense) {
+fun ExpenseHistoryItem(
+    historyItem: Expense,
+    modifier: Modifier = Modifier
+) {
     val formattedAmount = historyItem.amount.formatWithSpaces()
 
     val trailText = "$formattedAmount ${historyItem.currency}"
@@ -27,8 +30,18 @@ fun ExpenseHistoryItem(historyItem: Expense) {
 
 
     CustomListItem(
-        leadIcon = historyItem.leadIcon,
-        title = { Text(historyItem.title) },
+        leadIcon = {
+            Text(
+                text = historyItem.leadIcon,
+                style = if (historyItem.leadIcon.isEmoji()) YaFinanceTheme.typography.emoji else YaFinanceTheme.typography.emojiText
+            )
+        },
+        title = {
+            Text(
+                text = historyItem.title,
+                style = YaFinanceTheme.typography.title
+            )
+        },
         subtitle = historyItem.subtitle,
         trailTextItem = {
             Column(horizontalAlignment = Alignment.End) {
@@ -51,6 +64,6 @@ fun ExpenseHistoryItem(historyItem: Expense) {
             )
         },
         hasDate = true,
-        modifier = Modifier.height(72.dp)
+        modifier = modifier
     )
 }

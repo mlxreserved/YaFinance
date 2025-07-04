@@ -3,7 +3,10 @@ package com.example.yafinance.ui.screens.editAccount
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.yafinance.domain.models.account.Account
-import com.example.yafinance.domain.usecase.inter.ChangeAccountInfoUseCase
+import com.example.yafinance.domain.usecase.account.inter.ChangeAccountInfoUseCase
+import com.example.yafinance.domain.usecase.global.inter.SetCurrentAccountNameUseCase
+import com.example.yafinance.domain.usecase.global.inter.SetCurrentBalanceUseCase
+import com.example.yafinance.domain.usecase.global.inter.SetCurrentCurrencyUseCase
 import com.example.yafinance.domain.utils.Result
 import com.example.yafinance.ui.utils.currencyToString
 import com.example.yafinance.ui.utils.formatWithoutSpaces
@@ -16,7 +19,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class EditAccountViewModel @Inject constructor(
-    private val changeAccountInfoUseCase: ChangeAccountInfoUseCase
+    private val changeAccountInfoUseCase: ChangeAccountInfoUseCase,
+    private val setCurrentCurrencyUseCase: SetCurrentCurrencyUseCase,
+    private val setCurrentAccountNameUseCase: SetCurrentAccountNameUseCase,
+    private val setCurrentBalanceUseCase: SetCurrentBalanceUseCase
 ) : ViewModel() {
     private val _editAccountState: MutableStateFlow<ScreenState<Account>> =
         MutableStateFlow<ScreenState<Account>>(
@@ -48,6 +54,18 @@ class EditAccountViewModel @Inject constructor(
 
     fun onApplyEditAccountInfo(id: Int, name: String, sum: String, currency: String) {
         changeAccountInfo(id = id, name = name, sum = sum, currency = currency)
+    }
+
+    fun setGlobalCurrency(newCurrency: String) {
+        setCurrentCurrencyUseCase.setCurrency(newCurrency.currencyToString())
+    }
+
+    fun setGlobalAccountName(newAccountName: String) {
+        setCurrentAccountNameUseCase.setAccountName(newAccountName)
+    }
+
+    fun setGlobalBalance(newBalance: String) {
+        setCurrentBalanceUseCase.setBalance(newBalance)
     }
 
     private fun updateState(state: ScreenState<Account>) {

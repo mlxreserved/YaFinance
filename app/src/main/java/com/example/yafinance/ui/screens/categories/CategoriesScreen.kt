@@ -1,10 +1,13 @@
 package com.example.yafinance.ui.screens.categories
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.yafinance.R
@@ -28,14 +31,20 @@ fun CategoriesScreen(
     val topAppBarViewModel = LocalTopAppBarViewModel.current
     val snackbarViewModel = LocalSnackbarViewModel.current
 
-    topAppBarViewModel.update(TopAppBarState(titleId = R.string.my_categories))
-
+    LaunchedEffect(Unit) {
+        topAppBarViewModel.update(TopAppBarState(titleId = R.string.my_categories))
+    }
 
     val categoriesState by categoriesViewModel.screenState.collectAsStateWithLifecycle()
+    val searchQuery by categoriesViewModel.searchQuery.collectAsStateWithLifecycle()
 
     when (val state = categoriesState) {
         ScreenState.Empty -> {
-            EmptyScreen("Empty screen")
+            EmptyScreen(
+                text = stringResource(R.string.empty_categories),
+                screenTitleId = R.string.my_categories,
+                modifier = Modifier.fillMaxSize()
+            )
         }
 
         is ScreenState.Error -> {
@@ -47,16 +56,27 @@ fun CategoriesScreen(
                 text = state.message.toUserMessage(context),
                 onClick = {
                     categoriesViewModel.onRetryClicked()
-                }
+                },
+                modifier = Modifier.fillMaxSize()
             )
         }
 
         ScreenState.Loading -> {
-            LoadingScreen(screenTitleId = R.string.my_categories)
+            LoadingScreen(
+                screenTitleId = R.string.my_categories,
+                modifier = Modifier.fillMaxSize()
+            )
         }
 
         is ScreenState.Success -> {
-            CategoriesSuccess(categories = state.result, modifier = modifier)
+            CategoriesSuccess(
+                categories = state.result,
+                onSearchChanged = { newSearchQuery ->
+                    categoriesViewModel.updateSearchQuery(newSearchQuery)
+                    categoriesViewModel.findCategories()
+                },
+                searchQuery = searchQuery
+            )
         }
     }
 }

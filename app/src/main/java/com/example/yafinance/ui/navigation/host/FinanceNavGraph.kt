@@ -20,7 +20,7 @@ fun FinanceNavGraph(
 
     Crossfade(targetState = splashFinished) { finished ->
         if (!finished) {
-            SplashScreen { splashFinished = true }
+            SplashScreen(onSplashFinished = { splashFinished = true })
         } else {
             MainScreen(navController = navController, viewModelFactory = viewModelFactory)
         }

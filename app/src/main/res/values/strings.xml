@@ -46,4 +46,11 @@
     <string name="error_too_many_requests">There are too many requests. Try again later</string>
     <string name="error_server">Server error. Try again later</string>
     <string name="error_client">Error. Contact support</string>
+    <string name="account_name">Account name</string>
+    <string name="ruble">Russian ruble</string>
+    <string name="dollar">American dollar</string>
+    <string name="euro">Euro</string>
+    <string name="ruble_icon">₽</string>
+    <string name="dollar_icon">$</string>
+    <string name="euro_icon">€</string>
 </resources>

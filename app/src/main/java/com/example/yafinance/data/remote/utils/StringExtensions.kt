@@ -1,7 +1,7 @@
 package com.example.yafinance.data.remote.utils
 
 
-fun String.stringToCurrency(): String {
+fun String.toCurrency(): String {
     return when (this) {
         "RUB" -> "₽"
         "USD" -> "$"

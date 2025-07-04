@@ -1,7 +1,10 @@
 package com.example.yafinance.ui.screens.history.incomesHistory
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -22,6 +25,7 @@ import com.example.yafinance.ui.utils.toUserMessage
 fun IncomesHistoryScreen(
     viewModelFactory: ViewModelProvider.Factory,
     onLeadIconClick: () -> Unit,
+    modifier: Modifier = Modifier,
     historyViewModel: IncomesHistoryViewModel = viewModel(factory = viewModelFactory)
 ) {
     val context = LocalContext.current
@@ -32,14 +36,16 @@ fun IncomesHistoryScreen(
     val startDate by historyViewModel.selectedStartDate.collectAsStateWithLifecycle()
     val endDate by historyViewModel.selectedEndDate.collectAsStateWithLifecycle()
 
-    topAppBarViewModel.update(
-        TopAppBarState(
-            titleId = R.string.my_history,
-            leadId = R.drawable.ic_back,
-            trailId = R.drawable.ic_analys,
-            onLeadIconClick = onLeadIconClick
+    LaunchedEffect(Unit) {
+        topAppBarViewModel.update(
+            TopAppBarState(
+                titleId = R.string.my_history,
+                leadId = R.drawable.ic_back,
+                trailId = R.drawable.ic_analys,
+                onLeadIconClick = onLeadIconClick
+            )
         )
-    )
+    }
 
     when (val state = historyState) {
         ScreenState.Empty -> {
@@ -47,7 +53,8 @@ fun IncomesHistoryScreen(
                 startDate = startDate,
                 endDate = endDate,
                 onStartDateSelected = { time -> historyViewModel.updateStartDate(time) },
-                onEndDateSelected = { time -> historyViewModel.updateEndDate(time) }
+                onEndDateSelected = { time -> historyViewModel.updateEndDate(time) },
+                onLeadIconClick = onLeadIconClick
             )
         }
 
@@ -62,12 +69,16 @@ fun IncomesHistoryScreen(
                     historyViewModel.onRetryClicked()
                 },
                 onLeadIconClick = onLeadIconClick,
-                leadId = R.drawable.ic_back
+                leadId = R.drawable.ic_back,
+                modifier = Modifier.fillMaxSize()
             )
         }
 
         ScreenState.Loading -> {
-            LoadingScreen(screenTitleId = R.string.my_history)
+            LoadingScreen(
+                screenTitleId = R.string.my_history,
+                modifier = Modifier.fillMaxSize()
+            )
         }
 
         is ScreenState.Success<List<Income>> -> {
@@ -76,7 +87,8 @@ fun IncomesHistoryScreen(
                 startDate = startDate,
                 endDate = endDate,
                 onStartDateSelected = { time -> historyViewModel.updateStartDate(time) },
-                onEndDateSelected = { time -> historyViewModel.updateEndDate(time) }
+                onEndDateSelected = { time -> historyViewModel.updateEndDate(time) },
+                onLeadIconClick = onLeadIconClick
             )
         }
     }

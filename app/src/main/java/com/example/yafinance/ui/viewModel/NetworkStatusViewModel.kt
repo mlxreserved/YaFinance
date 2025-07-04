@@ -1,7 +1,7 @@
 package com.example.yafinance.ui.viewModel
 
 import androidx.lifecycle.ViewModel
-import com.example.yafinance.domain.repositories.NetworkMonitor
+import com.example.yafinance.domain.repositories.global.NetworkMonitor
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -2,18 +2,30 @@ package com.example.yafinance.ui.screens.history.incomesHistory
 
 import androidx.lifecycle.viewModelScope
 import com.example.yafinance.domain.models.income.Income
-import com.example.yafinance.domain.usecase.inter.GetIncomesUseCase
+import com.example.yafinance.domain.usecase.global.inter.GetCurrentCurrencyUseCase
+import com.example.yafinance.domain.usecase.income.inter.GetIncomesUseCase
 import com.example.yafinance.domain.utils.Result
 import com.example.yafinance.ui.screens.history.BaseHistoryViewModel
 import com.example.yafinance.ui.utils.state.ScreenState
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.util.Date
 import javax.inject.Inject
 
 class IncomesHistoryViewModel @Inject constructor(
-    private val getIncomesUseCase: GetIncomesUseCase
+    private val getIncomesUseCase: GetIncomesUseCase,
+    getCurrentCurrencyUseCase: GetCurrentCurrencyUseCase
 ) : BaseHistoryViewModel<List<Income>>() {
+    private var currentCurrency = getCurrentCurrencyUseCase.getCurrency()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000L),
+            initialValue = "RUB"
+        )
+
     init {
+        observeCurrencyChanges()
         getHistory()
     }
 
@@ -23,6 +35,18 @@ class IncomesHistoryViewModel @Inject constructor(
             when (val response = getIncomesUseCase.getIncomes(startDate, endDate)) {
                 is Result.Error -> updateState(ScreenState.Error(response.error, isRetried))
                 is Result.Success<List<Income>> -> updateStateBasedOnListContent(response.result)
+            }
+        }
+    }
+
+    private fun observeCurrencyChanges() {
+        viewModelScope.launch {
+            currentCurrency.collect { currency ->
+                val state = screenState.value
+                if (state is ScreenState.Success) {
+                    val updated = state.result.map { it.copy(currency = currency) }
+                    updateState(ScreenState.Success(updated))
+                }
             }
         }
     }

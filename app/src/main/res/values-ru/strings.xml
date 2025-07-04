@@ -48,4 +48,12 @@
     <string name="error_too_many_requests">Слишком много запросов. Попробуйте позже</string>
     <string name="error_server">Ошибка сервера. Попробуйте позже</string>
     <string name="error_client">Ошибка. Обратитесь в поддержку</string>
+
+    <string name="account_name">Название счета</string>
+    <string name="ruble">Российский рубль</string>
+    <string name="dollar">Американский доллар</string>
+    <string name="euro">Евро</string>
+    <string name="ruble_icon">₽</string>
+    <string name="dollar_icon">$</string>
+    <string name="euro_icon">€</string>
 </resources>

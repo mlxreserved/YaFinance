@@ -18,7 +18,7 @@ fun CustomListItem(
     modifier: Modifier = Modifier,
     backgroundContainerColor: Color = YaFinanceTheme.colors.surface,
     backgroundLeadColor: Color = YaFinanceTheme.colors.secondaryBackground,
-    leadIcon: String? = null,
+    leadIcon: @Composable (() -> Unit)? = null,
     subtitle: String? = null,
     trailText: String? = null,
     trailTextItem: @Composable (() -> Unit)? = null,
@@ -30,7 +30,9 @@ fun CustomListItem(
         ListItem(
             headlineContent = title,
             leadingContent = if (leadIcon != null) {
-                { Lead(leadIcon = leadIcon, backgroundColor = backgroundLeadColor) }
+                {
+                    Lead(content = leadIcon, backgroundColor = backgroundLeadColor)
+                }
             } else null,
             supportingContent = if (subtitle != null) {
                 {

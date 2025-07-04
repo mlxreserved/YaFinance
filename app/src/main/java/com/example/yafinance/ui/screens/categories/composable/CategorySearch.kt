@@ -1,33 +1,28 @@
 package com.example.yafinance.ui.screens.categories.composable
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.unit.dp
 import com.example.yafinance.R
 import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 
 @Composable
-fun CategorySearch() {
+fun CategorySearch(
+    onSearchChanged: (String) -> Unit,
+    searchQuery: String,
+    modifier: Modifier = Modifier
+) {
     val trailIcon = ImageVector.vectorResource(R.drawable.ic_search)
 
-    var searchState by rememberSaveable { mutableStateOf("") }
-
     TextField(
-        value = searchState,
-        onValueChange = { searchState = it },
+        value = searchQuery,
+        onValueChange = onSearchChanged,
         label = { Text(stringResource(R.string.find_category)) },
         textStyle = YaFinanceTheme.typography.title,
         trailingIcon = { Icon(trailIcon, contentDescription = null) },
@@ -43,8 +38,6 @@ fun CategorySearch() {
             unfocusedIndicatorColor = YaFinanceTheme.colors.outlineColor
         ),
         singleLine = true,
-        modifier = Modifier
-            .height(56.dp)
-            .fillMaxWidth(),
+        modifier = modifier
     )
 }
