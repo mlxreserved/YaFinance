@@ -12,8 +12,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.ui.LocalSnackbarViewModel
 import com.example.yafinance.domain.models.account.Account
-import com.example.yafinance.ui.LocalSnackbarViewModel
+//import com.example.yafinance.ui.LocalSnackbarViewModel
 import com.example.yafinance.ui.composable.screens.EmptyScreen
 import com.example.yafinance.ui.composable.screens.ErrorScreen
 import com.example.yafinance.ui.composable.screens.LoadingScreen

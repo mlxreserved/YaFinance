@@ -7,15 +7,13 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.design.theme.customTheme.YaFinanceTheme
 import com.example.yafinance.R
-import com.example.yafinance.ui.LocalTopAppBarViewModel
-import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
-import com.example.yafinance.ui.utils.state.TopAppBarState
+//import com.example.yafinance.ui.LocalTopAppBarViewModel
 
 @Composable
 fun ErrorScreen(
@@ -26,17 +24,17 @@ fun ErrorScreen(
     leadId: Int? = null,
     onLeadIconClick: (() -> Unit)? = null,
 ) {
-    val topAppBarViewModel = LocalTopAppBarViewModel.current
+//    val topAppBarViewModel = LocalTopAppBarViewModel.current
 
-    LaunchedEffect(Unit) {
-        topAppBarViewModel.update(
-            TopAppBarState(
-                titleId = screenTitleId,
-                leadId = leadId,
-                onLeadIconClick = onLeadIconClick
-            )
-        )
-    }
+//    LaunchedEffect(Unit) {
+//        topAppBarViewModel.update(
+//            TopAppBarState(
+//                titleId = screenTitleId,
+//                leadId = leadId,
+//                onLeadIconClick = onLeadIconClick
+//            )
+//        )
+//    }
 
     Column(
         modifier = modifier,

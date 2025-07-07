@@ -7,7 +7,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.example.yafinance.R
-import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
+import com.example.design.theme.customTheme.YaFinanceTheme
 import com.example.yafinance.ui.utils.types.ButtonType
 
 @OptIn(ExperimentalMaterial3Api::class)

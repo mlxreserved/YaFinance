@@ -19,26 +19,29 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.yafinance.ui.composable.floatingButton.CustomFloatingButton
 import com.example.yafinance.ui.composable.snackbar.CustomSnackbarHost
-import com.example.yafinance.ui.composable.topAppBar.CustomTopAppBar
 import com.example.yafinance.ui.composable.topAppBar.NetworkStatusBanner
 import com.example.yafinance.ui.navigation.bottomNavBar.BottomNavigationBar
 import com.example.yafinance.ui.navigation.host.FinanceNavHost
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesRoute
-import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
-import com.example.yafinance.ui.viewModel.NetworkStatusViewModel
-import com.example.yafinance.ui.viewModel.SnackbarViewModel
-import com.example.yafinance.ui.viewModel.TopAppBarViewModel
+//import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
+import com.example.design.theme.customTheme.YaFinanceTheme
+import com.example.ui.LocalSnackbarViewModel
+import com.example.ui.snackBar.SnackbarViewModel
+//import com.example.yafinance.ui.viewModel.NetworkStatusViewModel
+//import com.example.yafinance.ui.viewModel.SnackbarViewModel
+//import com.example.yafinance.ui.viewModel.TopAppBarViewModel
 
 @Composable
 fun MainScreen(
-    viewModelFactory: ViewModelProvider.Factory,
+    globalViewModelFactory: ViewModelProvider.Factory,
+    expenseViewModelFactory: ViewModelProvider.Factory,
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
-    val snackbarViewModel: SnackbarViewModel = viewModel(factory = viewModelFactory)
-    val networkStatusViewModel: NetworkStatusViewModel = viewModel(factory = viewModelFactory)
-    val topAppBarViewModel: TopAppBarViewModel = viewModel(factory = viewModelFactory)
+    val snackbarViewModel: SnackbarViewModel = viewModel(factory = globalViewModelFactory)
+//    val networkStatusViewModel: NetworkStatusViewModel = viewModel(factory = viewModelFactory)
+//    val topAppBarViewModel: TopAppBarViewModel = viewModel(factory = viewModelFactory)
 
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -46,8 +49,8 @@ fun MainScreen(
     val currentRoute = navBackStackEntry?.destination?.route
 
     val snackbarMessage by snackbarViewModel.snackbarMessage.collectAsStateWithLifecycle()
-    val isConnected by networkStatusViewModel.isConnected.collectAsStateWithLifecycle()
-    val topAppBarState by topAppBarViewModel.topAppBarState.collectAsStateWithLifecycle()
+//    val isConnected by networkStatusViewModel.isConnected.collectAsStateWithLifecycle()
+//    val topAppBarState by topAppBarViewModel.topAppBarState.collectAsStateWithLifecycle()
 
     LaunchedEffect(snackbarMessage) {
         snackbarMessage?.let {
@@ -60,7 +63,7 @@ fun MainScreen(
     }
 
     CompositionLocalProvider(
-        LocalTopAppBarViewModel provides topAppBarViewModel,
+//        LocalTopAppBarViewModel provides topAppBarViewModel,
         LocalSnackbarViewModel provides snackbarViewModel
     ) {
         Scaffold(
@@ -71,11 +74,11 @@ fun MainScreen(
             },
             topBar = {
                 Column {
-                    CustomTopAppBar(
-                        topAppBarState = topAppBarState
-                    )
+//                    CustomTopAppBar(
+//                        topAppBarState = topAppBarState
+//                    )
                     NetworkStatusBanner(
-                        isConnected = isConnected,
+                        isConnected = true /*isConnected*/,
                         modifier = Modifier
                             .fillMaxWidth()
                             .background(color = YaFinanceTheme.colors.primaryBackground)
@@ -96,7 +99,7 @@ fun MainScreen(
         ) { innerPadding ->
             FinanceNavHost(
                 navController = navController,
-                viewModelFactory = viewModelFactory,
+                expenseViewModelFactory = expenseViewModelFactory,
                 paddingValues = innerPadding
             )
         }

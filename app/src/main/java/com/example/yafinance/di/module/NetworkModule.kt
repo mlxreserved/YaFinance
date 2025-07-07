@@ -1,7 +1,6 @@
 package com.example.yafinance.di.module
 
-import android.content.Context
-import com.example.yafinance.R
+import com.example.yafinance.BuildConfig
 import com.example.yafinance.data.remote.api.AccountApi
 import com.example.yafinance.data.remote.api.CategoryApi
 import com.example.yafinance.data.remote.api.TransactionApi
@@ -22,14 +21,14 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideHttpClient(@ApplicationContext context: Context): OkHttpClient {
+    fun provideHttpClient(): OkHttpClient {
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor(object : Interceptor {
             override fun intercept(chain: Interceptor.Chain): Response {
                 val original = chain.request()
 
                 val request = original.newBuilder()
-                    .header("Authorization", context.getString(R.string.token))
+                    .header("Authorization", BuildConfig.API_TOKEN)
                     .method(original.method, original.body)
                     .build()
 

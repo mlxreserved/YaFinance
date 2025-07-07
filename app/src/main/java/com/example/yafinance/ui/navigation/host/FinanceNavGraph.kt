@@ -13,7 +13,8 @@ import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun FinanceNavGraph(
-    viewModelFactory: ViewModelProvider.Factory
+    globalViewModelFactory: ViewModelProvider.Factory,
+    expenseViewModelFactory: ViewModelProvider.Factory
 ) {
     val navController = rememberNavController()
     var splashFinished by rememberSaveable { mutableStateOf(false) }
@@ -22,7 +23,11 @@ fun FinanceNavGraph(
         if (!finished) {
             SplashScreen(onSplashFinished = { splashFinished = true })
         } else {
-            MainScreen(navController = navController, viewModelFactory = viewModelFactory)
+            MainScreen(
+                navController = navController,
+                expenseViewModelFactory = expenseViewModelFactory,
+                globalViewModelFactory = globalViewModelFactory
+            )
         }
     }
 }

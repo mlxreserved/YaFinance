@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="empty_expenses">You have no expenses today</string>
+    <string name="expenses_today">Expenses today</string>
+    <string name="expenses">Expenses</string>
+    <string name="create_first_expense">Create expense</string>
+
+</resources>

@@ -4,7 +4,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
+import com.example.design.theme.customTheme.YaFinanceTheme
 
 @Composable
 fun EmptyScreenAddButton(onClick: () -> Unit, addText: String) {

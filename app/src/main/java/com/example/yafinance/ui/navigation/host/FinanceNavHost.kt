@@ -13,18 +13,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
+import com.example.expense.api.navigation.expenseScreen
 import com.example.yafinance.domain.models.account.Account
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesHistoryRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesHistoryRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.AccountsAllRoutes
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.EditAccountRoute
 import com.example.yafinance.ui.screens.accounts.AccountsScreen
-import com.example.yafinance.ui.screens.expense.ExpensesScreen
 import com.example.yafinance.ui.screens.categories.CategoriesScreen
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.AccountsRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.CategoriesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesAllRoutes
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesAllRoutes
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.SettingsRoute
@@ -38,7 +37,7 @@ import com.example.yafinance.ui.utils.formatWithoutSpaces
 
 @Composable
 fun FinanceNavHost(
-    viewModelFactory: ViewModelProvider.Factory,
+    expenseViewModelFactory: ViewModelProvider.Factory,
     navController: NavHostController,
     paddingValues: PaddingValues
 ) {
@@ -60,17 +59,15 @@ fun FinanceNavHost(
         modifier = Modifier.padding(paddingValues = paddingValues)
     ) {
         navigation<ExpensesAllRoutes>(
-            startDestination = ExpensesRoute
+            startDestination = com.example.expense.api.navigation.ExpensesRoute
         ) {
-            composable<ExpensesRoute> {
-                ExpensesScreen(
-                    viewModelFactory = viewModelFactory,
-                    onTrailIconClick = { navController.navigate(ExpensesHistoryRoute) }
-                )
-            }
+            expenseScreen(
+                onTrailIconClick = { navController.navigate(ExpensesHistoryRoute) },
+                viewModelFactory = expenseViewModelFactory
+            )
             composable<ExpensesHistoryRoute> {
                 ExpensesHistoryScreen(
-                    viewModelFactory = viewModelFactory,
+                    viewModelFactory = expenseViewModelFactory,
                     onLeadIconClick = { navController.navigateUp() }
                 )
             }
@@ -81,13 +78,13 @@ fun FinanceNavHost(
         ) {
             composable<IncomesRoute> {
                 IncomesScreen(
-                    viewModelFactory = viewModelFactory,
+                    viewModelFactory = expenseViewModelFactory,
                     onTrailIconClick = { navController.navigate(IncomesHistoryRoute) }
                 )
             }
             composable<IncomesHistoryRoute> {
                 IncomesHistoryScreen(
-                    viewModelFactory = viewModelFactory,
+                    viewModelFactory = expenseViewModelFactory,
                     onLeadIconClick = { navController.navigateUp() }
                 )
             }
@@ -99,7 +96,7 @@ fun FinanceNavHost(
 
             composable<AccountsRoute> {
                 AccountsScreen(
-                    viewModelFactory = viewModelFactory,
+                    viewModelFactory = expenseViewModelFactory,
                     onTrailIconClick = { account ->
                         navigateToEditAccountRoute(account = account, navController = navController)
                     }
@@ -109,7 +106,7 @@ fun FinanceNavHost(
                 val args = it.toRoute<EditAccountRoute>()
 
                 EditAccountScreen(
-                    viewModelFactory = viewModelFactory,
+                    viewModelFactory = expenseViewModelFactory,
                     onLeadIconClick = {
                         navController.navigateUp()
                     },
@@ -126,7 +123,7 @@ fun FinanceNavHost(
 
         composable<CategoriesRoute> {
             CategoriesScreen(
-                viewModelFactory = viewModelFactory
+                viewModelFactory = expenseViewModelFactory
             )
         }
 

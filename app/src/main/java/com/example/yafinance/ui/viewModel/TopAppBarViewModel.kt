@@ -10,17 +10,17 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 
-/**
- * ViewModel для предоставления состояния top app bar в экраны и для изменения состояния
- * **/
-@Singleton
-class TopAppBarViewModel @Inject constructor() : ViewModel() {
-    private val _topAppBarState = MutableStateFlow(TopAppBarState())
-    val topAppBarState: StateFlow<TopAppBarState> = _topAppBarState.asStateFlow()
-
-    fun update(topAppBarState: TopAppBarState) {
-        _topAppBarState.update {
-            topAppBarState
-        }
-    }
-}
+///**
+// * ViewModel для предоставления состояния top app bar в экраны и для изменения состояния
+// * **/
+//@Singleton
+//class TopAppBarViewModel @Inject constructor() : ViewModel() {
+//    private val _topAppBarState = MutableStateFlow(TopAppBarState())
+//    val topAppBarState: StateFlow<TopAppBarState> = _topAppBarState.asStateFlow()
+//
+//    fun update(topAppBarState: TopAppBarState) {
+//        _topAppBarState.update {
+//            topAppBarState
+//        }
+//    }
+//}

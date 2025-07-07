@@ -12,9 +12,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import com.example.design.theme.customTheme.YaFinanceTheme
 import com.example.yafinance.R
 import com.example.yafinance.ui.composable.listItems.customListItem.CustomListItem
-import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

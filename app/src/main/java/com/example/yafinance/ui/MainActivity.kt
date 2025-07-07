@@ -7,22 +7,30 @@ import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.ViewModelProvider
 import com.example.yafinance.appComponent
 import com.example.yafinance.ui.navigation.host.FinanceNavGraph
-import com.example.yafinance.ui.theme.customTheme.MainTheme
+//import com.example.yafinance.ui.theme.customTheme.MainTheme
+import com.example.design.theme.customTheme.MainTheme
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var globalViewModelFactory: ViewModelProvider.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         appComponent.inject(this)
 
+        val expenseComponent = appComponent.expenseComponentFactory().create()
+
+        val expenseViewModelFactory = expenseComponent.viewModelFactory()
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             MainTheme {
-                FinanceNavGraph(viewModelFactory = viewModelFactory)
+                FinanceNavGraph(
+                    globalViewModelFactory = globalViewModelFactory,
+                    expenseViewModelFactory = expenseViewModelFactory
+                )
             }
         }
     }

@@ -3,7 +3,6 @@ package com.example.yafinance.ui.screens.editAccount
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -15,16 +14,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.ui.LocalSnackbarViewModel
 import com.example.yafinance.R
 import com.example.yafinance.domain.models.account.Account
-import com.example.yafinance.ui.LocalSnackbarViewModel
-import com.example.yafinance.ui.LocalTopAppBarViewModel
+//import com.example.yafinance.ui.LocalSnackbarViewModel
+//import com.example.yafinance.ui.LocalTopAppBarViewModel
 import com.example.yafinance.ui.composable.screens.LoadingScreen
 import com.example.yafinance.ui.screens.editAccount.composable.CustomBottomSheet
 import com.example.yafinance.ui.screens.editAccount.composable.EditAccountContent
 import com.example.yafinance.ui.utils.formatWithoutSpaces
 import com.example.yafinance.ui.utils.state.ScreenState
-import com.example.yafinance.ui.utils.state.TopAppBarState
 import com.example.yafinance.ui.utils.toUserMessage
 
 @OptIn(ExperimentalMaterial3Api::class)

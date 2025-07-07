@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
+import com.example.design.theme.customTheme.YaFinanceTheme
 import com.example.yafinance.ui.utils.state.TopAppBarState
 
 @OptIn(ExperimentalMaterial3Api::class)

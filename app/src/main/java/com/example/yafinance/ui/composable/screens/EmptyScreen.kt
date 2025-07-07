@@ -7,13 +7,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.yafinance.ui.LocalTopAppBarViewModel
-import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
-import com.example.yafinance.ui.utils.state.TopAppBarState
+import com.example.design.theme.customTheme.YaFinanceTheme
+//import com.example.yafinance.ui.LocalTopAppBarViewModel
 
 @Composable
 fun EmptyScreen(
@@ -27,19 +25,19 @@ fun EmptyScreen(
     onTrailIconClick: (() -> Unit)? = null,
     addText: String? = null
 ) {
-    val topAppBarViewModel = LocalTopAppBarViewModel.current
+//    val topAppBarViewModel = LocalTopAppBarViewModel.current
 
-    LaunchedEffect(Unit) {
-        topAppBarViewModel.update(
-            TopAppBarState(
-                titleId = screenTitleId,
-                leadId = leadId,
-                onLeadIconClick = onLeadIconClick,
-                trailId = trailId,
-                onTrailIconClick = onTrailIconClick
-            )
-        )
-    }
+//    LaunchedEffect(Unit) {
+//        topAppBarViewModel.update(
+//            TopAppBarState(
+//                titleId = screenTitleId,
+//                leadId = leadId,
+//                onLeadIconClick = onLeadIconClick,
+//                trailId = trailId,
+//                onTrailIconClick = onTrailIconClick
+//            )
+//        )
+//    }
 
     Column(
         modifier = modifier,
