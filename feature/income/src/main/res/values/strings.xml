@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="my_history">My history</string>
+    <string name="empty_incomes">You have no incomes today</string>
+    <string name="create_first_income">Create income</string>
+    <string name="empty_incomes_history">You have no incomes during this period</string>
+    <string name="incomes_today">Incomes today</string>
+
+</resources>

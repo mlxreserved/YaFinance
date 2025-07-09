@@ -12,4 +12,6 @@
     <string name="error_too_many_requests">Слишком много запросов. Попробуйте позже</string>
     <string name="error_server">Ошибка сервера. Попробуйте позже</string>
     <string name="error_client">Ошибка. Обратитесь в поддержку</string>
+    <string name="start_date">Начало</string>
+    <string name="end_date">Конец</string>
 </resources>

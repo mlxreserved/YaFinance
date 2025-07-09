@@ -38,6 +38,10 @@ android {
 dependencies {
     implementation(project(":core:design"))
     implementation(project(":core:model"))
+    implementation(project(":core:common:utils"))
+
+    // Navigation
+    implementation(libs.androidx.navigation.compose)
 
     //Dagger
     api(libs.google.dagger.dagger)

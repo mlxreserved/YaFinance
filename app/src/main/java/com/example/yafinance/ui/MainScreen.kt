@@ -27,7 +27,7 @@ import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesRoute
 //import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 import com.example.design.theme.customTheme.YaFinanceTheme
 import com.example.ui.LocalSnackbarViewModel
-import com.example.ui.snackBar.SnackbarViewModel
+import com.example.ui.snackbar.SnackbarViewModel
 //import com.example.yafinance.ui.viewModel.NetworkStatusViewModel
 //import com.example.yafinance.ui.viewModel.SnackbarViewModel
 //import com.example.yafinance.ui.viewModel.TopAppBarViewModel
@@ -36,6 +36,7 @@ import com.example.ui.snackBar.SnackbarViewModel
 fun MainScreen(
     globalViewModelFactory: ViewModelProvider.Factory,
     expenseViewModelFactory: ViewModelProvider.Factory,
+    incomeViewModelFactory: ViewModelProvider.Factory,
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
@@ -100,6 +101,7 @@ fun MainScreen(
             FinanceNavHost(
                 navController = navController,
                 expenseViewModelFactory = expenseViewModelFactory,
+                incomeViewModelFactory = incomeViewModelFactory,
                 paddingValues = innerPadding
             )
         }

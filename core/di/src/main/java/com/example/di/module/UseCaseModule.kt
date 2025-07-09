@@ -1,11 +1,11 @@
 package com.example.di.module
 
 import com.example.domain.repository.account.AccountRepository
-import com.example.domain.repository.expense.ExpenseRepository
+import com.example.domain.repository.global.CurrencyProvider
 import com.example.domain.usecase.account.impl.GetAccountIdUseCaseImpl
 import com.example.domain.usecase.account.inter.GetAccountIdUseCase
-import com.example.domain.usecase.expense.impl.GetExpensesUseCaseImpl
-import com.example.domain.usecase.expense.inter.GetExpensesUseCase
+import com.example.domain.usecase.global.impl.GetCurrentCurrencyUseCaseImpl
+import com.example.domain.usecase.global.inter.GetCurrentCurrencyUseCase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -45,6 +45,13 @@ object UseCaseModule {
     ): GetAccountIdUseCase =
         GetAccountIdUseCaseImpl(accountRepository)
 
+
+    @Singleton
+    @Provides
+    fun provideGetCurrency(
+        currencyProvider: CurrencyProvider
+    ): GetCurrentCurrencyUseCase =
+        GetCurrentCurrencyUseCaseImpl(currencyProvider)
 
 //    @Binds
 //    @Singleton

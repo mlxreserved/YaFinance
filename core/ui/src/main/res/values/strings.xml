@@ -12,5 +12,7 @@
     <string name="error_too_many_requests">There are too many requests. Try again later</string>
     <string name="error_server">Server error. Try again later</string>
     <string name="error_client">Error. Contact support</string>
+    <string name="start_date">Start</string>
+    <string name="end_date">End</string>
 
 </resources>

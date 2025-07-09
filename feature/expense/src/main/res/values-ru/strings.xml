@@ -4,5 +4,7 @@
     <string name="empty_expenses">Сегодня у вас нет расходов</string>
     <string name="create_first_expense">Добавить расход</string>
     <string name="expenses_today">Расходы сегодня</string>
+    <string name="empty_expenses_history">В этом периоде у вас нет расходов</string>
+    <string name="my_history">Моя история</string>
 
 </resources>

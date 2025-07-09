@@ -13,24 +13,22 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
-import com.example.expense.api.navigation.expenseScreen
+import com.example.expense.api.navigation.ExpensesAllRoutes
+import com.example.expense.api.navigation.expensesBase
+import com.example.expense.api.navigation.expensesHistoryScreen
+import com.example.expense.api.navigation.navigateToExpensesHistory
+import com.example.income.api.navigation.incomesBase
+import com.example.income.api.navigation.incomesHistoryScreen
+import com.example.income.api.navigation.navigateToIncomesHistory
 import com.example.yafinance.domain.models.account.Account
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesHistoryRoute
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesHistoryRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.AccountsAllRoutes
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.EditAccountRoute
 import com.example.yafinance.ui.screens.accounts.AccountsScreen
 import com.example.yafinance.ui.screens.categories.CategoriesScreen
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.AccountsRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.CategoriesRoute
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesAllRoutes
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesAllRoutes
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.SettingsRoute
 import com.example.yafinance.ui.screens.editAccount.EditAccountScreen
-import com.example.yafinance.ui.screens.history.expensesHistory.ExpensesHistoryScreen
-import com.example.yafinance.ui.screens.history.incomesHistory.IncomesHistoryScreen
-import com.example.yafinance.ui.screens.income.IncomesScreen
 import com.example.yafinance.ui.screens.settings.SettingsScreen
 import com.example.yafinance.ui.screens.settings.model.settings
 import com.example.yafinance.ui.utils.formatWithoutSpaces
@@ -38,6 +36,7 @@ import com.example.yafinance.ui.utils.formatWithoutSpaces
 @Composable
 fun FinanceNavHost(
     expenseViewModelFactory: ViewModelProvider.Factory,
+    incomeViewModelFactory: ViewModelProvider.Factory,
     navController: NavHostController,
     paddingValues: PaddingValues
 ) {
@@ -58,36 +57,24 @@ fun FinanceNavHost(
         startDestination = ExpensesAllRoutes,
         modifier = Modifier.padding(paddingValues = paddingValues)
     ) {
-        navigation<ExpensesAllRoutes>(
-            startDestination = com.example.expense.api.navigation.ExpensesRoute
+        expensesBase(
+            viewModelFactory = expenseViewModelFactory,
+            onHistoryIconClick = navController::navigateToExpensesHistory
         ) {
-            expenseScreen(
-                onTrailIconClick = { navController.navigate(ExpensesHistoryRoute) },
-                viewModelFactory = expenseViewModelFactory
+            expensesHistoryScreen(
+                viewModelFactory = expenseViewModelFactory,
+                onLeadIconClick = navController::navigateUp
             )
-            composable<ExpensesHistoryRoute> {
-                ExpensesHistoryScreen(
-                    viewModelFactory = expenseViewModelFactory,
-                    onLeadIconClick = { navController.navigateUp() }
-                )
-            }
         }
 
-        navigation<IncomesAllRoutes>(
-            startDestination = IncomesRoute
+        incomesBase(
+            viewModelFactory = incomeViewModelFactory,
+            onHistoryIconClick = navController::navigateToIncomesHistory
         ) {
-            composable<IncomesRoute> {
-                IncomesScreen(
-                    viewModelFactory = expenseViewModelFactory,
-                    onTrailIconClick = { navController.navigate(IncomesHistoryRoute) }
-                )
-            }
-            composable<IncomesHistoryRoute> {
-                IncomesHistoryScreen(
-                    viewModelFactory = expenseViewModelFactory,
-                    onLeadIconClick = { navController.navigateUp() }
-                )
-            }
+            incomesHistoryScreen(
+                viewModelFactory = incomeViewModelFactory,
+                onLeadIconClick = navController::navigateUp
+            )
         }
 
         navigation<AccountsAllRoutes>(

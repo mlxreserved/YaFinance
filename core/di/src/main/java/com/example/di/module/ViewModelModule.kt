@@ -2,7 +2,7 @@ package com.example.di.module
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.ui.snackBar.SnackbarViewModel
+import com.example.ui.snackbar.SnackbarViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
