@@ -2,6 +2,7 @@ package com.example.di.module
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.ui.networkMonitor.NetworkStatusViewModel
 import com.example.ui.snackbar.SnackbarViewModel
 import dagger.Binds
 import dagger.Module
@@ -17,4 +18,8 @@ interface ViewModelModule {
     @ViewModelKey(SnackbarViewModel::class)
     fun bindSnackbarViewModel(snackbarViewModel: SnackbarViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(NetworkStatusViewModel::class)
+    fun bindNetworkMonitorViewModel(networkStatusViewModel: NetworkStatusViewModel): ViewModel
 }

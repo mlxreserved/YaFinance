@@ -19,7 +19,7 @@ import com.example.utils.extensions.string.isEmoji
 import com.example.utils.extensions.string.toDateWithTimeString
 
 @Composable
-fun IncomeHistoryItem(
+internal fun IncomeHistoryItem(
     historyItem: Income,
     modifier: Modifier = Modifier
 ) {

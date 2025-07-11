@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="find_category">Find category</string>
+    <string name="empty_categories">You have no categories</string>
+    <string name="my_categories">My categories</string>
+
+</resources>

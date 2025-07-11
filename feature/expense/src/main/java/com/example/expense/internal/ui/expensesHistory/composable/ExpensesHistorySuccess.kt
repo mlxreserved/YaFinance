@@ -22,7 +22,7 @@ import com.example.utils.extensions.string.formatWithSpaces
 import java.util.Date
 
 @Composable
-fun ExpensesHistorySuccess(
+internal fun ExpensesHistorySuccess(
     history: List<Expense>,
     onEndDateSelected: (Long?) -> Unit,
     onStartDateSelected: (Long?) -> Unit,

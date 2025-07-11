@@ -16,7 +16,7 @@ import com.example.utils.extensions.calculatedSum.calculatedSumAsString
 import com.example.utils.extensions.string.formatWithSpaces
 
 @Composable
-fun IncomeSuccess(
+internal fun IncomeSuccess(
     incomes: List<Income>,
     modifier: Modifier = Modifier
 ) {

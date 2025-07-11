@@ -6,5 +6,6 @@
     <string name="create_first_expense">Create expense</string>
     <string name="empty_expenses_history">You have no expenses during this period</string>
     <string name="my_history">My history</string>
+    <string name="sum">Sum</string>
 
 </resources>

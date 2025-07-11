@@ -70,7 +70,12 @@ android {
 dependencies {
     implementation(project(":feature:expense"))
     implementation(project(":feature:income"))
+    implementation(project(":feature:account"))
+    implementation(project(":feature:category"))
+    implementation(project(":feature:settings"))
 
+
+    implementation(project(":core:common:utils"))
     implementation(project(":core:domain"))
     implementation(project(":core:model"))
     implementation(project(":core:di"))

@@ -1,43 +1,29 @@
 package com.example.di.module
 
 import com.example.domain.repository.account.AccountRepository
+import com.example.domain.repository.global.AccountNameProvider
+import com.example.domain.repository.global.BalanceProvider
 import com.example.domain.repository.global.CurrencyProvider
 import com.example.domain.usecase.account.impl.GetAccountIdUseCaseImpl
 import com.example.domain.usecase.account.inter.GetAccountIdUseCase
+import com.example.domain.usecase.global.impl.GetCurrentAccountNameUseCaseImpl
+import com.example.domain.usecase.global.impl.GetCurrentBalanceUseCaseImpl
 import com.example.domain.usecase.global.impl.GetCurrentCurrencyUseCaseImpl
+import com.example.domain.usecase.global.impl.SetCurrentAccountNameUseCaseImpl
+import com.example.domain.usecase.global.impl.SetCurrentBalanceUseCaseImpl
+import com.example.domain.usecase.global.impl.SetCurrentCurrencyUseCaseImpl
+import com.example.domain.usecase.global.inter.GetCurrentAccountNameUseCase
+import com.example.domain.usecase.global.inter.GetCurrentBalanceUseCase
 import com.example.domain.usecase.global.inter.GetCurrentCurrencyUseCase
+import com.example.domain.usecase.global.inter.SetCurrentAccountNameUseCase
+import com.example.domain.usecase.global.inter.SetCurrentBalanceUseCase
+import com.example.domain.usecase.global.inter.SetCurrentCurrencyUseCase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
 object UseCaseModule {
-    //    @Binds
-//    @Singleton
-//    abstract fun bindGetAccounts(
-//        implementation: GetAccountUseCaseImpl
-//    ): GetAccountUseCase
-//
-//    @Binds
-//    @Singleton
-//    abstract fun bindGetCategories(
-//        implementation: GetCategoriesUseCaseImpl
-//    ): GetCategoriesUseCase
-//
-//    @Binds
-//    @Singleton
-//    abstract fun bindChangeAccountInfo(
-//        implementation: ChangeAccountInfoUseCaseImpl
-//    ): ChangeAccountInfoUseCase
-//
-
-//
-//    @Binds
-//    @Singleton
-//    abstract fun bindGetIncomes(
-//        implementation: GetIncomesUseCaseImpl
-//    ): GetIncomesUseCase
-
     @Singleton
     @Provides
     fun provideGetAccountId(
@@ -53,39 +39,38 @@ object UseCaseModule {
     ): GetCurrentCurrencyUseCase =
         GetCurrentCurrencyUseCaseImpl(currencyProvider)
 
-//    @Binds
-//    @Singleton
-//    abstract fun bindSetCurrency(
-//        implementation: SetCurrentCurrencyUseCaseImpl
-//    ): SetCurrentCurrencyUseCase
-//
-//    @Binds
-//    @Singleton
-//    abstract fun bindGetCurrency(
-//        implementation: GetCurrentCurrencyUseCaseImpl
-//    ): GetCurrentCurrencyUseCase
-//
-//    @Binds
-//    @Singleton
-//    abstract fun bindGetAccountName(
-//        implementation: GetCurrentAccountNameUseCaseImpl
-//    ): GetCurrentAccountNameUseCase
-//
-//    @Binds
-//    @Singleton
-//    abstract fun bindSetAccountName(
-//        implementation: SetCurrentAccountNameUseCaseImpl
-//    ): SetCurrentAccountNameUseCase
-//
-//    @Binds
-//    @Singleton
-//    abstract fun bindGetBalance(
-//        implementation: GetCurrentBalanceUseCaseImpl
-//    ): GetCurrentBalanceUseCase
-//
-//    @Binds
-//    @Singleton
-//    abstract fun bindSetBalance(
-//        implementation: SetCurrentBalanceUseCaseImpl
-//    ): SetCurrentBalanceUseCase
+    @Singleton
+    @Provides
+    fun provideGetAccountName(
+        accountNameProvider: AccountNameProvider
+    ): GetCurrentAccountNameUseCase =
+        GetCurrentAccountNameUseCaseImpl(accountNameProvider)
+
+    @Singleton
+    @Provides
+    fun provideGetBalance(
+        balanceProvider: BalanceProvider
+    ): GetCurrentBalanceUseCase =
+        GetCurrentBalanceUseCaseImpl(balanceProvider)
+
+    @Singleton
+    @Provides
+    fun provideSetCurrency(
+        currencyProvider: CurrencyProvider
+    ): SetCurrentCurrencyUseCase =
+        SetCurrentCurrencyUseCaseImpl(currencyProvider)
+
+    @Singleton
+    @Provides
+    fun provideSetAccountName(
+        accountNameProvider: AccountNameProvider
+    ): SetCurrentAccountNameUseCase =
+        SetCurrentAccountNameUseCaseImpl(accountNameProvider)
+
+    @Singleton
+    @Provides
+    fun provideSetBalance(
+        balanceProvider: BalanceProvider
+    ): SetCurrentBalanceUseCase =
+        SetCurrentBalanceUseCaseImpl(balanceProvider)
 }

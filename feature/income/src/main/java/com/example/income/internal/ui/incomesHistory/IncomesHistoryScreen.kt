@@ -26,10 +26,9 @@ import com.example.ui.components.topAppBar.NetworkStatusBanner
 import com.example.ui.data.state.ScreenState
 import com.example.ui.extensions.toUserMessage
 
-//import com.example.yafinance.ui.LocalSnackbarViewModel
-
 @Composable
-fun IncomesHistoryScreen(
+internal fun IncomesHistoryScreen(
+    isConnected: Boolean,
     viewModelFactory: ViewModelProvider.Factory,
     onLeadIconClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -53,7 +52,7 @@ fun IncomesHistoryScreen(
                     onTrailIconClick = {}
                 )
                 NetworkStatusBanner(
-                    isConnected = true /*isConnected*/,
+                    isConnected = isConnected,
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(color = YaFinanceTheme.colors.primaryBackground)
@@ -81,13 +80,13 @@ fun IncomesHistoryScreen(
                     onClick = {
                         historyViewModel.onRetryClicked()
                     },
-                    modifier = Modifier.fillMaxSize().padding(top = innerPadding.calculateTopPadding())
+                    modifier = Modifier.fillMaxSize()
                 )
             }
 
             ScreenState.Loading -> {
                 LoadingScreen(
-                    modifier = Modifier.fillMaxSize().padding(top = innerPadding.calculateTopPadding())
+                    modifier = Modifier.fillMaxSize()
                 )
             }
 

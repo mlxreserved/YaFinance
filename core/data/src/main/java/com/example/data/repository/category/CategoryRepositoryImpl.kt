@@ -20,4 +20,10 @@ class CategoryRepositoryImpl @Inject constructor(
             categoryApi.getCategories().map { category -> category.toDomain() }
         }
     }
+
+    override suspend fun getCategoriesByType(isIncome: Boolean): Result<List<Category>> = safeCallWithRetry {
+        withContext(Dispatchers.IO) {
+            categoryApi.getCategoriesByType(isIncome).map { category -> category.toDomain() }
+        }
+    }
 }

@@ -22,6 +22,7 @@ detekt = "1.23.8"
 
 dagger = "2.51.1"
 appcompat = "1.6.1"
+saveState = "2.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -68,7 +69,8 @@ squareup-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
-
+#SavedStateHandle
+androidx-lifecycle-viewmodel-savedstate = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-savedstate", version.ref = "saveState"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

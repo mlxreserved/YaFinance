@@ -1,7 +1,9 @@
 package com.example.data.repository.expense
 
+import com.example.data.mappers.toExpenseDetailed
 import com.example.data.mappers.toExpenseDomain
 import com.example.domain.model.expense.Expense
+import com.example.domain.model.expense.ExpenseDetailed
 import com.example.domain.repository.expense.ExpenseRepository
 import com.example.domain.usecase.account.inter.GetAccountIdUseCase
 import com.example.model.result.Result
@@ -47,6 +49,15 @@ class ExpenseRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun getExpenseById(id: Int): Result<ExpenseDetailed> =
+        safeCallWithRetry {
+            withContext(Dispatchers.IO) {
+                transactionApi
+                    .getTransactionById(id)
+                    .toExpenseDetailed()
+            }
+        }
 
     /** Получить ID счета для использования при запросе транзакций **/
     private suspend fun getAccountId(): Int = withContext(Dispatchers.IO) {

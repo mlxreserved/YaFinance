@@ -5,5 +5,6 @@
     <string name="create_first_income">Create income</string>
     <string name="empty_incomes_history">You have no incomes during this period</string>
     <string name="incomes_today">Incomes today</string>
+    <string name="sum">Sum</string>
 
 </resources>

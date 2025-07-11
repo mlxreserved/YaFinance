@@ -13,4 +13,9 @@ interface TransactionApi {
         @Query("startDate") startDate: String?,
         @Query("endDate") endDate: String?
     ): List<TransactionResponseDTO>
+
+    @GET("$TRANSACTIONS/{id}")
+    suspend fun getTransactionById(
+        @Path("id") id: Int
+    ): TransactionResponseDTO
 }

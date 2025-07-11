@@ -6,6 +6,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import com.example.domain.repository.global.NetworkMonitor
+import com.example.utils.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -21,6 +22,7 @@ import javax.inject.Inject
 
 /** Проверка подклчюния пользователя к сети **/
 class NetworkMonitorImpl @Inject constructor(
+    @ApplicationContext
     private val context: Context
 ) : NetworkMonitor {
     val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)

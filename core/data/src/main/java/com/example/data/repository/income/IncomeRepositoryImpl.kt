@@ -1,7 +1,11 @@
 package com.example.data.repository.income
 
+import com.example.data.mappers.toExpenseDetailed
+import com.example.data.mappers.toIncomeDetailed
 import com.example.data.mappers.toIncomeDomain
+import com.example.domain.model.expense.ExpenseDetailed
 import com.example.domain.model.income.Income
+import com.example.domain.model.income.IncomeDetailed
 import com.example.domain.repository.income.IncomeRepository
 import com.example.domain.usecase.account.inter.GetAccountIdUseCase
 import com.example.model.result.Result
@@ -47,6 +51,15 @@ class IncomeRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun getIncomeById(id: Int): Result<IncomeDetailed> =
+        safeCallWithRetry {
+            withContext(Dispatchers.IO) {
+                transactionApi
+                    .getTransactionById(id)
+                    .toIncomeDetailed()
+            }
+        }
 
     /** Получить ID счета для использования при запросе транзакций **/
     private suspend fun getAccountId(): Int = withContext(Dispatchers.IO) {

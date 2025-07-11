@@ -5,6 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.ViewModelProvider
+import com.example.account.di.component.AccountComponent
+import com.example.category.di.component.CategoryComponent
 import com.example.yafinance.appComponent
 import com.example.yafinance.ui.navigation.host.FinanceNavGraph
 //import com.example.yafinance.ui.theme.customTheme.MainTheme
@@ -19,6 +21,8 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var expenseComponent: ExpenseComponent
     private lateinit var incomeComponent: IncomeComponent
+    private lateinit var accountComponent: AccountComponent
+    private lateinit var categoryComponent: CategoryComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -31,8 +35,18 @@ class MainActivity : ComponentActivity() {
             incomeComponent = appComponent.incomeComponentFactory().create()
         }
 
+        if (!::accountComponent.isInitialized) {
+            accountComponent = appComponent.accountComponentFactory().create()
+        }
+
+        if (!::categoryComponent.isInitialized) {
+            categoryComponent = appComponent.categoryComponentFactory().create()
+        }
+
         val expenseViewModelFactory = expenseComponent.viewModelFactory()
         val incomeViewModelFactory = incomeComponent.viewModelFactory()
+        val accountViewModelFactory = accountComponent.viewModelFactory()
+        val categoryViewModelFactory = categoryComponent.viewModelFactory()
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -41,7 +55,9 @@ class MainActivity : ComponentActivity() {
                 FinanceNavGraph(
                     globalViewModelFactory = globalViewModelFactory,
                     expenseViewModelFactory = expenseViewModelFactory,
-                    incomeViewModelFactory = incomeViewModelFactory
+                    accountViewModelFactory = accountViewModelFactory,
+                    incomeViewModelFactory = incomeViewModelFactory,
+                    categoryViewModelFactory = categoryViewModelFactory
                 )
             }
         }

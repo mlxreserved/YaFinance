@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="account_name">Название счета</string>
+    <string name="balance">Баланс</string>
+    <string name="balance_lead_icon">💰</string>
+    <string name="currency">Валюта</string>
+    <string name="empty_accounts">У вас нет счетов</string>
+    <string name="my_account">Мой счет</string>
+
+    <string name="ruble">Российский рубль</string>
+    <string name="dollar">Американский доллар</string>
+    <string name="euro">Евро</string>
+    <string name="ruble_icon">₽</string>
+    <string name="dollar_icon">$</string>
+    <string name="euro_icon">€</string>
+    <string name="cancel">Отмена</string>
+    <string name="success_edit_account">Счет успешно изменен</string>
+</resources>

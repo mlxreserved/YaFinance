@@ -13,21 +13,26 @@ import java.util.Date
 
 @Composable
 fun DateItem(
-    isStart: Boolean,
     date: Date,
     onDateItemClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isStart: Boolean? = null
 ) {
     CustomListItem(
         title = {
-            if (isStart) {
+            if (isStart == true) {
                 Text(
                     stringResource(R.string.start_date),
                     style = YaFinanceTheme.typography.title
                 )
-            } else {
+            } else if (isStart == false) {
                 Text(
                     stringResource(R.string.end_date),
+                    style = YaFinanceTheme.typography.title
+                )
+            } else {
+                Text(
+                    stringResource(R.string.date),
                     style = YaFinanceTheme.typography.title
                 )
             }

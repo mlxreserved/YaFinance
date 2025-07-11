@@ -27,11 +27,13 @@ fun NavController.navigateToIncomesHistory(navOptions: NavOptionsBuilder.() -> U
 
 
 fun NavGraphBuilder.incomesHistoryScreen(
+    isConnected: Boolean,
     viewModelFactory: ViewModelProvider.Factory,
     onLeadIconClick: () -> Unit
 ) {
     composable<IncomesHistoryRoute> {
         IncomesHistoryScreen(
+            isConnected = isConnected,
             viewModelFactory = viewModelFactory,
             onLeadIconClick = onLeadIconClick
         )
@@ -39,6 +41,7 @@ fun NavGraphBuilder.incomesHistoryScreen(
 }
 
 fun NavGraphBuilder.incomesBase(
+    isConnected: Boolean,
     viewModelFactory: ViewModelProvider.Factory,
     onHistoryIconClick: () -> Unit,
     historyDestination: NavGraphBuilder.() -> Unit
@@ -46,6 +49,7 @@ fun NavGraphBuilder.incomesBase(
     navigation<IncomesAllRoutes>(startDestination = IncomesRoute) {
         composable<IncomesRoute> {
             IncomesScreen(
+                isConnected = isConnected,
                 onHistoryClick = onHistoryIconClick,
                 viewModelFactory = viewModelFactory
             )

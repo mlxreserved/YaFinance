@@ -27,7 +27,8 @@ import com.example.ui.data.state.ScreenState
 import com.example.ui.extensions.toUserMessage
 
 @Composable
-fun ExpensesHistoryScreen(
+internal fun ExpensesHistoryScreen(
+    isConnected: Boolean,
     viewModelFactory: ViewModelProvider.Factory,
     onLeadIconClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -51,7 +52,7 @@ fun ExpensesHistoryScreen(
                     onTrailIconClick = {}
                 )
                 NetworkStatusBanner(
-                    isConnected = true /*isConnected*/,
+                    isConnected = isConnected,
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(color = YaFinanceTheme.colors.primaryBackground)
@@ -80,13 +81,13 @@ fun ExpensesHistoryScreen(
                     onClick = {
                         historyViewModel.onRetryClicked()
                     },
-                    modifier = Modifier.fillMaxSize().padding(top = innerPadding.calculateTopPadding())
+                    modifier = Modifier.fillMaxSize()
                 )
             }
 
             ScreenState.Loading -> {
                 LoadingScreen(
-                    modifier = Modifier.fillMaxSize().padding(top = innerPadding.calculateTopPadding())
+                    modifier = Modifier.fillMaxSize()
                 )
             }
 

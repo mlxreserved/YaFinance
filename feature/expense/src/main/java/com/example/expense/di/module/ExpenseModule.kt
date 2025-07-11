@@ -1,8 +1,8 @@
 package com.example.expense.di.module
 
 import com.example.data.repository.expense.ExpenseRepositoryImpl
-import com.example.expense.di.scope.ExpenseScope
 import com.example.domain.repository.expense.ExpenseRepository
+import com.example.expense.di.scope.ExpenseScope
 import dagger.Binds
 import dagger.Module
 

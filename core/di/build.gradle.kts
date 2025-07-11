@@ -47,6 +47,7 @@ dependencies {
     api(libs.google.dagger.dagger)
     ksp(libs.google.dagger.compiler)
 
+    api(libs.androidx.lifecycle.viewmodel.savedstate)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.google.android.material)

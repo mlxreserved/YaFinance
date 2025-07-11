@@ -6,5 +6,6 @@
     <string name="expenses_today">Расходы сегодня</string>
     <string name="empty_expenses_history">В этом периоде у вас нет расходов</string>
     <string name="my_history">Моя история</string>
+    <string name="sum">Сумма</string>
 
 </resources>

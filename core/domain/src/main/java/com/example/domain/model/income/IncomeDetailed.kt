@@ -8,7 +8,6 @@ data class IncomeDetailed(
     val categoryName: String,
     val sum: String,
     val transactionDate: String,
-    val createdAt: String,
     val comment: String? = null,
     val currency: String
 )

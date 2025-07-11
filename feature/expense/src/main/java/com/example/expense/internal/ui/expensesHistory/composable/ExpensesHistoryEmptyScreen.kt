@@ -20,7 +20,7 @@ import com.example.ui.dateItem.DateItem
 import java.util.Date
 
 @Composable
-fun ExpensesHistoryEmptyScreen(
+internal fun ExpensesHistoryEmptyScreen(
     onEndDateSelected: (Long?) -> Unit,
     onStartDateSelected: (Long?) -> Unit,
     startDate: Date,

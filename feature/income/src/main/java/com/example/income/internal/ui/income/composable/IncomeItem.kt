@@ -16,7 +16,7 @@ import com.example.utils.extensions.string.formatWithSpaces
 import com.example.utils.extensions.string.isEmoji
 
 @Composable
-fun IncomeItem(
+internal fun IncomeItem(
     income: Income,
     modifier: Modifier = Modifier
 ) {

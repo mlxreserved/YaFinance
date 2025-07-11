@@ -27,11 +27,13 @@ fun NavController.navigateToExpensesHistory(navOptions: NavOptionsBuilder.() -> 
 
 
 fun NavGraphBuilder.expensesHistoryScreen(
+    isConnected: Boolean,
     viewModelFactory: ViewModelProvider.Factory,
     onLeadIconClick: () -> Unit
 ) {
     composable<ExpensesHistoryRoute> {
         ExpensesHistoryScreen(
+            isConnected = isConnected,
             viewModelFactory = viewModelFactory,
             onLeadIconClick = onLeadIconClick
         )
@@ -39,6 +41,7 @@ fun NavGraphBuilder.expensesHistoryScreen(
 }
 
 fun NavGraphBuilder.expensesBase(
+    isConnected: Boolean,
     viewModelFactory: ViewModelProvider.Factory,
     onHistoryIconClick: () -> Unit,
     historyDestination: NavGraphBuilder.() -> Unit
@@ -46,6 +49,7 @@ fun NavGraphBuilder.expensesBase(
     navigation<ExpensesAllRoutes>(startDestination = ExpensesRoute) {
         composable<ExpensesRoute> {
             ExpensesScreen(
+                isConnected = isConnected,
                 onHistoryClick = onHistoryIconClick,
                 viewModelFactory = viewModelFactory
             )

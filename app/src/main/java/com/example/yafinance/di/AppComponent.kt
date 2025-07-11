@@ -1,6 +1,8 @@
 package com.example.yafinance.di
 
 import android.content.Context
+import com.example.account.di.component.AccountComponent
+import com.example.category.di.component.CategoryComponent
 import com.example.data.di.RepositoryModule
 import com.example.di.component.CoreDependencies
 import com.example.di.module.DataStoreModule
@@ -34,6 +36,8 @@ interface AppComponent : CoreDependencies {
 
     fun expenseComponentFactory(): ExpenseComponent.Factory
     fun incomeComponentFactory(): IncomeComponent.Factory
+    fun accountComponentFactory(): AccountComponent.Factory
+    fun categoryComponentFactory(): CategoryComponent.Factory
 
     @Component.Factory
     interface Factory {
