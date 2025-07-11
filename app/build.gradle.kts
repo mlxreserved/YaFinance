@@ -38,6 +38,8 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        buildConfigField("String", "API_TOKEN", "\"${properties.getProperty("token")}\"")
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         resValue("string", "token", properties.getProperty("token"))
@@ -62,9 +64,27 @@ android {
     buildFeatures {
         compose = true
     }
+    buildFeatures.buildConfig = true
 }
 
 dependencies {
+    implementation(project(":feature:expense"))
+    implementation(project(":feature:income"))
+    implementation(project(":feature:account"))
+    implementation(project(":feature:category"))
+    implementation(project(":feature:settings"))
+
+
+    implementation(project(":core:common:utils"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:model"))
+    implementation(project(":core:di"))
+    implementation(project(":core:network"))
+    implementation(project(":core:data"))
+    implementation(project(":core:design"))
+    implementation(project(":core:datastore"))
+
+
 
     // Navigation
     implementation(libs.androidx.navigation.compose)

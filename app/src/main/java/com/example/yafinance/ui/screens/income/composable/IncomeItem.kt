@@ -8,10 +8,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import com.example.design.theme.customTheme.YaFinanceTheme
 import com.example.yafinance.R
 import com.example.yafinance.domain.models.income.Income
 import com.example.yafinance.ui.composable.listItems.customListItem.CustomListItem
-import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
 import com.example.yafinance.ui.utils.formatWithSpaces
 import com.example.yafinance.ui.utils.isEmoji
 

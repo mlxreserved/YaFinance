@@ -8,7 +8,7 @@ import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
-import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
+import com.example.design.theme.customTheme.YaFinanceTheme
 
 @Composable
 fun CustomFloatingButton(onClick: () -> Unit) {

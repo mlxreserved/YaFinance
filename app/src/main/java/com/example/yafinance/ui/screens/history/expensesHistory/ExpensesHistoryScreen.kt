@@ -2,7 +2,6 @@ package com.example.yafinance.ui.screens.history.expensesHistory
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.yafinance.R
 import androidx.compose.runtime.getValue
@@ -10,15 +9,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.ui.LocalSnackbarViewModel
 import com.example.yafinance.domain.models.expense.Expense
-import com.example.yafinance.ui.LocalSnackbarViewModel
-import com.example.yafinance.ui.LocalTopAppBarViewModel
+//import com.example.yafinance.ui.LocalSnackbarViewModel
+//import com.example.yafinance.ui.LocalTopAppBarViewModel
 import com.example.yafinance.ui.composable.screens.ErrorScreen
 import com.example.yafinance.ui.composable.screens.LoadingScreen
 import com.example.yafinance.ui.screens.history.expensesHistory.composable.ExpensesHistoryEmptyScreen
 import com.example.yafinance.ui.screens.history.expensesHistory.composable.ExpensesHistorySuccess
 import com.example.yafinance.ui.utils.state.ScreenState
-import com.example.yafinance.ui.utils.state.TopAppBarState
 import com.example.yafinance.ui.utils.toUserMessage
 
 @Composable
@@ -28,7 +27,7 @@ fun ExpensesHistoryScreen(
     modifier: Modifier = Modifier,
     historyViewModel: ExpensesHistoryViewModel = viewModel(factory = viewModelFactory)
 ) {
-    val topAppBarViewModel = LocalTopAppBarViewModel.current
+//    val topAppBarViewModel = LocalTopAppBarViewModel.current
     val snackbarViewModel = LocalSnackbarViewModel.current
     val context = LocalContext.current
 
@@ -36,16 +35,16 @@ fun ExpensesHistoryScreen(
     val startDate by historyViewModel.selectedStartDate.collectAsStateWithLifecycle()
     val endDate by historyViewModel.selectedEndDate.collectAsStateWithLifecycle()
 
-    LaunchedEffect(Unit) {
-        topAppBarViewModel.update(
-            TopAppBarState(
-                titleId = R.string.my_history,
-                leadId = R.drawable.ic_back,
-                trailId = R.drawable.ic_analys,
-                onLeadIconClick = onLeadIconClick
-            )
-        )
-    }
+//    LaunchedEffect(Unit) {
+//        topAppBarViewModel.update(
+//            TopAppBarState(
+//                titleId = R.string.my_history,
+//                leadId = R.drawable.ic_back,
+//                trailId = R.drawable.ic_analys,
+//                onLeadIconClick = onLeadIconClick
+//            )
+//        )
+//    }
 
     when (val state = historyState) {
         ScreenState.Empty -> {

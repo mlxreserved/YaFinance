@@ -21,4 +21,20 @@ dependencyResolutionManagement {
 
 rootProject.name = "YaFinance"
 include(":app")
- 
+
+include(":feature:expense")
+
+include(":core:common:utils")
+include(":core:ui")
+include(":core:design")
+include(":core:model")
+include(":core:network")
+include(":core:domain")
+include(":core:data")
+include(":core:datastore")
+include(":core:di")
+include(":feature:income")
+include(":feature:account")
+include(":feature:category")
+include(":feature:settings")
+include(":feature:editTransaction")

@@ -11,34 +11,33 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
-import androidx.navigation.toRoute
-import com.example.yafinance.domain.models.account.Account
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesHistoryRoute
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesHistoryRoute
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.AccountsAllRoutes
+import com.example.account.api.navigation.accountBase
+import com.example.account.api.navigation.editAccountScreen
+import com.example.account.api.navigation.navigateToEditAccount
+import com.example.account.internal.ui.editAccount.EditAccountViewModel
+import com.example.category.api.navigation.categoryScreen
+import com.example.expense.api.navigation.ExpensesAllRoutes
+import com.example.expense.api.navigation.expensesBase
+import com.example.expense.api.navigation.expensesHistoryScreen
+import com.example.expense.api.navigation.navigateToExpensesHistory
+import com.example.income.api.navigation.incomesBase
+import com.example.income.api.navigation.incomesHistoryScreen
+import com.example.income.api.navigation.navigateToIncomesHistory
+import com.example.domain.model.account.Account
+import com.example.settings.api.navigation.settingsScreen
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.EditAccountRoute
-import com.example.yafinance.ui.screens.accounts.AccountsScreen
-import com.example.yafinance.ui.screens.expense.ExpensesScreen
-import com.example.yafinance.ui.screens.categories.CategoriesScreen
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.AccountsRoute
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.CategoriesRoute
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesAllRoutes
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesRoute
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesAllRoutes
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.SettingsRoute
-import com.example.yafinance.ui.screens.editAccount.EditAccountScreen
-import com.example.yafinance.ui.screens.history.expensesHistory.ExpensesHistoryScreen
-import com.example.yafinance.ui.screens.history.incomesHistory.IncomesHistoryScreen
-import com.example.yafinance.ui.screens.income.IncomesScreen
 import com.example.yafinance.ui.screens.settings.SettingsScreen
 import com.example.yafinance.ui.screens.settings.model.settings
 import com.example.yafinance.ui.utils.formatWithoutSpaces
 
 @Composable
 fun FinanceNavHost(
-    viewModelFactory: ViewModelProvider.Factory,
+    isConnected: Boolean,
+    expenseViewModelFactory: ViewModelProvider.Factory,
+    incomeViewModelFactory: ViewModelProvider.Factory,
+    accountViewModelFactory: ViewModelProvider.Factory,
+    categoryViewModelFactory: ViewModelProvider.Factory,
     navController: NavHostController,
     paddingValues: PaddingValues
 ) {
@@ -57,92 +56,59 @@ fun FinanceNavHost(
         },
         navController = navController,
         startDestination = ExpensesAllRoutes,
-        modifier = Modifier.padding(paddingValues = paddingValues)
+        modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())
     ) {
-        navigation<ExpensesAllRoutes>(
-            startDestination = ExpensesRoute
+        expensesBase(
+            isConnected = isConnected,
+            viewModelFactory = expenseViewModelFactory,
+            onHistoryIconClick = navController::navigateToExpensesHistory
         ) {
-            composable<ExpensesRoute> {
-                ExpensesScreen(
-                    viewModelFactory = viewModelFactory,
-                    onTrailIconClick = { navController.navigate(ExpensesHistoryRoute) }
-                )
-            }
-            composable<ExpensesHistoryRoute> {
-                ExpensesHistoryScreen(
-                    viewModelFactory = viewModelFactory,
-                    onLeadIconClick = { navController.navigateUp() }
-                )
-            }
-        }
-
-        navigation<IncomesAllRoutes>(
-            startDestination = IncomesRoute
-        ) {
-            composable<IncomesRoute> {
-                IncomesScreen(
-                    viewModelFactory = viewModelFactory,
-                    onTrailIconClick = { navController.navigate(IncomesHistoryRoute) }
-                )
-            }
-            composable<IncomesHistoryRoute> {
-                IncomesHistoryScreen(
-                    viewModelFactory = viewModelFactory,
-                    onLeadIconClick = { navController.navigateUp() }
-                )
-            }
-        }
-
-        navigation<AccountsAllRoutes>(
-            startDestination = AccountsRoute
-        ) {
-
-            composable<AccountsRoute> {
-                AccountsScreen(
-                    viewModelFactory = viewModelFactory,
-                    onTrailIconClick = { account ->
-                        navigateToEditAccountRoute(account = account, navController = navController)
-                    }
-                )
-            }
-            composable<EditAccountRoute> {
-                val args = it.toRoute<EditAccountRoute>()
-
-                EditAccountScreen(
-                    viewModelFactory = viewModelFactory,
-                    onLeadIconClick = {
-                        navController.navigateUp()
-                    },
-                    onSuccess = {
-                        navController.navigateUp()
-                    },
-                    currency = args.currency,
-                    sum = args.sum,
-                    id = args.id,
-                    name = args.name
-                )
-            }
-        }
-
-        composable<CategoriesRoute> {
-            CategoriesScreen(
-                viewModelFactory = viewModelFactory
+            expensesHistoryScreen(
+                isConnected = isConnected,
+                viewModelFactory = expenseViewModelFactory,
+                onLeadIconClick = navController::navigateUp
             )
         }
 
-        composable<SettingsRoute> {
-            SettingsScreen(settings = settings)
+        incomesBase(
+            isConnected = isConnected,
+            viewModelFactory = incomeViewModelFactory,
+            onHistoryIconClick = navController::navigateToIncomesHistory
+        ) {
+            incomesHistoryScreen(
+                isConnected = isConnected,
+                viewModelFactory = incomeViewModelFactory,
+                onLeadIconClick = navController::navigateUp
+            )
         }
+
+        accountBase(
+            isConnected = isConnected,
+            viewModelFactory = accountViewModelFactory,
+            onEditIconClick = { account ->
+                navController.navigateToEditAccount(account)
+            }
+        ) {
+            editAccountScreen(
+                isConnected = isConnected,
+                onSuccess = {
+                    navController.navigateUp()
+                },
+                onLeadIconClick = {
+                    navController.navigateUp()
+                },
+                viewModelFactory = accountViewModelFactory
+            )
+        }
+
+        categoryScreen(
+            isConnected = isConnected,
+            viewModelFactory = categoryViewModelFactory
+        )
+
+        settingsScreen(
+            isConnected = isConnected
+        )
     }
 }
 
-fun navigateToEditAccountRoute(account: Account, navController: NavHostController) {
-    navController.navigate(
-        EditAccountRoute(
-            sum = account.sum.formatWithoutSpaces(),
-            currency = account.currency,
-            id = account.id,
-            name = account.name
-        )
-    )
-}

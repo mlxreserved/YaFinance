@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="my_history">Моя история</string>
+    <string name="empty_incomes">Сегодня у вас нет доходов</string>
+    <string name="create_first_income">Добавить доход</string>
+    <string name="empty_incomes_history">В этом периоде у вас нет доходов</string>
+    <string name="incomes_today">Доходы сегодня</string>
+    <string name="sum">Сумма</string>
+
+</resources>

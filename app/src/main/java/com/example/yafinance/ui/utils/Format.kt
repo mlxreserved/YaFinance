@@ -4,6 +4,15 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+fun String.toCurrency(): String {
+    return when (this) {
+        "RUB" -> "₽"
+        "USD" -> "$"
+        "EUR" -> "€"
+        else -> ""
+    }
+}
+
 fun String.formatWithSpaces(): String {
     val parts = this.split(".")
     val integerPart = parts[0].replace(Regex("(\\d)(?=(\\d{3})+$)"), "$1 ")

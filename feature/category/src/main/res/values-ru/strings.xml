@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="find_category">Найти статью</string>
+    <string name="empty_categories">У вас нет статей</string>
+    <string name="my_categories">Мои статьи</string>
+</resources>

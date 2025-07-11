@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="total">Всего</string>
+    <string name="error_template">Произошла ошибка</string>
+    <string name="error_internet">Нет подключения к интернету</string>
+    <string name="clear">Очистить</string>
+    <string name="cancel">Отмена</string>
+    <string name="ok">ОК</string>
+    <string name="error_loading_button">Попробовать снова</string>
+    <string name="error_unknown">Произошла неизвестная ошибка</string>
+    <string name="error_unauthorized">Неавторизованный доступ</string>
+    <string name="error_too_many_requests">Слишком много запросов. Попробуйте позже</string>
+    <string name="error_server">Ошибка сервера. Попробуйте позже</string>
+    <string name="error_client">Ошибка. Обратитесь в поддержку</string>
+    <string name="start_date">Начало</string>
+    <string name="end_date">Конец</string>
+    <string name="date">Дата</string>
+
+</resources>

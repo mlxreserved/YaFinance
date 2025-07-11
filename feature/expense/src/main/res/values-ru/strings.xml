@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="expenses">Расходы</string>
+    <string name="empty_expenses">Сегодня у вас нет расходов</string>
+    <string name="create_first_expense">Добавить расход</string>
+    <string name="expenses_today">Расходы сегодня</string>
+    <string name="empty_expenses_history">В этом периоде у вас нет расходов</string>
+    <string name="my_history">Моя история</string>
+    <string name="sum">Сумма</string>
+
+</resources>

@@ -15,30 +15,39 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.yafinance.ui.composable.floatingButton.CustomFloatingButton
 import com.example.yafinance.ui.composable.snackbar.CustomSnackbarHost
-import com.example.yafinance.ui.composable.topAppBar.CustomTopAppBar
 import com.example.yafinance.ui.composable.topAppBar.NetworkStatusBanner
 import com.example.yafinance.ui.navigation.bottomNavBar.BottomNavigationBar
 import com.example.yafinance.ui.navigation.host.FinanceNavHost
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.IncomesRoute
 import com.example.yafinance.ui.navigation.routes.ScreensRoute.ExpensesRoute
-import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
-import com.example.yafinance.ui.viewModel.NetworkStatusViewModel
-import com.example.yafinance.ui.viewModel.SnackbarViewModel
-import com.example.yafinance.ui.viewModel.TopAppBarViewModel
+//import com.example.yafinance.ui.theme.customTheme.YaFinanceTheme
+import com.example.design.theme.customTheme.YaFinanceTheme
+import com.example.di.module.ViewModelFactory
+import com.example.ui.LocalSnackbarViewModel
+import com.example.ui.networkMonitor.NetworkStatusViewModel
+import com.example.ui.snackbar.SnackbarViewModel
+//import com.example.yafinance.ui.viewModel.NetworkStatusViewModel
+//import com.example.yafinance.ui.viewModel.SnackbarViewModel
+//import com.example.yafinance.ui.viewModel.TopAppBarViewModel
 
 @Composable
 fun MainScreen(
-    viewModelFactory: ViewModelProvider.Factory,
+    globalViewModelFactory: ViewModelProvider.Factory,
+    expenseViewModelFactory: ViewModelProvider.Factory,
+    incomeViewModelFactory: ViewModelProvider.Factory,
+    accountViewModelFactory: ViewModelProvider.Factory,
+    categoryViewModelFactory: ViewModelProvider.Factory,
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
-    val snackbarViewModel: SnackbarViewModel = viewModel(factory = viewModelFactory)
-    val networkStatusViewModel: NetworkStatusViewModel = viewModel(factory = viewModelFactory)
-    val topAppBarViewModel: TopAppBarViewModel = viewModel(factory = viewModelFactory)
+    val snackbarViewModel: SnackbarViewModel = viewModel(factory = globalViewModelFactory)
+    val networkStatusViewModel: NetworkStatusViewModel = viewModel(factory = globalViewModelFactory)
+//    val topAppBarViewModel: TopAppBarViewModel = viewModel(factory = viewModelFactory)
 
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -47,7 +56,7 @@ fun MainScreen(
 
     val snackbarMessage by snackbarViewModel.snackbarMessage.collectAsStateWithLifecycle()
     val isConnected by networkStatusViewModel.isConnected.collectAsStateWithLifecycle()
-    val topAppBarState by topAppBarViewModel.topAppBarState.collectAsStateWithLifecycle()
+//    val topAppBarState by topAppBarViewModel.topAppBarState.collectAsStateWithLifecycle()
 
     LaunchedEffect(snackbarMessage) {
         snackbarMessage?.let {
@@ -60,7 +69,7 @@ fun MainScreen(
     }
 
     CompositionLocalProvider(
-        LocalTopAppBarViewModel provides topAppBarViewModel,
+//        LocalTopAppBarViewModel provides topAppBarViewModel,
         LocalSnackbarViewModel provides snackbarViewModel
     ) {
         Scaffold(
@@ -69,19 +78,16 @@ fun MainScreen(
                     snackbarHostState.currentSnackbarData?.dismiss()
                 }
             },
-            topBar = {
-                Column {
-                    CustomTopAppBar(
-                        topAppBarState = topAppBarState
-                    )
-                    NetworkStatusBanner(
-                        isConnected = isConnected,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(color = YaFinanceTheme.colors.primaryBackground)
-                    )
-                }
-            },
+//            topBar = {
+//                Column {
+//                    NetworkStatusBanner(
+//                        isConnected = true /*isConnected*/,
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .background(color = YaFinanceTheme.colors.primaryBackground)
+//                    )
+//                }
+//            },
             bottomBar = {
                 BottomNavigationBar(navController)
             },
@@ -96,7 +102,11 @@ fun MainScreen(
         ) { innerPadding ->
             FinanceNavHost(
                 navController = navController,
-                viewModelFactory = viewModelFactory,
+                isConnected = isConnected,
+                expenseViewModelFactory = expenseViewModelFactory,
+                incomeViewModelFactory = incomeViewModelFactory,
+                accountViewModelFactory = accountViewModelFactory,
+                categoryViewModelFactory = categoryViewModelFactory,
                 paddingValues = innerPadding
             )
         }
