@@ -17,11 +17,4 @@ object ExpenseUseCaseModule {
         expenseRepository: ExpenseRepository
     ): GetExpensesUseCase =
         GetExpensesUseCaseImpl(expenseRepository)
-
-    @ExpenseScope
-    @Provides
-    fun provideGetExpenseByIdUseCase(
-        expenseRepository: ExpenseRepository
-    ): GetExpenseByIdUseCase =
-        GetExpenseByIdUseCaseImpl(expenseRepository)
 }

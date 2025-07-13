@@ -20,11 +20,4 @@ object IncomeUseCaseModule {
         incomeRepository: IncomeRepository
     ): GetIncomesUseCase =
         GetIncomesUseCaseImpl(incomeRepository)
-
-    @IncomeScope
-    @Provides
-    fun provideGetIncomeByIdUseCase(
-        incomeRepository: IncomeRepository
-    ): GetIncomeByIdUseCase =
-        GetIncomeByIdUseCaseImpl(incomeRepository)
 }

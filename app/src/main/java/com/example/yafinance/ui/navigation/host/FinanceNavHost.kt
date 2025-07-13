@@ -10,26 +10,20 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import com.example.account.api.navigation.accountBase
 import com.example.account.api.navigation.editAccountScreen
 import com.example.account.api.navigation.navigateToEditAccount
-import com.example.account.internal.ui.editAccount.EditAccountViewModel
 import com.example.category.api.navigation.categoryScreen
 import com.example.expense.api.navigation.ExpensesAllRoutes
 import com.example.expense.api.navigation.expensesBase
 import com.example.expense.api.navigation.expensesHistoryScreen
 import com.example.expense.api.navigation.navigateToExpensesHistory
 import com.example.income.api.navigation.incomesBase
-import com.example.income.api.navigation.incomesHistoryScreen
+import com.example.income.api.navigation.incomesHistoryBase
 import com.example.income.api.navigation.navigateToIncomesHistory
-import com.example.domain.model.account.Account
+import com.example.edittransaction.api.navigation.editTransactionScreen
+import com.example.edittransaction.api.navigation.navigateToEditTransaction
 import com.example.settings.api.navigation.settingsScreen
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.EditAccountRoute
-import com.example.yafinance.ui.navigation.routes.ScreensRoute.SettingsRoute
-import com.example.yafinance.ui.screens.settings.SettingsScreen
-import com.example.yafinance.ui.screens.settings.model.settings
-import com.example.yafinance.ui.utils.formatWithoutSpaces
 
 @Composable
 fun FinanceNavHost(
@@ -38,6 +32,7 @@ fun FinanceNavHost(
     incomeViewModelFactory: ViewModelProvider.Factory,
     accountViewModelFactory: ViewModelProvider.Factory,
     categoryViewModelFactory: ViewModelProvider.Factory,
+    editTransactionViewModelFactory: ViewModelProvider.Factory,
     navController: NavHostController,
     paddingValues: PaddingValues
 ) {
@@ -61,24 +56,110 @@ fun FinanceNavHost(
         expensesBase(
             isConnected = isConnected,
             viewModelFactory = expenseViewModelFactory,
-            onHistoryIconClick = navController::navigateToExpensesHistory
+            onHistoryIconClick = navController::navigateToExpensesHistory,
+            historyDestination = {
+                expensesHistoryScreen(
+                    isConnected = isConnected,
+                    viewModelFactory = expenseViewModelFactory,
+                    onLeadIconClick = navController::navigateUp,
+                    onEditTransactionClick = { id ->
+                        navController.navigateToEditTransaction(
+                            isAdd = false,
+                            isIncome = false,
+                            id = id
+                        )
+                    }
+                ) {
+                    editTransactionScreen(
+                        isConnected = isConnected,
+                        viewModelFactory = editTransactionViewModelFactory,
+                        onLeadIconClick = {
+                            navController.navigateUp()
+                        },
+                        onSuccess = {
+                            navController.navigateUp()
+                        }
+                    )
+                }
+            },
+            onAddTransactionClick = {
+                navController.navigateToEditTransaction(
+                    isAdd = true,
+                    isIncome = false,
+                )
+            },
+            onEditTransactionClick = { id ->
+                navController.navigateToEditTransaction(
+                    isAdd = false,
+                    isIncome = false,
+                    id = id
+                )
+            }
         ) {
-            expensesHistoryScreen(
+            editTransactionScreen(
                 isConnected = isConnected,
-                viewModelFactory = expenseViewModelFactory,
-                onLeadIconClick = navController::navigateUp
+                viewModelFactory = editTransactionViewModelFactory,
+                onLeadIconClick = {
+                    navController.navigateUp()
+                },
+                onSuccess = {
+                    navController.navigateUp()
+                }
             )
         }
 
         incomesBase(
             isConnected = isConnected,
             viewModelFactory = incomeViewModelFactory,
-            onHistoryIconClick = navController::navigateToIncomesHistory
+            onHistoryIconClick = navController::navigateToIncomesHistory,
+            historyDestination = {
+                incomesHistoryBase(
+                    isConnected = isConnected,
+                    viewModelFactory = incomeViewModelFactory,
+                    onEditTransactionClick = { id ->
+                        navController.navigateToEditTransaction(
+                            isAdd = false,
+                            isIncome = true,
+                            id = id
+                        )
+                    },
+                    onLeadIconClick = navController::navigateUp
+                ) {
+                    editTransactionScreen(
+                        isConnected = isConnected,
+                        viewModelFactory = editTransactionViewModelFactory,
+                        onLeadIconClick = {
+                            navController.navigateUp()
+                        },
+                        onSuccess = {
+                            navController.navigateUp()
+                        }
+                    )
+                }
+            },
+            onAddTransactionClick = {
+                navController.navigateToEditTransaction(
+                    isAdd = true,
+                    isIncome = true,
+                )
+            },
+            onEditTransactionClick = { id ->
+                navController.navigateToEditTransaction(
+                    isAdd = false,
+                    isIncome = true,
+                    id = id
+                )
+            }
         ) {
-            incomesHistoryScreen(
+            editTransactionScreen(
                 isConnected = isConnected,
-                viewModelFactory = incomeViewModelFactory,
-                onLeadIconClick = navController::navigateUp
+                viewModelFactory = editTransactionViewModelFactory,
+                onLeadIconClick = {
+                    navController.navigateUp()
+                },
+                onSuccess = {
+                    navController.navigateUp()
+                }
             )
         }
 
@@ -109,6 +190,8 @@ fun FinanceNavHost(
         settingsScreen(
             isConnected = isConnected
         )
+
+
     }
 }
 

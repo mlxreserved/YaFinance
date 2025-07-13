@@ -3,9 +3,12 @@ package com.example.data.repository.income
 import com.example.data.mappers.toExpenseDetailed
 import com.example.data.mappers.toIncomeDetailed
 import com.example.data.mappers.toIncomeDomain
+import com.example.data.mappers.toIncomeUpdate
+import com.example.data.mappers.toTransactionRequestDTO
 import com.example.domain.model.expense.ExpenseDetailed
 import com.example.domain.model.income.Income
 import com.example.domain.model.income.IncomeDetailed
+import com.example.domain.model.income.IncomeUpdate
 import com.example.domain.repository.income.IncomeRepository
 import com.example.domain.usecase.account.inter.GetAccountIdUseCase
 import com.example.model.result.Result
@@ -59,6 +62,29 @@ class IncomeRepositoryImpl @Inject constructor(
                     .getTransactionById(id)
                     .toIncomeDetailed()
             }
+        }
+
+    override suspend fun updateIncomeById(
+        id: Int,
+        income: IncomeUpdate
+    ): Result<IncomeDetailed>  =
+        safeCallWithRetry {
+            withContext(Dispatchers.IO) {
+                transactionApi
+                    .updateTransactionById(id, income.toTransactionRequestDTO())
+            }.toIncomeDetailed()
+        }
+
+    override suspend fun deleteIncomeById(id: Int) =
+        withContext(Dispatchers.IO) {
+            transactionApi.deleteTransactionById(id)
+        }
+
+    override suspend fun createIncome(income: IncomeUpdate): Result<IncomeUpdate> =
+        safeCallWithRetry {
+            withContext(Dispatchers.IO) {
+                transactionApi.createTransaction(income.copy(accountId = getAccountId()).toTransactionRequestDTO())
+            }.toIncomeUpdate()
         }
 
     /** Получить ID счета для использования при запросе транзакций **/

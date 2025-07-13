@@ -17,6 +17,9 @@ object ExpensesAllRoutes
 object ExpensesRoute
 
 @Serializable
+object ExpenseAllHistoryRoute
+
+@Serializable
 object ExpensesHistoryRoute
 
 fun NavController.navigateToExpensesHistory(navOptions: NavOptionsBuilder.() -> Unit = {}) {
@@ -28,15 +31,22 @@ fun NavController.navigateToExpensesHistory(navOptions: NavOptionsBuilder.() -> 
 
 fun NavGraphBuilder.expensesHistoryScreen(
     isConnected: Boolean,
+    onEditTransactionClick: (Int) -> Unit,
     viewModelFactory: ViewModelProvider.Factory,
-    onLeadIconClick: () -> Unit
+    onLeadIconClick: () -> Unit,
+    editTransactionDestination: NavGraphBuilder.() -> Unit
 ) {
-    composable<ExpensesHistoryRoute> {
-        ExpensesHistoryScreen(
-            isConnected = isConnected,
-            viewModelFactory = viewModelFactory,
-            onLeadIconClick = onLeadIconClick
-        )
+    navigation<ExpenseAllHistoryRoute>(startDestination = ExpensesHistoryRoute) {
+        composable<ExpensesHistoryRoute> {
+            ExpensesHistoryScreen(
+                isConnected = isConnected,
+                onEditTransactionClick = onEditTransactionClick,
+                viewModelFactory = viewModelFactory,
+                onLeadIconClick = onLeadIconClick
+            )
+        }
+
+        editTransactionDestination()
     }
 }
 
@@ -44,16 +54,23 @@ fun NavGraphBuilder.expensesBase(
     isConnected: Boolean,
     viewModelFactory: ViewModelProvider.Factory,
     onHistoryIconClick: () -> Unit,
-    historyDestination: NavGraphBuilder.() -> Unit
+    onAddTransactionClick: () -> Unit,
+    onEditTransactionClick: (Int) -> Unit,
+    historyDestination: NavGraphBuilder.() -> Unit,
+    editTransactionDestination: NavGraphBuilder.() -> Unit
 ) {
     navigation<ExpensesAllRoutes>(startDestination = ExpensesRoute) {
         composable<ExpensesRoute> {
             ExpensesScreen(
                 isConnected = isConnected,
+                onAddTransactionClick = onAddTransactionClick,
+                onEditTransactionClick = onEditTransactionClick,
                 onHistoryClick = onHistoryIconClick,
                 viewModelFactory = viewModelFactory
             )
         }
         historyDestination()
+
+        editTransactionDestination()
     }
 }

@@ -17,7 +17,11 @@ object IncomesAllRoutes
 object IncomesRoute
 
 @Serializable
+object IncomeHistoryAllRoutes
+
+@Serializable
 object IncomesHistoryRoute
+
 
 fun NavController.navigateToIncomesHistory(navOptions: NavOptionsBuilder.() -> Unit = {}) {
     navigate(route = IncomesHistoryRoute) {
@@ -26,34 +30,48 @@ fun NavController.navigateToIncomesHistory(navOptions: NavOptionsBuilder.() -> U
 }
 
 
-fun NavGraphBuilder.incomesHistoryScreen(
+fun NavGraphBuilder.incomesHistoryBase(
     isConnected: Boolean,
     viewModelFactory: ViewModelProvider.Factory,
-    onLeadIconClick: () -> Unit
+    onEditTransactionClick: (Int) -> Unit,
+    onLeadIconClick: () -> Unit,
+    editTransactionDestination: NavGraphBuilder.() -> Unit,
 ) {
-    composable<IncomesHistoryRoute> {
-        IncomesHistoryScreen(
-            isConnected = isConnected,
-            viewModelFactory = viewModelFactory,
-            onLeadIconClick = onLeadIconClick
-        )
+    navigation<IncomeHistoryAllRoutes>(startDestination = IncomesHistoryRoute) {
+        composable<IncomesHistoryRoute> {
+            IncomesHistoryScreen(
+                isConnected = isConnected,
+                viewModelFactory = viewModelFactory,
+                onEditTransactionClick = onEditTransactionClick,
+                onLeadIconClick = onLeadIconClick
+            )
+        }
+        editTransactionDestination()
     }
+
 }
 
 fun NavGraphBuilder.incomesBase(
     isConnected: Boolean,
     viewModelFactory: ViewModelProvider.Factory,
     onHistoryIconClick: () -> Unit,
-    historyDestination: NavGraphBuilder.() -> Unit
+    onAddTransactionClick: () -> Unit,
+    onEditTransactionClick: (Int) -> Unit,
+    historyDestination: NavGraphBuilder.() -> Unit,
+    editTransactionDestination: NavGraphBuilder.() -> Unit
 ) {
     navigation<IncomesAllRoutes>(startDestination = IncomesRoute) {
         composable<IncomesRoute> {
             IncomesScreen(
                 isConnected = isConnected,
                 onHistoryClick = onHistoryIconClick,
+                onEditTransactionClick = onEditTransactionClick,
+                onAddTransactionClick = onAddTransactionClick,
                 viewModelFactory = viewModelFactory
             )
         }
         historyDestination()
+
+        editTransactionDestination()
     }
 }

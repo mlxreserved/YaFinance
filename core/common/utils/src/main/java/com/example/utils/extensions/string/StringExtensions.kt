@@ -1,8 +1,11 @@
 package com.example.utils.extensions.string
 
 import java.text.SimpleDateFormat
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 
 fun String.toCurrency(): String {
@@ -46,17 +49,69 @@ fun Date.toDateString(): String {
     return sdf.format(this)
 }
 
+fun Date.toTimeString(): String {
+    val sdf = SimpleDateFormat("HH:mm")
+
+    return sdf.format(this)
+}
+
+fun Date.toDateWithDotsString(): String {
+    val sdf = SimpleDateFormat("dd.MM.yyyy")
+
+    return sdf.format(this)
+}
+
 fun String.toDateWithTimeString(): String {
-    val format = SimpleDateFormat(
-        "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-        Locale.getDefault()
-    )
+    val format = if(this.length == 20) {
+        SimpleDateFormat(
+            "yyyy-MM-dd'T'HH:mm:ss'Z'",
+            Locale.getDefault()
+        )
+    } else if(this.length == 24) {
+        SimpleDateFormat(
+            "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+            Locale.getDefault()
+        )
+    } else {
+        SimpleDateFormat(
+            "yyyy-MM-dd'T'HH:mm'Z'",
+            Locale.getDefault()
+        )
+    }
 
     val formatedStringToDate = format.parse(this)!!
 
     val sdf = SimpleDateFormat("d MMMM HH:mm")
 
     return sdf.format(formatedStringToDate)
+}
+
+fun Date.toStringWithZone(): String {
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX")
+        .withZone(ZoneId.of("UTC"))
+    return formatter.format(this.toInstant())
+}
+
+
+fun String.toLongDate(): Date {
+    val formatter = if(this.length == 20) {
+        SimpleDateFormat(
+            "yyyy-MM-dd'T'HH:mm:ss'Z'",
+            Locale.getDefault()
+        )
+    } else if(this.length == 24) {
+        SimpleDateFormat(
+            "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+            Locale.getDefault()
+        )
+    } else {
+        SimpleDateFormat(
+            "yyyy-MM-dd'T'HH:mm'Z'",
+            Locale.getDefault()
+        )
+    }
+
+    return formatter.parse(this)
 }
 
 fun String.isEmoji(): Boolean =

@@ -1,5 +1,6 @@
 package com.example.income.internal.ui.income.composable
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,6 +18,7 @@ import com.example.utils.extensions.string.formatWithSpaces
 
 @Composable
 internal fun IncomeSuccess(
+    onEditTransactionClick: (Int) -> Unit,
     incomes: List<Income>,
     modifier: Modifier = Modifier
 ) {
@@ -36,7 +38,9 @@ internal fun IncomeSuccess(
             items(items = incomes, key = { it.id }) { income ->
                 IncomeItem(
                     income = income,
-                    modifier = Modifier.height(72.dp)
+                    modifier = Modifier
+                        .height(72.dp)
+                        .clickable { onEditTransactionClick(income.id) }
                 )
             }
         }

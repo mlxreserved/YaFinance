@@ -34,6 +34,8 @@ import com.example.ui.extensions.toUserMessage
 internal fun ExpensesScreen(
     isConnected: Boolean,
     onHistoryClick: () -> Unit,
+    onAddTransactionClick: () -> Unit,
+    onEditTransactionClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModelFactory: ViewModelProvider.Factory,
     expensesViewModel: ExpensesViewModel = viewModel(factory = viewModelFactory)
@@ -65,7 +67,7 @@ internal fun ExpensesScreen(
                 ScreenState.Empty -> {
                     EmptyScreen(
                         text = stringResource(R.string.empty_expenses),
-                        onClick = {},
+                        onClick = onAddTransactionClick,
                         addText = stringResource(R.string.create_first_expense),
                         modifier = Modifier
                             .fillMaxSize()
@@ -94,6 +96,7 @@ internal fun ExpensesScreen(
 
                 is ScreenState.Success -> {
                     ExpensesSuccess(
+                        onEditTransactionClick = onEditTransactionClick,
                         expenses = state.result,
                         modifier = Modifier
                             .fillMaxSize()
@@ -103,7 +106,7 @@ internal fun ExpensesScreen(
             }
 
             CustomFloatingButton(
-                onClick = {},
+                onClick = onAddTransactionClick,
                 modifier = Modifier.align(Alignment.BottomEnd).padding(end = 16.dp, bottom = 16.dp)
             )
         }

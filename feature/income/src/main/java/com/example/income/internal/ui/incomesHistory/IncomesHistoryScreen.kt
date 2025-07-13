@@ -31,6 +31,7 @@ internal fun IncomesHistoryScreen(
     isConnected: Boolean,
     viewModelFactory: ViewModelProvider.Factory,
     onLeadIconClick: () -> Unit,
+    onEditTransactionClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     historyViewModel: IncomesHistoryViewModel = viewModel(factory = viewModelFactory)
 ) {
@@ -95,6 +96,7 @@ internal fun IncomesHistoryScreen(
                     history = state.result,
                     startDate = startDate,
                     endDate = endDate,
+                    onEditTransactionClick = onEditTransactionClick,
                     onStartDateSelected = { time -> historyViewModel.updateStartDate(time) },
                     onEndDateSelected = { time -> historyViewModel.updateEndDate(time) },
                     modifier = Modifier.fillMaxSize().padding(top = innerPadding.calculateTopPadding())

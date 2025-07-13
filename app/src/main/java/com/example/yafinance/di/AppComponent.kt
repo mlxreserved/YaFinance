@@ -8,12 +8,11 @@ import com.example.di.component.CoreDependencies
 import com.example.di.module.DataStoreModule
 import com.example.di.module.UseCaseModule
 import com.example.di.module.ViewModelModule
+import com.example.edittransaction.di.component.EditTransactionComponent
 import com.example.expense.di.component.ExpenseComponent
 import com.example.income.di.component.IncomeComponent
 import com.example.network.di.NetworkModule
 import com.example.utils.qualifiers.ApplicationContext
-import com.example.yafinance.di.module.AppModule
-import com.example.yafinance.di.module.DataSourceModule
 import com.example.yafinance.ui.MainActivity
 import dagger.BindsInstance
 import dagger.Component
@@ -22,8 +21,6 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
-        AppModule::class,
-        DataSourceModule::class,
         NetworkModule::class,
         UseCaseModule::class,
         RepositoryModule::class,
@@ -38,6 +35,7 @@ interface AppComponent : CoreDependencies {
     fun incomeComponentFactory(): IncomeComponent.Factory
     fun accountComponentFactory(): AccountComponent.Factory
     fun categoryComponentFactory(): CategoryComponent.Factory
+    fun editTransactionComponentFactory(): EditTransactionComponent.Factory
 
     @Component.Factory
     interface Factory {

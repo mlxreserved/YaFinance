@@ -1,11 +1,14 @@
 package com.example.di.module
 
 import com.example.domain.repository.account.AccountRepository
+import com.example.domain.repository.category.CategoryRepository
 import com.example.domain.repository.global.AccountNameProvider
 import com.example.domain.repository.global.BalanceProvider
 import com.example.domain.repository.global.CurrencyProvider
 import com.example.domain.usecase.account.impl.GetAccountIdUseCaseImpl
 import com.example.domain.usecase.account.inter.GetAccountIdUseCase
+import com.example.domain.usecase.category.impl.GetCategoriesByTypeUseCaseImpl
+import com.example.domain.usecase.category.inter.GetCategoriesByTypeUseCase
 import com.example.domain.usecase.global.impl.GetCurrentAccountNameUseCaseImpl
 import com.example.domain.usecase.global.impl.GetCurrentBalanceUseCaseImpl
 import com.example.domain.usecase.global.impl.GetCurrentCurrencyUseCaseImpl
@@ -30,6 +33,8 @@ object UseCaseModule {
         accountRepository: AccountRepository
     ): GetAccountIdUseCase =
         GetAccountIdUseCaseImpl(accountRepository)
+
+
 
 
     @Singleton

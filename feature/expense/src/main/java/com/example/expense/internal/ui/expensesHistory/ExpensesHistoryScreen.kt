@@ -30,6 +30,7 @@ import com.example.ui.extensions.toUserMessage
 internal fun ExpensesHistoryScreen(
     isConnected: Boolean,
     viewModelFactory: ViewModelProvider.Factory,
+    onEditTransactionClick: (Int) -> Unit,
     onLeadIconClick: () -> Unit,
     modifier: Modifier = Modifier,
     historyViewModel: ExpensesHistoryViewModel = viewModel(factory = viewModelFactory)
@@ -96,6 +97,7 @@ internal fun ExpensesHistoryScreen(
                     history = state.result,
                     startDate = startDate,
                     endDate = endDate,
+                    onEditTransactionClick = onEditTransactionClick,
                     onStartDateSelected = { time -> historyViewModel.updateStartDate(time) },
                     onEndDateSelected = { time -> historyViewModel.updateEndDate(time) },
                     modifier = Modifier.fillMaxSize().padding(top = innerPadding.calculateTopPadding())

@@ -1,5 +1,6 @@
 package com.example.expense.internal.ui.expense.composable
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,6 +21,7 @@ import com.example.utils.extensions.string.formatWithSpaces
 
 @Composable
 internal fun ExpensesSuccess(
+    onEditTransactionClick: (Int) -> Unit,
     expenses: List<Expense>,
     modifier: Modifier = Modifier
 ) {
@@ -45,6 +47,7 @@ internal fun ExpensesSuccess(
                 ExpenseItem(
                     expense = expense,
                     modifier = Modifier.height(72.dp)
+                        .clickable{ onEditTransactionClick(expense.id) }
                 )
             }
         }

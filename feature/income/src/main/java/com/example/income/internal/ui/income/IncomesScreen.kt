@@ -35,6 +35,8 @@ import com.example.ui.extensions.toUserMessage
 internal fun IncomesScreen(
     isConnected: Boolean,
     viewModelFactory: ViewModelProvider.Factory,
+    onAddTransactionClick: () -> Unit,
+    onEditTransactionClick: (Int) -> Unit,
     onHistoryClick: () -> Unit,
     modifier: Modifier = Modifier,
     incomesViewModel: IncomesViewModel = viewModel(factory = viewModelFactory)
@@ -67,7 +69,7 @@ internal fun IncomesScreen(
                 ScreenState.Empty -> {
                     EmptyScreen(
                         text = stringResource(R.string.empty_incomes),
-                        onClick = {},
+                        onClick = onAddTransactionClick,
                         addText = stringResource(R.string.create_first_income),
                         modifier = Modifier.fillMaxSize()
                             .padding(top = innerPadding.calculateTopPadding())
@@ -97,6 +99,7 @@ internal fun IncomesScreen(
 
                 is ScreenState.Success -> {
                     IncomeSuccess(
+                        onEditTransactionClick = onEditTransactionClick,
                         incomes = state.result,
                         modifier = Modifier.fillMaxSize()
                             .padding(top = innerPadding.calculateTopPadding())
@@ -104,7 +107,7 @@ internal fun IncomesScreen(
                 }
             }
             CustomFloatingButton(
-                onClick = {},
+                onClick = onAddTransactionClick,
                 modifier = Modifier.align(Alignment.BottomEnd).padding(end = 16.dp, bottom = 16.dp)
             )
         }

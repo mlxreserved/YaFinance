@@ -1,5 +1,6 @@
 package com.example.income.internal.ui.incomesHistory.composable
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
@@ -24,6 +25,7 @@ import java.util.Date
 @Composable
 internal fun IncomesHistorySuccess(
     history: List<Income>,
+    onEditTransactionClick: (Int) -> Unit,
     onEndDateSelected: (Long?) -> Unit,
     onStartDateSelected: (Long?) -> Unit,
     startDate: Date,
@@ -73,6 +75,7 @@ internal fun IncomesHistorySuccess(
                 IncomeHistoryItem(
                     historyItem = historyItem,
                     modifier = Modifier.height(72.dp)
+                        .clickable{ onEditTransactionClick(historyItem.id) }
                 )
             }
         }

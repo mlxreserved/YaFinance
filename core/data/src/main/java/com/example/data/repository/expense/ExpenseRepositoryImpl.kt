@@ -2,8 +2,11 @@ package com.example.data.repository.expense
 
 import com.example.data.mappers.toExpenseDetailed
 import com.example.data.mappers.toExpenseDomain
+import com.example.data.mappers.toExpenseUpdate
+import com.example.data.mappers.toTransactionRequestDTO
 import com.example.domain.model.expense.Expense
 import com.example.domain.model.expense.ExpenseDetailed
+import com.example.domain.model.expense.ExpenseUpdate
 import com.example.domain.repository.expense.ExpenseRepository
 import com.example.domain.usecase.account.inter.GetAccountIdUseCase
 import com.example.model.result.Result
@@ -57,6 +60,29 @@ class ExpenseRepositoryImpl @Inject constructor(
                     .getTransactionById(id)
                     .toExpenseDetailed()
             }
+        }
+
+    override suspend fun updateExpenseById(
+        id: Int,
+        expense: ExpenseUpdate
+    ): Result<ExpenseDetailed> =
+        safeCallWithRetry {
+            withContext(Dispatchers.IO) {
+                transactionApi
+                    .updateTransactionById(id, expense.toTransactionRequestDTO())
+            }.toExpenseDetailed()
+        }
+
+    override suspend fun deleteExpenseById(id: Int) =
+        withContext(Dispatchers.IO) {
+            transactionApi.deleteTransactionById(id)
+        }
+
+    override suspend fun createExpense(expense: ExpenseUpdate): Result<ExpenseUpdate> =
+        safeCallWithRetry {
+            withContext(Dispatchers.IO) {
+                transactionApi.createTransaction(expense.copy(accountId = getAccountId()).toTransactionRequestDTO())
+            }.toExpenseUpdate()
         }
 
     /** Получить ID счета для использования при запросе транзакций **/

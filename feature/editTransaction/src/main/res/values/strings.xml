@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="account">Счет</string>
-    <string name="category">Статья</string>
-    <string name="amount">Сумма</string>
-    <string name="date">Дата</string>
-    <string name="time">Время</string>
-    <string name="comment">Комментарий</string>
+    <string name="account">Account</string>
+    <string name="category">Category</string>
+    <string name="amount">Amount</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="comment">Comment</string>
+    <string name="error_edit_loading">Error loading the transaction</string>
+    <string name="my_expenses">My expenses</string>
+    <string name="my_incomes">My incomes</string>
 </resources>

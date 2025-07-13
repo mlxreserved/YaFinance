@@ -1,5 +1,6 @@
 package com.example.expense.internal.ui.expensesHistory.composable
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,6 +26,7 @@ import java.util.Date
 internal fun ExpensesHistorySuccess(
     history: List<Expense>,
     onEndDateSelected: (Long?) -> Unit,
+    onEditTransactionClick: (Int) -> Unit,
     onStartDateSelected: (Long?) -> Unit,
     startDate: Date,
     endDate: Date,
@@ -72,6 +74,7 @@ internal fun ExpensesHistorySuccess(
                 ExpenseHistoryItem(
                     historyItem = historyItem,
                     modifier = Modifier.height(72.dp)
+                        .clickable{ onEditTransactionClick(historyItem.id) }
                 )
             }
         }
