@@ -73,6 +73,7 @@ dependencies {
     implementation(project(":feature:account"))
     implementation(project(":feature:category"))
     implementation(project(":feature:settings"))
+    implementation(project(":feature:editTransaction"))
 
 
     implementation(project(":core:common:utils"))
@@ -82,9 +83,11 @@ dependencies {
     implementation(project(":core:network"))
     implementation(project(":core:data"))
     implementation(project(":core:design"))
-    implementation(project(":core:datastore"))
+    implementation(project(":core:database"))
+    implementation(project(":core:workManager"))
 
-
+    //WorkManager
+    implementation(libs.androidx.work)
 
     // Navigation
     implementation(libs.androidx.navigation.compose)

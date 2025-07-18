@@ -1,7 +1,10 @@
 package com.example.domain.model.income
 
 data class Income(
-    val id: Int,
+    val localId: Int,
+    val serverId: Int,
+    val accountId: Int,
+    val categoryId: Int,
     val leadIcon: String,
     val title: String, // Название - берем из Transaction
     val subtitle: String? = null, // Комментарий - берем из Transaction

@@ -6,4 +6,9 @@
     <string name="date">Дата</string>
     <string name="time">Время</string>
     <string name="comment">Комментарий</string>
+    <string name="error_edit_loading">Ошибка при загрузке транзакции</string>
+    <string name="my_expenses">Мои расходы</string>
+    <string name="my_incomes">Мои доходы</string>
+    <string name="delete_income">Удалить расход</string>
+    <string name="delete_expense">Удалить доход</string>
 </resources>

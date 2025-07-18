@@ -6,6 +6,9 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import com.example.domain.repository.global.NetworkMonitor
+import com.example.domain.usecase.account.inter.SyncLocalChangesAccountUseCase
+import com.example.domain.usecase.expense.inter.SyncLocalChangesExpenseUseCase
+import com.example.domain.usecase.income.inter.SyncLocalChangesIncomesUseCase
 import com.example.utils.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +26,10 @@ import javax.inject.Inject
 /** Проверка подклчюния пользователя к сети **/
 class NetworkMonitorImpl @Inject constructor(
     @ApplicationContext
-    private val context: Context
+    private val context: Context,
+    private val syncLocalChangesIncomesUseCase: SyncLocalChangesIncomesUseCase,
+    private val syncLocalChangesAccountUseCase: SyncLocalChangesAccountUseCase,
+    private val syncLocalChangesExpenseUseCase: SyncLocalChangesExpenseUseCase
 ) : NetworkMonitor {
     val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
@@ -40,8 +46,15 @@ class NetworkMonitorImpl @Inject constructor(
     /** Job в которой выполняется работа при потери сети **/
     private var lostJob: Job? = null
 
+    private var syncJob: Job? = null
+
     private val callback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
+            syncJob = scope.launch {
+                syncLocalChangesAccountUseCase.syncLocalChanges()
+                syncLocalChangesIncomesUseCase.syncLocalChanges()
+                syncLocalChangesExpenseUseCase.syncLocalChanges()
+            }
             lostJob?.cancel()
             _isConnected.update { true }
         }
@@ -50,6 +63,7 @@ class NetworkMonitorImpl @Inject constructor(
             lostJob = scope.launch {
                 delay(DELAY_BEFORE_CHECK)
                 val isStillConnected = getCurrentConnectivity()
+                syncJob?.cancel()
                 if (!isStillConnected) {
                     _isConnected.update { false }
                 }

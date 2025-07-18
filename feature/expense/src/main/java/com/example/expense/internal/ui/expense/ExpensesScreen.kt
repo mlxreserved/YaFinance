@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
@@ -34,6 +35,8 @@ import com.example.ui.extensions.toUserMessage
 internal fun ExpensesScreen(
     isConnected: Boolean,
     onHistoryClick: () -> Unit,
+    onAddTransactionClick: () -> Unit,
+    onEditTransactionClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModelFactory: ViewModelProvider.Factory,
     expensesViewModel: ExpensesViewModel = viewModel(factory = viewModelFactory)
@@ -42,6 +45,10 @@ internal fun ExpensesScreen(
     val context = LocalContext.current
 
     val expensesState by expensesViewModel.screenState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        expensesViewModel.getTodayExpenses()
+    }
 
     Scaffold(
         topBar = {
@@ -65,7 +72,7 @@ internal fun ExpensesScreen(
                 ScreenState.Empty -> {
                     EmptyScreen(
                         text = stringResource(R.string.empty_expenses),
-                        onClick = {},
+                        onClick = onAddTransactionClick,
                         addText = stringResource(R.string.create_first_expense),
                         modifier = Modifier
                             .fillMaxSize()
@@ -82,18 +89,23 @@ internal fun ExpensesScreen(
                         onClick = {
                             expensesViewModel.onRetryClicked()
                         },
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = innerPadding.calculateTopPadding())
                     )
                 }
 
                 ScreenState.Loading -> {
                     LoadingScreen(
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = innerPadding.calculateTopPadding())
                     )
                 }
 
                 is ScreenState.Success -> {
                     ExpensesSuccess(
+                        onEditTransactionClick = onEditTransactionClick,
                         expenses = state.result,
                         modifier = Modifier
                             .fillMaxSize()
@@ -103,7 +115,7 @@ internal fun ExpensesScreen(
             }
 
             CustomFloatingButton(
-                onClick = {},
+                onClick = onAddTransactionClick,
                 modifier = Modifier.align(Alignment.BottomEnd).padding(end = 16.dp, bottom = 16.dp)
             )
         }

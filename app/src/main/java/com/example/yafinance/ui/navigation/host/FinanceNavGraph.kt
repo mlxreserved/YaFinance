@@ -17,7 +17,8 @@ fun FinanceNavGraph(
     expenseViewModelFactory: ViewModelProvider.Factory,
     accountViewModelFactory: ViewModelProvider.Factory,
     incomeViewModelFactory: ViewModelProvider.Factory,
-    categoryViewModelFactory: ViewModelProvider.Factory
+    categoryViewModelFactory: ViewModelProvider.Factory,
+    editTransactionViewModelFactory: ViewModelProvider.Factory
 ) {
     val navController = rememberNavController()
     var splashFinished by rememberSaveable { mutableStateOf(false) }
@@ -32,7 +33,8 @@ fun FinanceNavGraph(
                 accountViewModelFactory = accountViewModelFactory,
                 globalViewModelFactory = globalViewModelFactory,
                 incomeViewModelFactory = incomeViewModelFactory,
-                categoryViewModelFactory = categoryViewModelFactory
+                categoryViewModelFactory = categoryViewModelFactory,
+                editTransactionViewModelFactory = editTransactionViewModelFactory
             )
         }
     }

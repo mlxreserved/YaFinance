@@ -8,7 +8,7 @@ import java.util.Calendar
 import java.util.Date
 
 abstract class BaseHistoryViewModel<T> : BaseViewModel<T>() {
-    protected abstract fun getHistory(
+    abstract fun getHistory(
         startDate: Date? = null,
         endDate: Date? = null,
         isRetried: Boolean = false
@@ -17,7 +17,7 @@ abstract class BaseHistoryViewModel<T> : BaseViewModel<T>() {
     private val _selectedStartDate = MutableStateFlow(getCalendarDate())
     val selectedStartDate: StateFlow<Date> = _selectedStartDate.asStateFlow()
 
-    private val _selectedEndDate = MutableStateFlow(Date())
+    private val _selectedEndDate = MutableStateFlow(getEndCalendarDate())
     val selectedEndDate: StateFlow<Date> = _selectedEndDate.asStateFlow()
 
     fun updateStartDate(newStartDateMillis: Long?) {
@@ -31,9 +31,16 @@ abstract class BaseHistoryViewModel<T> : BaseViewModel<T>() {
 
     fun updateEndDate(newEndDateMillis: Long?) {
         if (newEndDateMillis != null) {
-            _selectedEndDate.update { Date(newEndDateMillis) }
+            _selectedEndDate.update {
+                Calendar.getInstance().apply {
+                    timeInMillis = newEndDateMillis
+                    set(Calendar.HOUR_OF_DAY, 23)
+                    set(Calendar.MINUTE, 59)
+                    set(Calendar.SECOND, 59)
+                }.time
+            }
         } else {
-            _selectedEndDate.update { Date() }
+            _selectedEndDate.update { getEndCalendarDate() }
         }
         getHistory(startDate = selectedStartDate.value, endDate = _selectedEndDate.value)
     }
@@ -41,5 +48,11 @@ abstract class BaseHistoryViewModel<T> : BaseViewModel<T>() {
     private fun getCalendarDate(): Date = Calendar.getInstance().apply {
         set(Calendar.DAY_OF_MONTH, 1)
         set(Calendar.HOUR_OF_DAY, 23)
+    }.time
+
+    private fun getEndCalendarDate(): Date = Calendar.getInstance().apply {
+        set(Calendar.HOUR_OF_DAY, 23)
+        set(Calendar.MINUTE, 59)
+        set(Calendar.SECOND, 59)
     }.time
 }

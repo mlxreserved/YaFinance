@@ -1,7 +1,10 @@
 package com.example.domain.model.expense
 
 data class Expense(
-    val id: Int,
+    val localId: Int,
+    val serverId: Int,
+    val accountId: Int,
+    val categoryId: Int,
     val leadIcon: String, // Иконка в начале - берем из категории
     val title: String, // Название - берем из Transaction
     val subtitle: String? = null, // Комментарий - берем из Transaction

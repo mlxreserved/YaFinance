@@ -11,22 +11,31 @@ import com.example.yafinance.appComponent
 import com.example.yafinance.ui.navigation.host.FinanceNavGraph
 //import com.example.yafinance.ui.theme.customTheme.MainTheme
 import com.example.design.theme.customTheme.MainTheme
+import com.example.edittransaction.di.component.EditTransactionComponent
 import com.example.expense.di.component.ExpenseComponent
 import com.example.income.di.component.IncomeComponent
+import com.example.workmanager.workManager.FinanceWorkManager
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
     @Inject
     lateinit var globalViewModelFactory: ViewModelProvider.Factory
 
+    @Inject
+    lateinit var financeWorkManager: FinanceWorkManager
+
     private lateinit var expenseComponent: ExpenseComponent
     private lateinit var incomeComponent: IncomeComponent
     private lateinit var accountComponent: AccountComponent
     private lateinit var categoryComponent: CategoryComponent
+    private lateinit var editTransactionComponent: EditTransactionComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         appComponent.inject(this)
+
+        super.onCreate(savedInstanceState)
+
         if (!::expenseComponent.isInitialized) {
             expenseComponent = appComponent.expenseComponentFactory().create()
         }
@@ -43,12 +52,18 @@ class MainActivity : ComponentActivity() {
             categoryComponent = appComponent.categoryComponentFactory().create()
         }
 
+        if (!::editTransactionComponent.isInitialized) {
+            editTransactionComponent = appComponent.editTransactionComponentFactory().create()
+        }
+
         val expenseViewModelFactory = expenseComponent.viewModelFactory()
         val incomeViewModelFactory = incomeComponent.viewModelFactory()
         val accountViewModelFactory = accountComponent.viewModelFactory()
         val categoryViewModelFactory = categoryComponent.viewModelFactory()
+        val editTransactionViewModelFactory = editTransactionComponent.viewModelFactory()
 
-        super.onCreate(savedInstanceState)
+        financeWorkManager.schedulePeriodicSync()
+
         enableEdgeToEdge()
         setContent {
             MainTheme {
@@ -57,7 +72,8 @@ class MainActivity : ComponentActivity() {
                     expenseViewModelFactory = expenseViewModelFactory,
                     accountViewModelFactory = accountViewModelFactory,
                     incomeViewModelFactory = incomeViewModelFactory,
-                    categoryViewModelFactory = categoryViewModelFactory
+                    categoryViewModelFactory = categoryViewModelFactory,
+                    editTransactionViewModelFactory = editTransactionViewModelFactory
                 )
             }
         }

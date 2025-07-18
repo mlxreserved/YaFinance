@@ -15,5 +15,7 @@
     <string name="start_date">Начало</string>
     <string name="end_date">Конец</string>
     <string name="date">Дата</string>
+    <string name="period_start">Период: начало</string>
+    <string name="period_end">Period: end</string>
 
 </resources>

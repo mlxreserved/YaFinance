@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="YaFinance.core.datastore" target="21" />
       <module name="YaFinance.feature.expensesHistory" target="21" />
     </bytecodeTargetLevel>
   </component>

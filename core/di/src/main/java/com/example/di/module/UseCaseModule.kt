@@ -1,23 +1,19 @@
 package com.example.di.module
 
 import com.example.domain.repository.account.AccountRepository
-import com.example.domain.repository.global.AccountNameProvider
-import com.example.domain.repository.global.BalanceProvider
-import com.example.domain.repository.global.CurrencyProvider
+import com.example.domain.repository.category.CategoryRepository
+import com.example.domain.repository.expense.ExpenseRepository
+import com.example.domain.repository.income.IncomeRepository
 import com.example.domain.usecase.account.impl.GetAccountIdUseCaseImpl
+import com.example.domain.usecase.account.impl.SyncLocalChangesAccountUseCaseImpl
 import com.example.domain.usecase.account.inter.GetAccountIdUseCase
-import com.example.domain.usecase.global.impl.GetCurrentAccountNameUseCaseImpl
-import com.example.domain.usecase.global.impl.GetCurrentBalanceUseCaseImpl
-import com.example.domain.usecase.global.impl.GetCurrentCurrencyUseCaseImpl
-import com.example.domain.usecase.global.impl.SetCurrentAccountNameUseCaseImpl
-import com.example.domain.usecase.global.impl.SetCurrentBalanceUseCaseImpl
-import com.example.domain.usecase.global.impl.SetCurrentCurrencyUseCaseImpl
-import com.example.domain.usecase.global.inter.GetCurrentAccountNameUseCase
-import com.example.domain.usecase.global.inter.GetCurrentBalanceUseCase
-import com.example.domain.usecase.global.inter.GetCurrentCurrencyUseCase
-import com.example.domain.usecase.global.inter.SetCurrentAccountNameUseCase
-import com.example.domain.usecase.global.inter.SetCurrentBalanceUseCase
-import com.example.domain.usecase.global.inter.SetCurrentCurrencyUseCase
+import com.example.domain.usecase.account.inter.SyncLocalChangesAccountUseCase
+import com.example.domain.usecase.category.impl.GetCategoriesUseCaseImpl
+import com.example.domain.usecase.category.inter.GetCategoriesUseCase
+import com.example.domain.usecase.expense.impl.SyncLocalChangesExpenseUseCaseImpl
+import com.example.domain.usecase.expense.inter.SyncLocalChangesExpenseUseCase
+import com.example.domain.usecase.income.impl.SyncLocalChangesIncomesUseCaseImpl
+import com.example.domain.usecase.income.inter.SyncLocalChangesIncomesUseCase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -31,46 +27,31 @@ object UseCaseModule {
     ): GetAccountIdUseCase =
         GetAccountIdUseCaseImpl(accountRepository)
 
+    @Singleton
+    @Provides
+    fun provideGetCategoriesUseCase(
+        categoryRepository: CategoryRepository
+    ): GetCategoriesUseCase =
+        GetCategoriesUseCaseImpl(categoryRepository)
 
     @Singleton
     @Provides
-    fun provideGetCurrency(
-        currencyProvider: CurrencyProvider
-    ): GetCurrentCurrencyUseCase =
-        GetCurrentCurrencyUseCaseImpl(currencyProvider)
+    fun provideSyncLocalChangesIncomes(
+        incomeRepository: IncomeRepository
+    ): SyncLocalChangesIncomesUseCase =
+        SyncLocalChangesIncomesUseCaseImpl(incomeRepository)
 
     @Singleton
     @Provides
-    fun provideGetAccountName(
-        accountNameProvider: AccountNameProvider
-    ): GetCurrentAccountNameUseCase =
-        GetCurrentAccountNameUseCaseImpl(accountNameProvider)
+    fun provideSyncLocalChangesExpenses(
+        expenseRepository: ExpenseRepository
+    ): SyncLocalChangesExpenseUseCase =
+        SyncLocalChangesExpenseUseCaseImpl(expenseRepository)
 
     @Singleton
     @Provides
-    fun provideGetBalance(
-        balanceProvider: BalanceProvider
-    ): GetCurrentBalanceUseCase =
-        GetCurrentBalanceUseCaseImpl(balanceProvider)
-
-    @Singleton
-    @Provides
-    fun provideSetCurrency(
-        currencyProvider: CurrencyProvider
-    ): SetCurrentCurrencyUseCase =
-        SetCurrentCurrencyUseCaseImpl(currencyProvider)
-
-    @Singleton
-    @Provides
-    fun provideSetAccountName(
-        accountNameProvider: AccountNameProvider
-    ): SetCurrentAccountNameUseCase =
-        SetCurrentAccountNameUseCaseImpl(accountNameProvider)
-
-    @Singleton
-    @Provides
-    fun provideSetBalance(
-        balanceProvider: BalanceProvider
-    ): SetCurrentBalanceUseCase =
-        SetCurrentBalanceUseCaseImpl(balanceProvider)
+    fun provideSyncLocalChangesAccount(
+        accountRepository: AccountRepository
+    ): SyncLocalChangesAccountUseCase =
+        SyncLocalChangesAccountUseCaseImpl(accountRepository)
 }

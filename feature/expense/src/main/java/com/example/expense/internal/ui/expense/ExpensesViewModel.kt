@@ -4,51 +4,34 @@ import androidx.lifecycle.viewModelScope
 import com.example.expense.di.scope.ExpenseScope
 import com.example.domain.model.expense.Expense
 import com.example.domain.usecase.expense.inter.GetExpensesUseCase
-import com.example.domain.usecase.global.inter.GetCurrentCurrencyUseCase
 import com.example.ui.baseViewModel.BaseViewModel
 import com.example.ui.data.state.ScreenState
 import com.example.model.result.Result
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.util.Calendar
 import java.util.Date
 import javax.inject.Inject
 
 @ExpenseScope
 class ExpensesViewModel @Inject constructor(
-    private val getExpensesUseCase: GetExpensesUseCase,
-    getCurrentCurrencyUseCase: GetCurrentCurrencyUseCase
+    private val getExpensesUseCase: GetExpensesUseCase
 ) : BaseViewModel<List<Expense>>() {
-    private var currentCurrency = getCurrentCurrencyUseCase.getCurrency()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000L),
-            initialValue = "RUB"
-        )
-
-    init {
-        observeCurrencyChanges()
-        getTodayExpenses()
-    }
-
-    private fun observeCurrencyChanges() {
-        viewModelScope.launch {
-            currentCurrency.collect { currency ->
-                val state = screenState.value
-                if (state is ScreenState.Success) {
-                    val updated = state.result.map { it.copy(currency = currency) }
-                    updateState(ScreenState.Success(updated))
-                }
-            }
-        }
-    }
-
-    private fun getTodayExpenses(isRetried: Boolean = false) {
+    fun getTodayExpenses(isRetried: Boolean = false) {
         viewModelScope.launch {
             updateState(ScreenState.Loading)
 
-            val currentStartDate = Date()
-            val currentEndDate = Date()
+            val currentStartDate: Date = Calendar.getInstance().apply {
+                set(Calendar.HOUR_OF_DAY, 0)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+            }.time
+            val currentEndDate = Calendar.getInstance().apply {
+                set(Calendar.HOUR_OF_DAY, 23)
+                set(Calendar.MINUTE, 59)
+                set(Calendar.SECOND, 59)
+                set(Calendar.MILLISECOND, 0)
+            }.time
 
             when (val response = getExpensesUseCase.getExpenses(currentStartDate, currentEndDate)) {
                 is Result.Error -> updateState(ScreenState.Error(response.error, isRetried))

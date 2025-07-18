@@ -2,16 +2,14 @@ package com.example.data.di
 
 import com.example.data.repository.account.AccountRepositoryImpl
 import com.example.data.repository.category.CategoryRepositoryImpl
-import com.example.data.repository.global.AccountNameProviderImpl
-import com.example.data.repository.global.BalanceProviderImpl
-import com.example.data.repository.global.CurrencyManager
+import com.example.data.repository.expense.ExpenseRepositoryImpl
 import com.example.data.repository.global.NetworkMonitorImpl
+import com.example.data.repository.income.IncomeRepositoryImpl
 import com.example.domain.repository.account.AccountRepository
 import com.example.domain.repository.category.CategoryRepository
-import com.example.domain.repository.global.AccountNameProvider
-import com.example.domain.repository.global.BalanceProvider
-import com.example.domain.repository.global.CurrencyProvider
+import com.example.domain.repository.expense.ExpenseRepository
 import com.example.domain.repository.global.NetworkMonitor
+import com.example.domain.repository.income.IncomeRepository
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton
@@ -36,21 +34,15 @@ interface RepositoryModule {
         repository: NetworkMonitorImpl
     ): NetworkMonitor
 
-    @Singleton
     @Binds
-    fun bindCurrencyProvider(
-        repository: CurrencyManager
-    ): CurrencyProvider
+    @Singleton
+    fun bindIncomeRepository(
+        repository: IncomeRepositoryImpl
+    ): IncomeRepository
 
-    @Singleton
     @Binds
-    fun bindAccountNameProvider(
-        repository: AccountNameProviderImpl
-    ): AccountNameProvider
-
     @Singleton
-    @Binds
-    fun bindBalanceProvider(
-        repository: BalanceProviderImpl
-    ): BalanceProvider
+    fun bindExpenseRepository(
+        repository: ExpenseRepositoryImpl
+    ): ExpenseRepository
 }

@@ -1,5 +1,6 @@
 package com.example.income.internal.ui.incomesHistory.composable
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,6 +13,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.design.theme.customTheme.YaFinanceTheme
 import com.example.domain.model.income.Income
 import com.example.ui.components.datePicker.CustomDatePicker
 import com.example.ui.components.listItems.TotalItem
@@ -24,6 +26,7 @@ import java.util.Date
 @Composable
 internal fun IncomesHistorySuccess(
     history: List<Income>,
+    onEditTransactionClick: (Int) -> Unit,
     onEndDateSelected: (Long?) -> Unit,
     onStartDateSelected: (Long?) -> Unit,
     startDate: Date,
@@ -66,13 +69,16 @@ internal fun IncomesHistorySuccess(
         TotalItem(
             trailText = trailTotalText,
             hasDivider = false,
-            modifier = Modifier.height(56.dp)
+            modifier = Modifier.height(56.dp),
+            backgroundColor = YaFinanceTheme.colors.secondaryBackground
+
         )
         LazyColumn {
-            items(items = history, key = { it.id }) { historyItem ->
+            items(items = history, key = { it.localId }) { historyItem ->
                 IncomeHistoryItem(
                     historyItem = historyItem,
                     modifier = Modifier.height(72.dp)
+                        .clickable{ onEditTransactionClick(historyItem.localId) }
                 )
             }
         }

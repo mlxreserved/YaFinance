@@ -1,7 +1,8 @@
 package com.example.domain.model.income
 
 data class IncomeDetailed(
-    val id: Int,
+    val localId: Int,
+    val serverId: Int,
     val accountId: Int,
     val accountName: String,
     val categoryId: Int,
