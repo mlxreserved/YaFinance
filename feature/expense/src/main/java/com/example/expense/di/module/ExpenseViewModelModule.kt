@@ -3,6 +3,7 @@ package com.example.expense.di.module
 import androidx.lifecycle.ViewModel
 import com.example.di.module.ViewModelKey
 import com.example.expense.internal.ui.expense.ExpensesViewModel
+import com.example.expense.internal.ui.expensesAnalyse.ExpenseAnalyseViewModel
 import com.example.expense.internal.ui.expensesHistory.ExpensesHistoryViewModel
 import dagger.Binds
 import dagger.Module
@@ -19,4 +20,9 @@ interface ExpenseViewModelModule {
     @IntoMap
     @ViewModelKey(ExpensesHistoryViewModel::class)
     fun bindExpensesHistoryViewModel(expensesHistoryViewModel: ExpensesHistoryViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ExpenseAnalyseViewModel::class)
+    fun bindExpensesAnalyseViewModel(expenseAnalyseViewModel: ExpenseAnalyseViewModel): ViewModel
 }

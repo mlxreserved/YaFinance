@@ -7,6 +7,7 @@ import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.example.expense.internal.ui.expense.ExpensesScreen
+import com.example.expense.internal.ui.expensesAnalyse.ExpensesAnalyseScreen
 import com.example.expense.internal.ui.expensesHistory.ExpensesHistoryScreen
 import kotlinx.serialization.Serializable
 
@@ -22,19 +23,43 @@ object ExpenseAllHistoryRoute
 @Serializable
 object ExpensesHistoryRoute
 
+@Serializable
+object ExpensesAnalyseRoute
+
 fun NavController.navigateToExpensesHistory(navOptions: NavOptionsBuilder.() -> Unit = {}) {
     navigate(route = ExpensesHistoryRoute) {
         navOptions()
     }
 }
 
+fun NavController.navigateToExpensesAnalyse(navOptions: NavOptionsBuilder.() -> Unit = {}) {
+    navigate(route = ExpensesAnalyseRoute) {
+        navOptions()
+    }
+}
+
+fun NavGraphBuilder.expensesAnalyseScreen(
+    isConnected: Boolean,
+    viewModelFactory: ViewModelProvider.Factory,
+    onLeadIconClick: () -> Unit
+) {
+    composable<ExpensesAnalyseRoute> {
+        ExpensesAnalyseScreen(
+            isConnected = isConnected,
+            viewModelFactory = viewModelFactory,
+            onLeadIconClick = onLeadIconClick
+        )
+    }
+}
 
 fun NavGraphBuilder.expensesHistoryScreen(
     isConnected: Boolean,
     onEditTransactionClick: (Int) -> Unit,
     viewModelFactory: ViewModelProvider.Factory,
     onLeadIconClick: () -> Unit,
-    editTransactionDestination: NavGraphBuilder.() -> Unit
+    onTrailIconClick: () -> Unit,
+    editTransactionDestination: NavGraphBuilder.() -> Unit,
+    expenseAnalyseDestination: NavGraphBuilder.() -> Unit
 ) {
     navigation<ExpenseAllHistoryRoute>(startDestination = ExpensesHistoryRoute) {
         composable<ExpensesHistoryRoute> {
@@ -42,11 +67,14 @@ fun NavGraphBuilder.expensesHistoryScreen(
                 isConnected = isConnected,
                 onEditTransactionClick = onEditTransactionClick,
                 viewModelFactory = viewModelFactory,
-                onLeadIconClick = onLeadIconClick
+                onLeadIconClick = onLeadIconClick,
+                onTrailIconClick = onTrailIconClick
             )
         }
 
         editTransactionDestination()
+
+        expenseAnalyseDestination()
     }
 }
 

@@ -7,6 +7,7 @@ import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.example.income.internal.ui.income.IncomesScreen
+import com.example.income.internal.ui.incomesAnalyse.IncomeAnalyseScreen
 import com.example.income.internal.ui.incomesHistory.IncomesHistoryScreen
 import kotlinx.serialization.Serializable
 
@@ -22,6 +23,9 @@ object IncomeHistoryAllRoutes
 @Serializable
 object IncomesHistoryRoute
 
+@Serializable
+object IncomesAnalyseRoute
+
 
 fun NavController.navigateToIncomesHistory(navOptions: NavOptionsBuilder.() -> Unit = {}) {
     navigate(route = IncomesHistoryRoute) {
@@ -29,13 +33,34 @@ fun NavController.navigateToIncomesHistory(navOptions: NavOptionsBuilder.() -> U
     }
 }
 
+fun NavController.navigateToIncomesAnalyse(navOptions: NavOptionsBuilder.() -> Unit = {}) {
+    navigate(route = IncomesAnalyseRoute) {
+        navOptions()
+    }
+}
+
+fun NavGraphBuilder.incomesAnalyseScreen(
+    isConnected: Boolean,
+    viewModelFactory: ViewModelProvider.Factory,
+    onLeadIconClick: () -> Unit
+) {
+    composable<IncomesAnalyseRoute> {
+        IncomeAnalyseScreen(
+            isConnected = isConnected,
+            viewModelFactory = viewModelFactory,
+            onLeadIconClick = onLeadIconClick
+        )
+    }
+}
 
 fun NavGraphBuilder.incomesHistoryBase(
     isConnected: Boolean,
     viewModelFactory: ViewModelProvider.Factory,
     onEditTransactionClick: (Int) -> Unit,
     onLeadIconClick: () -> Unit,
+    onTrailIconClick: () -> Unit,
     editTransactionDestination: NavGraphBuilder.() -> Unit,
+    incomeAnalyseDestination: NavGraphBuilder.() -> Unit
 ) {
     navigation<IncomeHistoryAllRoutes>(startDestination = IncomesHistoryRoute) {
         composable<IncomesHistoryRoute> {
@@ -43,10 +68,13 @@ fun NavGraphBuilder.incomesHistoryBase(
                 isConnected = isConnected,
                 viewModelFactory = viewModelFactory,
                 onEditTransactionClick = onEditTransactionClick,
-                onLeadIconClick = onLeadIconClick
+                onLeadIconClick = onLeadIconClick,
+                onTrailIconClick = onTrailIconClick
             )
         }
         editTransactionDestination()
+
+        incomeAnalyseDestination()
     }
 
 }

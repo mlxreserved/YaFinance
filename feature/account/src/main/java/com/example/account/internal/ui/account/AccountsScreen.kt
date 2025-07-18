@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -38,6 +39,10 @@ internal fun AccountsScreen(
     val context = LocalContext.current
 
     val accountsState by accountsViewModel.screenState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        accountsViewModel.loadAccounts()
+    }
 
     Scaffold(
         topBar = {
@@ -86,6 +91,7 @@ internal fun AccountsScreen(
                     },
                     modifier = Modifier
                         .fillMaxSize()
+                        .padding(top = innerPadding.calculateTopPadding())
                 )
             }
 
@@ -93,6 +99,7 @@ internal fun AccountsScreen(
                 LoadingScreen(
                     modifier = Modifier
                         .fillMaxSize()
+                        .padding(top = innerPadding.calculateTopPadding())
                 )
             }
 

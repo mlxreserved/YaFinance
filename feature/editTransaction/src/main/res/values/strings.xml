@@ -9,4 +9,6 @@
     <string name="error_edit_loading">Error loading the transaction</string>
     <string name="my_expenses">My expenses</string>
     <string name="my_incomes">My incomes</string>
+    <string name="delete_income">Delete income</string>
+    <string name="delete_expense">Delete expense</string>
 </resources>

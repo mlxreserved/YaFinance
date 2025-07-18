@@ -8,7 +8,6 @@ class UpdateExpenseByIdUseCaseImpl(
     private val expenseRepository: ExpenseRepository
 ) : UpdateExpenseByIdUseCase {
     override suspend fun updateExpenseById(
-        id: Int,
         expense: ExpenseUpdate
-    ) = expenseRepository.updateExpenseById(id, expense)
+    ) = expenseRepository.updateExpenseById(expense)
 }

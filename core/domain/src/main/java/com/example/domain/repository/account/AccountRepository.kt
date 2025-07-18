@@ -9,4 +9,6 @@ interface AccountRepository {
     suspend fun changeAccountInfo(id: Int, accountRequest: Account): Result<Account>
 
     suspend fun getAccountId(): Result<Int>
+
+    suspend fun syncLocalChanges()
 }

@@ -9,9 +9,11 @@ import com.example.domain.model.income.IncomeDetailed
 import com.example.domain.model.income.IncomeUpdate
 import com.example.domain.usecase.category.inter.GetCategoriesByTypeUseCase
 import com.example.domain.usecase.expense.inter.CreateExpenseUseCase
+import com.example.domain.usecase.expense.inter.DeleteExpenseByIdUseCase
 import com.example.domain.usecase.expense.inter.GetExpenseByIdUseCase
 import com.example.domain.usecase.expense.inter.UpdateExpenseByIdUseCase
 import com.example.domain.usecase.income.inter.CreateIncomeUseCase
+import com.example.domain.usecase.income.inter.DeleteIncomeByIdUseCase
 import com.example.domain.usecase.income.inter.GetIncomeByIdUseCase
 import com.example.domain.usecase.income.inter.UpdateIncomeByIdUseCase
 import com.example.model.errorModel.ErrorModel
@@ -24,7 +26,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
 import java.util.Calendar
 import java.util.Date
 import javax.inject.Inject
@@ -42,7 +43,9 @@ class EditTransactionViewModel @Inject constructor(
     private val updateIncomeByIdUseCase: UpdateIncomeByIdUseCase,
     private val getCategoryByTypeUseCase: GetCategoriesByTypeUseCase,
     private val createIncomeUseCase: CreateIncomeUseCase,
-    private val createExpenseUseCase: CreateExpenseUseCase
+    private val createExpenseUseCase: CreateExpenseUseCase,
+    private val deleteIncomeByIdUseCase: DeleteIncomeByIdUseCase,
+    private val deleteExpenseByIdUseCase: DeleteExpenseByIdUseCase
 ) : ViewModel() {
 
     private val _selectedStartDate = MutableStateFlow(getCalendarDate())
@@ -50,6 +53,9 @@ class EditTransactionViewModel @Inject constructor(
 
     private val _updateState = MutableStateFlow<ResponseOfEdit>(ResponseOfEdit.Loading)
     val updateState: StateFlow<ResponseOfEdit> = _updateState.asStateFlow()
+
+    private val _deleteState = MutableStateFlow<ResponseOfEdit>(ResponseOfEdit.Loading)
+    val deleteState: StateFlow<ResponseOfEdit> = _deleteState.asStateFlow()
 
     private val _categoryState = MutableStateFlow<ScreenState<List<Category>>>(Loading)
     val categoryState: StateFlow<ScreenState<List<Category>>> = _categoryState.asStateFlow()
@@ -101,20 +107,20 @@ class EditTransactionViewModel @Inject constructor(
         }
     }
 
-    fun updateExpense(id: Int, expense: ExpenseUpdate) {
+    fun updateExpense(expense: ExpenseUpdate) {
         viewModelScope.launch {
             _updateState.update { ResponseOfEdit.Loading }
-            when(val response = updateExpenseByIdUseCase.updateExpenseById(id, expense)) {
+            when(val response = updateExpenseByIdUseCase.updateExpenseById(expense)) {
                 is Result.Error -> _updateState.update { ResponseOfEdit.Error(response.error) }
                 is Result.Success<*> -> _updateState.update { ResponseOfEdit.Success }
             }
         }
     }
 
-    fun updateIncome(id: Int, income: IncomeUpdate) {
+    fun updateIncome(income: IncomeUpdate) {
         viewModelScope.launch {
             _updateState.update { ResponseOfEdit.Loading }
-            when(val response = updateIncomeByIdUseCase.updateIncomeById(id, income)) {
+            when(val response = updateIncomeByIdUseCase.updateIncomeById(income)) {
                 is Result.Error -> _updateState.update { ResponseOfEdit.Error(response.error) }
                 is Result.Success<*> -> _updateState.update { ResponseOfEdit.Success }
             }
@@ -137,6 +143,27 @@ class EditTransactionViewModel @Inject constructor(
             when(val response = createExpenseUseCase.createExpense(expense)) {
                 is Result.Error -> _updateState.update { ResponseOfEdit.Error(response.error) }
                 is Result.Success<*> -> _updateState.update { ResponseOfEdit.Success }
+            }
+        }
+    }
+
+
+    fun deleteExpense(localId: Int, serverId: Int?) {
+        viewModelScope.launch {
+            _deleteState.update { ResponseOfEdit.Loading }
+            when(val response = deleteExpenseByIdUseCase.deleteExpenseById(localId, serverId)) {
+                is Result.Error -> _deleteState.update { ResponseOfEdit.Error(response.error) }
+                is Result.Success<*> -> _deleteState.update { ResponseOfEdit.Success }
+            }
+        }
+    }
+
+    fun deleteIncome(localId: Int, serverId: Int?) {
+        viewModelScope.launch {
+            _deleteState.update { ResponseOfEdit.Loading }
+            when(val response = deleteIncomeByIdUseCase.deleteIncomeById(localId, serverId)) {
+                is Result.Error -> _deleteState.update { ResponseOfEdit.Error(response.error) }
+                is Result.Success<*> -> _deleteState.update { ResponseOfEdit.Success }
             }
         }
     }
@@ -179,6 +206,7 @@ class EditTransactionViewModel @Inject constructor(
         }
     }
 
+
     private fun getCalendarDate(): Date = Date()
 
     private fun updateIncomeState(state: ScreenState<IncomeDetailed>) {
@@ -198,6 +226,6 @@ class EditTransactionViewModel @Inject constructor(
     }
 
     fun onExpenseTransactionRetry(id: Int?, isAdd: Boolean) {
-        onIncomeEnter(id = id, isAdd = isAdd, isRetried = true)
+        onExpenseEnter(id = id, isAdd = isAdd, isRetried = true)
     }
 }

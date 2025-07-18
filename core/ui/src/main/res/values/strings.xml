@@ -15,5 +15,7 @@
     <string name="start_date">Start</string>
     <string name="end_date">End</string>
     <string name="date">Date</string>
+    <string name="period_start">Period: start</string>
+    <string name="period_end">Period: end</string>
 
 </resources>

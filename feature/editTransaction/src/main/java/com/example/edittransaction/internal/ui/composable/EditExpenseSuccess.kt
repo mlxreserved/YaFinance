@@ -13,6 +13,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import com.example.design.theme.customTheme.YaFinanceTheme
 import com.example.domain.model.category.Category
 import com.example.domain.model.expense.ExpenseDetailed
@@ -20,6 +21,7 @@ import com.example.domain.model.expense.ExpenseUpdate
 import com.example.edittransaction.R
 import com.example.edittransaction.internal.ui.ResponseOfEdit
 import com.example.edittransaction.internal.ui.composable.components.CustomBottomSheet
+import com.example.edittransaction.internal.ui.composable.components.DeleteButton
 import com.example.edittransaction.internal.ui.composable.components.EditBalance
 import com.example.edittransaction.internal.ui.composable.components.EditCategory
 import com.example.edittransaction.internal.ui.composable.components.EditComment
@@ -46,7 +48,9 @@ fun EditExpenseSuccess(
     categoriesState: ScreenState<List<Category>>,
     onTrailIconClick: () -> Unit,
     onLeadIconClick: () -> Unit,
+    onClick: () -> Unit,
     isConnected: Boolean,
+    deleteState: ResponseOfEdit,
     updateState: ResponseOfEdit,
     startDate: Date,
     startTime: Date,
@@ -65,11 +69,30 @@ fun EditExpenseSuccess(
     var currency by rememberSaveable { mutableStateOf(expense.currency) }
 
     when (val state = updateState) {
-        is ResponseOfEdit.Error -> snackbarViewModel.showMessage(
-            message = state.message.toUserMessage(
-                context
+        is ResponseOfEdit.Error -> {
+            snackbarViewModel.showMessage(
+                message = state.message.toUserMessage(
+                    context
+                )
             )
-        )
+            onTrailIconClick()
+        }
+
+        ResponseOfEdit.Loading -> {}
+        ResponseOfEdit.Success -> {
+            onTrailIconClick()
+        }
+    }
+
+    when (val state = deleteState) {
+        is ResponseOfEdit.Error -> {
+            snackbarViewModel.showMessage(
+                message = state.message.toUserMessage(
+                    context
+                )
+            )
+            onTrailIconClick()
+        }
 
         ResponseOfEdit.Loading -> {}
         ResponseOfEdit.Success -> {
@@ -92,7 +115,8 @@ fun EditExpenseSuccess(
                                 categoryId = currentCategoryId,
                                 amount = currentSum.formatWithoutSpaces(),
                                 transactionDate = startDate.toStringWithZone(),
-                                comment = comment
+                                comment = comment,
+                                localId = expense.localId
                             )
                         )
                     }
@@ -130,6 +154,13 @@ fun EditExpenseSuccess(
             EditComment(
                 comment = comment ?: "",
                 onEditComment = { newComment -> comment = newComment }
+            )
+            DeleteButton(
+                onClick = onClick,
+                text = R.string.delete_income,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 16.dp)
             )
         }
 

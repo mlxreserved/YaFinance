@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.design.theme.customTheme.YaFinanceTheme
 import com.example.domain.model.expense.Expense
 import com.example.ui.components.listItems.TotalItem
 import com.example.utils.extensions.calculatedSum.calculatedSumAsString
@@ -38,16 +39,16 @@ internal fun ExpensesSuccess(
     ) {
         TotalItem(
             trailText = trailTotalText,
-            modifier = Modifier.height(56.dp)
+            modifier = Modifier.height(56.dp),
+            backgroundColor = YaFinanceTheme.colors.secondaryBackground
         )
 
         LazyColumn {
-
-            items(items = expenses, key = { it.id }) { expense ->
+            items(items = expenses, key = { it.localId }) { expense ->
                 ExpenseItem(
                     expense = expense,
                     modifier = Modifier.height(72.dp)
-                        .clickable{ onEditTransactionClick(expense.id) }
+                        .clickable{ onEditTransactionClick(expense.localId) }
                 )
             }
         }

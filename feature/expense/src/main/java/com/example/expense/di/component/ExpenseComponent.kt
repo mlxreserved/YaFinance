@@ -2,7 +2,6 @@ package com.example.expense.di.component
 
 import androidx.lifecycle.ViewModelProvider
 import com.example.expense.di.scope.ExpenseScope
-import com.example.expense.di.module.ExpenseModule
 import com.example.expense.di.module.ExpenseUseCaseModule
 import com.example.expense.di.module.ExpenseViewModelModule
 import dagger.Subcomponent
@@ -11,7 +10,6 @@ import dagger.Subcomponent
 @Subcomponent(
     modules = [
         ExpenseViewModelModule::class,
-        ExpenseModule::class,
         ExpenseUseCaseModule::class
     ],
 )

@@ -75,6 +75,7 @@ internal fun CategoriesScreen(
                     },
                     modifier = Modifier
                         .fillMaxSize()
+                        .padding(top = innerPadding.calculateTopPadding())
                 )
             }
 
@@ -82,6 +83,7 @@ internal fun CategoriesScreen(
                 LoadingScreen(
                     modifier = Modifier
                         .fillMaxSize()
+                        .padding(top = innerPadding.calculateTopPadding())
                 )
             }
 

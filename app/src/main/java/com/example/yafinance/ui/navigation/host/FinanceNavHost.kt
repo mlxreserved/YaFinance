@@ -23,6 +23,10 @@ import com.example.income.api.navigation.incomesHistoryBase
 import com.example.income.api.navigation.navigateToIncomesHistory
 import com.example.edittransaction.api.navigation.editTransactionScreen
 import com.example.edittransaction.api.navigation.navigateToEditTransaction
+import com.example.expense.api.navigation.expensesAnalyseScreen
+import com.example.expense.api.navigation.navigateToExpensesAnalyse
+import com.example.income.api.navigation.incomesAnalyseScreen
+import com.example.income.api.navigation.navigateToIncomesAnalyse
 import com.example.settings.api.navigation.settingsScreen
 
 @Composable
@@ -68,15 +72,25 @@ fun FinanceNavHost(
                             isIncome = false,
                             id = id
                         )
+                    },
+                    onTrailIconClick = navController::navigateToExpensesAnalyse,
+                    editTransactionDestination = {
+                        editTransactionScreen(
+                            isConnected = isConnected,
+                            viewModelFactory = editTransactionViewModelFactory,
+                            onLeadIconClick = {
+                                navController.navigateUp()
+                            },
+                            onSuccess = {
+                                navController.navigateUp()
+                            }
+                        )
                     }
                 ) {
-                    editTransactionScreen(
+                    expensesAnalyseScreen(
                         isConnected = isConnected,
-                        viewModelFactory = editTransactionViewModelFactory,
+                        viewModelFactory = expenseViewModelFactory,
                         onLeadIconClick = {
-                            navController.navigateUp()
-                        },
-                        onSuccess = {
                             navController.navigateUp()
                         }
                     )
@@ -123,15 +137,25 @@ fun FinanceNavHost(
                             id = id
                         )
                     },
-                    onLeadIconClick = navController::navigateUp
+                    onLeadIconClick = navController::navigateUp,
+                    onTrailIconClick = navController::navigateToIncomesAnalyse,
+                    editTransactionDestination = {
+                        editTransactionScreen(
+                            isConnected = isConnected,
+                            viewModelFactory = editTransactionViewModelFactory,
+                            onLeadIconClick = {
+                                navController.navigateUp()
+                            },
+                            onSuccess = {
+                                navController.navigateUp()
+                            }
+                        )
+                    }
                 ) {
-                    editTransactionScreen(
+                    incomesAnalyseScreen(
                         isConnected = isConnected,
-                        viewModelFactory = editTransactionViewModelFactory,
+                        viewModelFactory = incomeViewModelFactory,
                         onLeadIconClick = {
-                            navController.navigateUp()
-                        },
-                        onSuccess = {
                             navController.navigateUp()
                         }
                     )

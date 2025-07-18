@@ -11,9 +11,11 @@ interface IncomeRepository {
 
     suspend fun getIncomeById(id: Int): Result<IncomeDetailed>
 
-    suspend fun updateIncomeById(id: Int, income: IncomeUpdate): Result<IncomeDetailed>
+    suspend fun updateIncomeById(income: IncomeUpdate): Result<IncomeDetailed>
 
-    suspend fun deleteIncomeById(id: Int)
+    suspend fun deleteIncomeById(localId: Int, serverId: Int?): Result<Unit>
 
     suspend fun createIncome(income: IncomeUpdate): Result<IncomeUpdate>
+
+    suspend fun syncLocalChanges()
 }

@@ -5,5 +5,5 @@ import com.example.domain.model.expense.ExpenseUpdate
 import com.example.model.result.Result
 
 interface UpdateExpenseByIdUseCase {
-    suspend fun updateExpenseById(id: Int, expense: ExpenseUpdate): Result<ExpenseDetailed>
+    suspend fun updateExpenseById(expense: ExpenseUpdate): Result<ExpenseDetailed>
 }

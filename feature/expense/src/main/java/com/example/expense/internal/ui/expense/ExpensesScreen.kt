@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
@@ -44,6 +45,10 @@ internal fun ExpensesScreen(
     val context = LocalContext.current
 
     val expensesState by expensesViewModel.screenState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        expensesViewModel.getTodayExpenses()
+    }
 
     Scaffold(
         topBar = {
@@ -84,13 +89,17 @@ internal fun ExpensesScreen(
                         onClick = {
                             expensesViewModel.onRetryClicked()
                         },
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = innerPadding.calculateTopPadding())
                     )
                 }
 
                 ScreenState.Loading -> {
                     LoadingScreen(
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = innerPadding.calculateTopPadding())
                     )
                 }
 

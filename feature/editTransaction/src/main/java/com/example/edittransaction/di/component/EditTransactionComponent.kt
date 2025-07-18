@@ -1,7 +1,6 @@
 package com.example.edittransaction.di.component
 
 import androidx.lifecycle.ViewModelProvider
-import com.example.edittransaction.di.module.EditTransactionModule
 import com.example.edittransaction.di.module.EditTransactionUseCaseModule
 import com.example.edittransaction.di.module.EditTransactionViewModelModule
 import com.example.edittransaction.di.scope.EditTransactionScope
@@ -11,7 +10,6 @@ import dagger.Subcomponent
 @Subcomponent(
     modules = [
         EditTransactionViewModelModule::class,
-        EditTransactionModule::class,
         EditTransactionUseCaseModule::class
     ],
 )

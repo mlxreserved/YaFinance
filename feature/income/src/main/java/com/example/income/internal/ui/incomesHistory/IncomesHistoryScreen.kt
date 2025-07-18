@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -31,6 +32,7 @@ internal fun IncomesHistoryScreen(
     isConnected: Boolean,
     viewModelFactory: ViewModelProvider.Factory,
     onLeadIconClick: () -> Unit,
+    onTrailIconClick: () -> Unit,
     onEditTransactionClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     historyViewModel: IncomesHistoryViewModel = viewModel(factory = viewModelFactory)
@@ -42,6 +44,10 @@ internal fun IncomesHistoryScreen(
     val startDate by historyViewModel.selectedStartDate.collectAsStateWithLifecycle()
     val endDate by historyViewModel.selectedEndDate.collectAsStateWithLifecycle()
 
+    LaunchedEffect(Unit) {
+        historyViewModel.getHistory()
+    }
+
     Scaffold(
         topBar = {
             Column {
@@ -50,7 +56,7 @@ internal fun IncomesHistoryScreen(
                     titleId = R.string.my_history,
                     leadIconId = R.drawable.ic_back,
                     onLeadIconClick = onLeadIconClick,
-                    onTrailIconClick = {}
+                    onTrailIconClick = onTrailIconClick
                 )
                 NetworkStatusBanner(
                     isConnected = isConnected,
@@ -68,7 +74,9 @@ internal fun IncomesHistoryScreen(
                     endDate = endDate,
                     onStartDateSelected = { time -> historyViewModel.updateStartDate(time) },
                     onEndDateSelected = { time -> historyViewModel.updateEndDate(time) },
-                    modifier = Modifier.fillMaxSize().padding(top = innerPadding.calculateTopPadding())
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = innerPadding.calculateTopPadding())
                 )
             }
 
@@ -81,13 +89,19 @@ internal fun IncomesHistoryScreen(
                     onClick = {
                         historyViewModel.onRetryClicked()
                     },
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = innerPadding.calculateTopPadding())
+
                 )
             }
 
             ScreenState.Loading -> {
                 LoadingScreen(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = innerPadding.calculateTopPadding())
+
                 )
             }
 
@@ -99,7 +113,9 @@ internal fun IncomesHistoryScreen(
                     onEditTransactionClick = onEditTransactionClick,
                     onStartDateSelected = { time -> historyViewModel.updateStartDate(time) },
                     onEndDateSelected = { time -> historyViewModel.updateEndDate(time) },
-                    modifier = Modifier.fillMaxSize().padding(top = innerPadding.calculateTopPadding())
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = innerPadding.calculateTopPadding())
                 )
             }
         }

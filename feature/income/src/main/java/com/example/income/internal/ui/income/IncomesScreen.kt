@@ -6,9 +6,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
@@ -46,6 +46,10 @@ internal fun IncomesScreen(
 
     val incomeState by incomesViewModel.screenState.collectAsStateWithLifecycle()
 
+    LaunchedEffect(Unit) {
+        incomesViewModel.getTodayIncomes()
+    }
+
     Scaffold(
         topBar = {
             Column {
@@ -63,7 +67,7 @@ internal fun IncomesScreen(
             }
         },
 
-    ) { innerPadding ->
+        ) { innerPadding ->
         Box(modifier = Modifier.fillMaxSize()) {
             when (val state = incomeState) {
                 ScreenState.Empty -> {
@@ -71,7 +75,8 @@ internal fun IncomesScreen(
                         text = stringResource(R.string.empty_incomes),
                         onClick = onAddTransactionClick,
                         addText = stringResource(R.string.create_first_income),
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .fillMaxSize()
                             .padding(top = innerPadding.calculateTopPadding())
                     )
                 }
@@ -85,7 +90,10 @@ internal fun IncomesScreen(
                         onClick = {
                             incomesViewModel.onRetryClicked()
                         },
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = innerPadding.calculateTopPadding())
+
                     )
 
 
@@ -93,7 +101,10 @@ internal fun IncomesScreen(
 
                 ScreenState.Loading -> {
                     LoadingScreen(
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = innerPadding.calculateTopPadding())
+
                     )
                 }
 
@@ -101,14 +112,17 @@ internal fun IncomesScreen(
                     IncomeSuccess(
                         onEditTransactionClick = onEditTransactionClick,
                         incomes = state.result,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .fillMaxSize()
                             .padding(top = innerPadding.calculateTopPadding())
                     )
                 }
             }
             CustomFloatingButton(
                 onClick = onAddTransactionClick,
-                modifier = Modifier.align(Alignment.BottomEnd).padding(end = 16.dp, bottom = 16.dp)
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(end = 16.dp, bottom = 16.dp)
             )
         }
     }

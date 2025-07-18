@@ -1,14 +1,10 @@
 package com.example.edittransaction.internal.ui.composable
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -16,14 +12,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.unit.dp
 import com.example.design.theme.customTheme.YaFinanceTheme
 import com.example.domain.model.category.Category
-import com.example.domain.model.expense.ExpenseDetailed
 import com.example.domain.model.expense.ExpenseUpdate
 import com.example.domain.model.income.IncomeUpdate
 import com.example.edittransaction.R
@@ -37,14 +28,12 @@ import com.example.edittransaction.internal.ui.composable.components.EditDate
 import com.example.edittransaction.internal.ui.composable.components.EditTime
 import com.example.ui.LocalSnackbarViewModel
 import com.example.ui.components.datePicker.CustomDatePicker
-import com.example.ui.components.listItems.customListItem.CustomListItem
 import com.example.ui.components.timePicker.CustomTimePicker
 import com.example.ui.components.topAppBar.CustomTopAppBar
 import com.example.ui.components.topAppBar.NetworkStatusBanner
 import com.example.ui.data.state.ScreenState
 import com.example.ui.extensions.toUserMessage
 import com.example.utils.extensions.string.formatWithoutSpaces
-import com.example.utils.extensions.string.toCurrency
 import com.example.utils.extensions.string.toStringWithZone
 import java.util.Date
 
@@ -77,11 +66,14 @@ fun EditTransactionEmpty(
     var currency by rememberSaveable { mutableStateOf("") }
 
     when (val state = updateState) {
-        is ResponseOfEdit.Error -> snackbarViewModel.showMessage(
-            message = state.message.toUserMessage(
-                context
+        is ResponseOfEdit.Error -> {
+            snackbarViewModel.showMessage(
+                message = state.message.toUserMessage(
+                    context
+                )
             )
-        )
+            onTrailIconClick()
+        }
 
         ResponseOfEdit.Loading -> {}
         ResponseOfEdit.Success -> {
@@ -152,7 +144,7 @@ fun EditTransactionEmpty(
                 onTimeClick = { showTimePicker = true }
             )
             EditComment(
-                comment = comment ?: "",
+                comment = comment,
                 onEditComment = { newComment -> comment = newComment }
             )
         }

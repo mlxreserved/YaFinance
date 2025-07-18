@@ -6,23 +6,24 @@ import com.example.domain.repository.income.IncomeRepository
 import com.example.domain.usecase.category.impl.GetCategoriesByTypeUseCaseImpl
 import com.example.domain.usecase.category.inter.GetCategoriesByTypeUseCase
 import com.example.domain.usecase.expense.impl.CreateExpenseUseCaseImpl
+import com.example.domain.usecase.expense.impl.DeleteExpenseByIdUseCaseImpl
 import com.example.domain.usecase.expense.impl.GetExpenseByIdUseCaseImpl
-import com.example.domain.usecase.expense.impl.GetExpensesUseCaseImpl
 import com.example.domain.usecase.expense.impl.UpdateExpenseByIdUseCaseImpl
 import com.example.domain.usecase.expense.inter.CreateExpenseUseCase
+import com.example.domain.usecase.expense.inter.DeleteExpenseByIdUseCase
 import com.example.domain.usecase.expense.inter.GetExpenseByIdUseCase
-import com.example.domain.usecase.expense.inter.GetExpensesUseCase
 import com.example.domain.usecase.expense.inter.UpdateExpenseByIdUseCase
 import com.example.domain.usecase.income.impl.CreateIncomeUseCaseImpl
+import com.example.domain.usecase.income.impl.DeleteIncomeByIdUseCaseImpl
 import com.example.domain.usecase.income.impl.GetIncomeByIdUseCaseImpl
 import com.example.domain.usecase.income.impl.UpdateIncomeByIdUseCaseImpl
 import com.example.domain.usecase.income.inter.CreateIncomeUseCase
+import com.example.domain.usecase.income.inter.DeleteIncomeByIdUseCase
 import com.example.domain.usecase.income.inter.GetIncomeByIdUseCase
 import com.example.domain.usecase.income.inter.UpdateIncomeByIdUseCase
 import com.example.edittransaction.di.scope.EditTransactionScope
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 object EditTransactionUseCaseModule {
@@ -74,4 +75,18 @@ object EditTransactionUseCaseModule {
         expenseRepository: ExpenseRepository
     ): CreateExpenseUseCase =
         CreateExpenseUseCaseImpl(expenseRepository)
+
+    @EditTransactionScope
+    @Provides
+    fun provideDeleteExpenseUseCase(
+        expenseRepository: ExpenseRepository
+    ): DeleteExpenseByIdUseCase =
+        DeleteExpenseByIdUseCaseImpl(expenseRepository)
+
+    @EditTransactionScope
+    @Provides
+    fun provideDeleteIncomeUseCase(
+        incomeRepository: IncomeRepository
+    ): DeleteIncomeByIdUseCase =
+        DeleteIncomeByIdUseCaseImpl(incomeRepository)
 }

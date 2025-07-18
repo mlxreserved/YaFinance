@@ -30,7 +30,6 @@ import com.example.ui.components.topAppBar.CustomTopAppBar
 import com.example.ui.components.topAppBar.NetworkStatusBanner
 import com.example.ui.data.state.ScreenState
 import com.example.ui.extensions.toUserMessage
-import com.example.utils.extensions.string.formatWithoutSpaces
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -116,9 +115,6 @@ internal fun EditAccountScreen(
 
             is ScreenState.Success<Account> -> {
                 snackbarViewModel.showMessage(stringResource(R.string.success_edit_account))
-                editViewModel.setGlobalCurrency(currentCurrency)
-                editViewModel.setGlobalAccountName(accountName)
-                editViewModel.setGlobalBalance(currentSum.formatWithoutSpaces())
                 onSuccess()
             }
         }

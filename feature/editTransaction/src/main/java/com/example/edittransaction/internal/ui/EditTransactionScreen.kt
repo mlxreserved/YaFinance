@@ -4,14 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModelProvider
@@ -19,20 +15,16 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.design.theme.customTheme.YaFinanceTheme
 import com.example.domain.model.expense.ExpenseDetailed
-import com.example.domain.model.expense.ExpenseUpdate
 import com.example.domain.model.income.IncomeDetailed
 import com.example.edittransaction.R
 import com.example.edittransaction.internal.ui.composable.EditExpenseSuccess
 import com.example.edittransaction.internal.ui.composable.EditIncomeSuccess
 import com.example.edittransaction.internal.ui.composable.EditTransactionEmpty
-import com.example.ui.LocalSnackbarViewModel
 import com.example.ui.components.screens.ErrorScreen
 import com.example.ui.components.screens.LoadingScreen
 import com.example.ui.components.topAppBar.CustomTopAppBar
 import com.example.ui.components.topAppBar.NetworkStatusBanner
 import com.example.ui.data.state.ScreenState
-import com.example.utils.extensions.string.toDateString
-import kotlinx.coroutines.flow.compose
 
 @Composable
 fun EditTransactionScreen(
@@ -46,6 +38,7 @@ fun EditTransactionScreen(
     editTransactionViewModel: EditTransactionViewModel = viewModel(factory = viewModelFactory)
 ) {
     val updateState by editTransactionViewModel.updateState.collectAsStateWithLifecycle()
+    val deleteState by editTransactionViewModel.deleteState.collectAsStateWithLifecycle()
 
     if (isIncome) {
         LaunchedEffect(Unit) {
@@ -58,32 +51,32 @@ fun EditTransactionScreen(
         when (val state = incomeState) {
 
             ScreenState.Empty -> {
-                    EditTransactionEmpty(
-                        startTime = startDate,
-                        startDate = startDate,
-                        onStartDateSelected = { time ->
-                            editTransactionViewModel.updateStartDate(time)
-                        },
-                        onCategoryClick = {
-                            editTransactionViewModel.onCategoryClick(isIncome = true)
-                        },
-                        categoriesState = categoriesState,
-                        onTrailIconClick = onTrailIconClick,
-                        onStartTimeSelected = { hours, minutes ->
-                            editTransactionViewModel.updateStartDate(
-                                hours = hours,
-                                minutes = minutes
-                            )
-                        },
-                        updateState = updateState,
-                        isConnected = isConnected,
-                        isIncome = isIncome,
-                        editTransactionViewModel = editTransactionViewModel,
-                        onLeadIconClick = onLeadIconClick,
-                        modifier = Modifier
-                            .fillMaxSize()
-                    )
-                }
+                EditTransactionEmpty(
+                    startTime = startDate,
+                    startDate = startDate,
+                    onStartDateSelected = { time ->
+                        editTransactionViewModel.updateStartDate(time)
+                    },
+                    onCategoryClick = {
+                        editTransactionViewModel.onCategoryClick(isIncome = true)
+                    },
+                    categoriesState = categoriesState,
+                    onTrailIconClick = onTrailIconClick,
+                    onStartTimeSelected = { hours, minutes ->
+                        editTransactionViewModel.updateStartDate(
+                            hours = hours,
+                            minutes = minutes
+                        )
+                    },
+                    updateState = updateState,
+                    isConnected = isConnected,
+                    isIncome = isIncome,
+                    editTransactionViewModel = editTransactionViewModel,
+                    onLeadIconClick = onLeadIconClick,
+                    modifier = Modifier
+                        .fillMaxSize()
+                )
+            }
 
             is ScreenState.Error -> {
                 Scaffold(
@@ -152,7 +145,7 @@ fun EditTransactionScreen(
                     categoriesState = categoriesState,
                     onTrailIconClick = onTrailIconClick,
                     onSaveUpdate = { income ->
-                        editTransactionViewModel.updateIncome(id = id ?: 0, income = income)
+                        editTransactionViewModel.updateIncome(income = income)
                     },
                     onStartTimeSelected = { hours, minutes ->
                         editTransactionViewModel.updateStartDate(
@@ -160,6 +153,10 @@ fun EditTransactionScreen(
                             minutes = minutes
                         )
                     },
+                    onClick = {
+                        editTransactionViewModel.deleteIncome(localId = state.result.localId, serverId = state.result.serverId)
+                    },
+                    deleteState = deleteState,
                     updateState = updateState,
                     isConnected = isConnected,
                     onLeadIconClick = onLeadIconClick,
@@ -178,32 +175,32 @@ fun EditTransactionScreen(
         val categoriesState by editTransactionViewModel.categoryState.collectAsStateWithLifecycle()
         when (val state = expenseState) {
             ScreenState.Empty -> {
-                    EditTransactionEmpty(
-                        startTime = startDate,
-                        startDate = startDate,
-                        onStartDateSelected = { time ->
-                            editTransactionViewModel.updateStartDate(time)
-                        },
-                        onStartTimeSelected = { hours, minutes ->
-                            editTransactionViewModel.updateStartDate(
-                                hours = hours,
-                                minutes = minutes
-                            )
-                        },
-                        onCategoryClick = {
-                            editTransactionViewModel.onCategoryClick(isIncome = false)
-                        },
-                        categoriesState = categoriesState,
-                        onTrailIconClick = onTrailIconClick,
-                        updateState = updateState,
-                        isConnected = isConnected,
-                        isIncome = isIncome,
-                        editTransactionViewModel = editTransactionViewModel,
-                        onLeadIconClick = onLeadIconClick,
-                        modifier = Modifier
-                            .fillMaxSize()
-                    )
-                }
+                EditTransactionEmpty(
+                    startTime = startDate,
+                    startDate = startDate,
+                    onStartDateSelected = { time ->
+                        editTransactionViewModel.updateStartDate(time)
+                    },
+                    onStartTimeSelected = { hours, minutes ->
+                        editTransactionViewModel.updateStartDate(
+                            hours = hours,
+                            minutes = minutes
+                        )
+                    },
+                    onCategoryClick = {
+                        editTransactionViewModel.onCategoryClick(isIncome = false)
+                    },
+                    categoriesState = categoriesState,
+                    onTrailIconClick = onTrailIconClick,
+                    updateState = updateState,
+                    isConnected = isConnected,
+                    isIncome = isIncome,
+                    editTransactionViewModel = editTransactionViewModel,
+                    onLeadIconClick = onLeadIconClick,
+                    modifier = Modifier
+                        .fillMaxSize()
+                )
+            }
 
             is ScreenState.Error -> {
                 Scaffold(
@@ -227,7 +224,7 @@ fun EditTransactionScreen(
                     ErrorScreen(
                         text = stringResource(R.string.error_edit_loading),
                         onClick = {
-                            editTransactionViewModel.onIncomeTransactionRetry(
+                            editTransactionViewModel.onExpenseTransactionRetry(
                                 id = id,
                                 isAdd = isAdd
                             )
@@ -279,14 +276,19 @@ fun EditTransactionScreen(
                     categoriesState = categoriesState,
                     onTrailIconClick = onTrailIconClick,
                     onSaveUpdate = { expense ->
-                        editTransactionViewModel.updateExpense(id = id ?: 0, expense = expense)
+                        editTransactionViewModel.updateExpense(expense = expense)
+                    },
+                    onClick = {
+                        editTransactionViewModel.deleteExpense(localId = state.result.localId, serverId = state.result.serverId)
                     },
                     updateState = updateState,
+                    deleteState = deleteState,
                     isConnected = isConnected,
                     onLeadIconClick = onLeadIconClick,
                     modifier = Modifier
                         .fillMaxSize()
                 )
+
             }
         }
     }
