@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.example.design.theme.customTheme.YaFinanceTheme
 import com.example.domain.model.category.Category
 import com.example.ui.components.listItems.customListItem.CustomListItem
+import com.example.ui.components.screens.ErrorScreen
 import com.example.ui.components.screens.LoadingScreen
 import com.example.ui.data.state.ScreenState
 import com.example.utils.extensions.string.isEmoji
@@ -31,8 +32,13 @@ internal fun CustomBottomSheet(
         modifier = modifier
     ) {
         when(val state = categoriesState){
-            ScreenState.Empty -> TODO()
-            is ScreenState.Error -> TODO()
+            ScreenState.Empty -> {}
+            is ScreenState.Error -> {
+                ErrorScreen(
+                    text = "Error loading categories",
+                    onClick = {}
+                )
+            }
             ScreenState.Loading ->
                 LoadingScreen()
             is ScreenState.Success<List<Category>> -> {
