@@ -74,7 +74,7 @@ fun String.toDateWithTimeString(): String {
         )
     } else {
         SimpleDateFormat(
-            "yyyy-MM-dd'T'HH:mm'Z'",
+            "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'",
             Locale.getDefault()
         )
     }
@@ -106,7 +106,7 @@ fun String.toLongDate(): Date {
         )
     } else {
         SimpleDateFormat(
-            "yyyy-MM-dd'T'HH:mm'Z'",
+            "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'",
             Locale.getDefault()
         )
     }
